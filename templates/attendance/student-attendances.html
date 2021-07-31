@@ -1,0 +1,76 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+__('Attendance')
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            {% if attendances %}
+                {% if user.groups.all.0.name == 'admin' %}
+             
+                <ol class="breadcrumb" style="margin-top: 3%;">
+                    <li><a href="{url('school/sections?att=1')}}" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
+                    <li><a href="{url()->previous()}}" style="color:#3b80ef;"> {% trans "List of Students" %} </a></li>
+                    <li class="active">{% trans "View Attendance" %} </li>
+                </ol>
+                {%endif%}
+                <h2> {% trans "Attendance of Student" %} -  {{student.getname}}</h2>
+                {%endif%}
+            <div class="panel panel-default">
+                {% if attendances %}
+                <div class="panel-body">
+                    
+                    
+                    {% if attendances %}
+                        <div class="col-md-4">
+                            <h5>{% trans "Attendance List of This Term" %} </h5>
+                            <table class="table table-striped table-hover table-condensed">
+                                <tr>
+                                    <th>{% trans "Status" %} </th>
+                                    <th>{% trans "Date" %} </th>
+                                </tr>
+                                {% for attendance in attendances %}  
+                              
+                                   
+                                    {%if attendance.present == 1 %}
+                                    <tr class="success">
+                                        <td>{% trans "Present" %} </td>
+                                        <td>{{ attendance.created_at }}</td>
+                                    </tr>
+                                    {%elif attendance.present == 2 %}
+                                    
+                                    <tr class="warning">
+                                        <td>{% trans "Escaped" %} </td>
+                                        <td>{{ attendance.created_at }}</td>
+                                    </tr>
+                                    
+                                    {% else %}
+                                    <tr class="danger">
+                                        <td>{% trans "Absent" %} </td>
+                                        <td>{{ attendance.created_at }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {%endif%}
+                    {% include 'layouts/student/attendances-table.html' %}
+                  
+                </div>
+               
+                {%else%}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %} 
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

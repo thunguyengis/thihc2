@@ -1,0 +1,52 @@
+{% load i18n %}
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"> {% trans "Student Code" %} </th>
+      <th scope="col"> {% trans "Student Name" %} </th>
+      <th scope="col"> {% trans "Attendance" %}</th>
+ 
+      {% for Exam_type in Exam_types %}
+        <th scope="col"> {{Exam_type.1}}</th>
+      {%endfor%}
+        
+      <th scope="col">{% trans "Total Marks Exam" %} </th>
+      <th scope="col">{% trans "Total Marks Course" %} </th>
+    
+    </tr>
+  </thead>
+  <tbody>
+  
+    {% for grade in grades %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{grade.student}}</td>
+      <td><a href="{url('user/'.$grade->student->student_code)}}">{{grade.student.getname}}</a></td>
+      <td>{{grade.attendance}}</td>
+
+      <td scope="col">   {%if grade.coefficient_1_1  != set0 %}   {{grade.coefficient_1_1}}  {%endif%} 
+        </td>
+      <td scope="col"> {%if grade.coefficient_1_2  != set0 %} {{grade.coefficient_1_2}} {%endif%} </td>
+      <td scope="col"> {%if grade.coefficient_2_1  != set0 %}  {{grade.coefficient_2_1}}   {%endif%}
+       </td>
+      <td scope="col"> {%if grade.coefficient_2_2  != set0 %} {{grade.coefficient_2_2}} {%endif%} </td>
+      <td scope="col"> {%if grade.end_mark_1_1  != set0 %} {{grade.end_mark_1_1}} {%endif%} </td>
+      <td scope="col"> {%if grade.coefficient_v2_1_1  != set0 %} {{grade.coefficient_v2_1_1}} {%endif%} </td>
+      <td scope="col"> {%if grade.coefficient_v2_1_2  != set0 %} {{grade.coefficient_v2_1_2}} {%endif%} </td>
+      <td scope="col"> {%if grade.coefficient_v2_2_1  != set0 %} {{grade.coefficient_v2_2_1}} {%endif%} </td>
+      <td scope="col"> {%if grade.coefficient_v2_2_2  != set0 %} {{grade.coefficient_v2_2_2}} {%endif%} </td>
+      <td scope="col"> {%if grade.end_mark_v2_1_1  != set0 %} {{grade.end_mark_v2_1_1}} {%endif%} </td>
+
+      <td scope="col"> {%if grade.practical_1_1  != set0 %} {{grade.practical_1_1}} {%endif%} </td>
+      <td scope="col"> {%if grade.practical_v2_1_1  != set0  %} {{grade.practical_v2_1_1}} {%endif%} </td>
+
+      <td scope="col"> {%if grade.total_mark_exam  != set0 %} {{grade.total_mark_exam}} {%endif%} </td>
+      <td scope="col"> {%if grade.total_mark_course  != set0  %} {{grade.total_mark_course}} {%endif%} </td>
+    
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+</div>

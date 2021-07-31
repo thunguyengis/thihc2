@@ -1,0 +1,45 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+__('Attendance')
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            <ol class="breadcrumb" style="margin-top: 3%;">
+                <li><a href="{url('school/sections?att=1')}}" style="color:#3b80ef;"> {% trans "All Classes" %}  &amp; {% trans "Sections" %} </a></li>
+                <li class="active">{% trans "Attendance" %} </li>
+            </ol>
+            <h2>{% trans "Take Attendance" %} </h2>
+            <div class="panel panel-default">
+          
+                {% if course%}
+                
+               
+                  <div class="page-panel-title">
+                    <b>Class</b> - {{course.section.myclass}}  &nbsp;  {{course.section}}  &nbsp; <b>Course</b> - {{course}}
+                    <span class="pull-right"><b>{% trans "Current Date Time" %} :</b> &nbsp;{{ myDate }}  </span>
+                  </div>
+                  
+                
+                <div class="panel-body">
+                   
+                    {% include 'layouts/teacher/attendance-form.html' %}
+                   
+                    
+                </div>
+                {% else %}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %} 
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

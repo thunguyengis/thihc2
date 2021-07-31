@@ -1,0 +1,151 @@
+{% load i18n %}
+<button class="btn btn-primary btn-block" id="create-section-btn-class-{{class.id}}">+ {% trans "Create a New Section" %}  </button>
+<br/>
+<div class="panel panel-default" id="create-section-btn-panel-class-{{class.id}}" style="display:none;">
+  <div class="panel-body">
+  <form class="form-horizontal" action='{% url "configurations:add_section" %}' method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="section{{class.id}}" class="col-sm-2 control-label">{% trans "Section Name" %} </label>
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="text" class="form-control" id="section{{class.id}}" name="section_name" placeholder='{% trans "Section Name" %}'>
+      </div>
+    </div>
+    <div class="form-group" style="display:none;">
+     
+    
+        <input type="text" class="form-control" id="section{{class.id}}" name="myclass" value="{{class.id}}">
+    
+    </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-danger btn-sm">{% trans "Submit" %} </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  $("#create-section-btn-class-{{class.id}}").click(function(){
+    $("#create-section-btn-panel-class-{{class.id}}").toggle();
+  });
+</script>
+{% load i18n %}
+<div class="card text-white bg-primary mb-3">
+    <div class="card-header">{% trans 'Information' %} </div>
+    <div class="card-body hidden">
+     
+    </div>
+</div>
+{% include "components/add-room.html" %}
+
+
+<form id="form" method="POST">
+    <div class="table-responsive">
+        <table class="table table-bordered table-data-div table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">{% trans 'Room Name' %} </th>
+        <th scope="col">{% trans 'Number Test' %} </th>
+        {% if attCount %}
+        <th scope="col">{% trans 'Number Student' %} </th>
+        {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if rooms %}
+        {% for room in rooms %}
+        
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{exam.id}}">
+        <input type="hidden" name="room_id" value="{{room.id}}">
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td scope="row">{{ room.room_name }}</td>
+            <td scope="row"><input type="number" name="room_number_test" value="{{ room.room_number_test }}"></td>
+            {% if attCount %}
+                {% for at in attCount %}  
+                    {% if at.room_id == room.id%}     
+                        <td>{{at.totalStudent}}</td>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </tr>
+    
+        {% endfor %}
+        {% endif %}
+    </tbody>
+    </table>
+    </div>
+    <div style="text-align:center;">
+       
+        {% if  attCount %}
+        <button type="button" class="btn btn-primary">{% trans "Update" %} </button>
+        
+        {% else %}
+        
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %} </button>
+        {% endif %}
+    </div>
+</form>
+
+
+<style>
+.checkbox-label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #0000004d;
+  border-radius: 15px;
+}
+
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #E74C3C;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-label .checkmark:after {
+  left: 10px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>

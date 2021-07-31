@@ -1,0 +1,130 @@
+{% load i18n %}
+
+{% if  attStudent != None %}
+{% for attS in attStudent %}
+  {% if attS.exam_id == exam.id %}
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-header">{% trans 'Total Student' %} {{attS.totalStudent}} </div>
+    </div>
+  {%endif%}
+{%endfor%}
+{% endif %}
+
+{% if  attCount == None %}
+    {% include "components/add-room.html" %}
+{% endif %}
+
+
+
+<form   method="POST">
+  {% csrf_token %}
+  
+
+  
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <thead>
+          <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans 'Room Name' %} </th>
+          <th scope="col">{% trans 'Number Test' %} </th>
+          {% if attCount %}
+          <th scope="col">{% trans 'Number Student' %} </th>
+          {% endif %}
+          </tr>
+      </thead>
+      <tbody>
+          {% if rooms %}
+          {% for room in rooms %}
+          
+          <input type="hidden" name="room_id[]" value="{{room.id}}">
+          <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td scope="row">{{ room.room_name }}</td>
+              <td scope="row">{{ room.room_number_test }}</td>
+              {% if attCount %}
+                  {% for at in attCount %}  
+                      {% if at.room_id == room.id and at.exam_id == exam.id %}     
+                          <td><input type="number"   name="totalRoom{{at.room_id}}" value="{{ at.totalRoom }}"></td>
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          </tr>
+      
+          {% endfor %}
+          {% endif %}
+      </tbody>
+    </table>
+   
+    <div style="text-align:center;">
+       
+        {% if  attCount %}
+        <input type="submit"  class="btn btn-primary" value="{% trans 'Update' %}" />
+        
+        {% else %}
+        
+        <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}"  />
+        {% endif %}
+    </div>
+  </div>
+</form>
+
+
+<style>
+.checkbox-label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #0000004d;
+  border-radius: 15px;
+}
+
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #E74C3C;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-label .checkmark:after {
+  left: 10px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>

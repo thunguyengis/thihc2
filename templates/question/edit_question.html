@@ -1,0 +1,91 @@
+
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+
+__('All Classes and Sections')
+{% endblock %}
+{% block content %}
+
+  <script type="text/javascript">
+     
+    var choiceHtml = "<div class=\"choice\" data-choice_id=\"CHOICE_ID\" data-choice_number=\"\">\n  <label>Choice <span class=\"choice_number\"><\/span>:<\/label>\n   <input type=\"checkbox\" name=\"correct_answer[]\" value=\"CHOICE_ID\"     \/><span>Chọn Đáp án Đúng<\/span>  <textarea class=\"choice_text\" id=\"CHOICE_ID\" name=\"choice_text[]\" value=\"\" ><\/textarea>\n  <button class=\"delete_choice\">Delete Choice<\/button>\n<\/div>\n";
+  </script>
+  
+ 
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+     <script src="{% static 'assets/theme/vendors/js/survey_edit.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/survey_style.css' %}" />
+
+   <!-- 
+	<link rel="stylesheet" href="{% static 'res/css/materialize.min.css' %}">
+  <script src="{% static 'res/js/materialize.min.js' %}"></script>
+  -->
+	
+ 
+	
+	
+  
+	<!--
+    <script src="{% static 'res/libs/MathJax/MathJax.js?config=TeX-MML-AM_CHTML' %}" async></script>
+  <script src="{% static 'res/libs/ckeditor/ckeditor.js' %}"></script>
+
+  
+ <script src="{% static 'res/js/add_question.js' %}"></script> 
+  <script src="{% static 'res/libs/MathJax/MathJax.js?config=TeX-MML-AM_CHTML' %}" async></script>
+-->
+  
+<style>
+    #cls-sec .panel{
+        margin-bottom: 0%;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+         
+            <div id="main">
+ 
+    <div id="site_content">
+      <div id="content">
+
+       {% if course %}
+            <h2>Course Information</h2>
+            <div>
+                <label>Course title:{{course}}</label>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <input type="hidden" id="action" name="action" value="edit_survey" />
+                <input type="hidden" id="course_id" name="course_id" value="{{course.id}}" />
+                <div class="input_form survey_edit">
+
+                <div class="questions_container">
+                  <h2>Questions</h2>
+                  <div class="questions">
+                        {% include 'components/edit_question.html' %}
+                  </div>
+                  
+                </div>
+                
+              <div class="submit_button">
+ 
+                <button type="submit" id="submitButton" name="submitButton">Save</button>
+
+              </div>
+          </form>
+       {%endif%}
+      </div>
+    </div>
+  
+</div>
+        </div>
+    </div>
+
+{% endblock %}

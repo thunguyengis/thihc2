@@ -1,0 +1,35 @@
+
+{% load i18n %}
+<div class="table-responsive">
+<table class="table table-bordered table-data-div table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      {% if user.groups.all.0.name == 'admin' %}
+       
+      {%endif%}
+      <th scope="col">{% trans "Code" %} </th>
+      <th scope="col">{% trans "Full Name" %}</th>
+      <th scope="col">{% trans "Attendance" %} </th>
+     
+    </tr>
+  </thead>
+  <tbody>
+   
+    {% for user in users %}  
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      
+      <td><small>{{user.user.username}}</small></td>
+      <td> <small>
+          <a href="{url('user/'.$user->student_code)}}">
+            {{user.getname}}</a>
+          </small></td>
+      <td><small><a class="btn btn-xs btn-info" role="button" href="{% url 'attendance:student_details' student_id=user.id course_id=course_id %}"> {% trans "View Attendance" %} </a></small></td>   
+     
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+

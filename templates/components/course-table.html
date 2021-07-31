@@ -1,0 +1,88 @@
+{% load i18n %}
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-data-div table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{% trans "Course Name" %}  </th>
+      <th scope="col">{% trans "Course Time" %} </th>
+      
+      {% if user.groups.all.0.name == 'student' %}
+        <th scope="col">{% trans "Room Number" %}  </th>
+       
+        {% endif %}
+      {% if user.groups.all.0.name != 'student' %}
+        <th scope="col">{% trans "Course Teacher" %} </th>
+       
+       
+        <th scope="col">{% trans "Action" %}  </th>
+      {% endif %}
+      <th scope="col">{% trans "Give Marks" %}  </th>
+      <th scope="col">{% trans "View Marks" %}  </th>
+      {% if user.groups.all.0.name == 'admin' %}
+       
+        <th scope="col">{% trans "Edit" %}  </th>
+        {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in mycourses %}
+      
+    <tr>
+      <td scope="row">{{ forloop.counter }}</td>
+      <td>
+        {{ course.coursOfDepartment.course_name}}
+      </td>
+
+      <td><small>{{ course.course_time}}</small></td>
+
+      
+
+      {% if user.groups.all.0.name == 'student' %}
+        <td>{{ course.section}}</td>
+        <td>
+          <a href="{url('user/'.$course->teacher->student_code)}}">{course->teacher->name}}</a>
+        </td>
+      {% endif %}
+
+      {% if user.groups.all.0.name != 'student' %}
+        <td>{{ course.teacher.user.last_name}}  {{ course.teacher.user.first_name }}</td>
+      
+
+      
+        {% if user.groups.all.0.name != 'student' and course.teacher.user_id  ==  user.pk or user.groups.all.0.name == 'admin'  %}
+        
+        {% else %}
+          <td><small>{% trans "Save under Exam to Add Student" %}  </small></td>
+        {% endif %}
+          {% if user.groups.all.0.name != 'student' and course.teacher.user_id  ==  user.pk or user.groups.all.0.name == 'admin'  %}
+        
+          <td>
+            <a href="{% url 'attendance:course' course_id=course.id  %}" role="button" class="btn btn-primary btn-xs"><i class="material-icons">spellcheck</i>{% trans "Take Attendance" %} </a>
+          </td>
+          {% else %}
+          <td><small> {% trans "Save under Exam to Add Student" %} </small></td>
+          {% endif %}
+
+        {% endif %}
+
+        {% if user.groups.all.0.name != 'student' and course.teacher.user_id ==  user.pk or user.groups.all.0.name == 'admin'  %}
+        
+        <td>
+          <a href="{% url 'grade:courseOfTeacher' course_id=course.id  %}" role="button" class="btn btn-danger btn-xs"><i class="material-icons">assessment</i> {% trans "Submit Grade" %} </a>
+        </td>
+        <td>
+          <a href="{% url 'grade:marks' course_id=course.id  %}" role="button" class="btn btn-success btn-xs"><i class="material-icons">bar_chart</i>{% trans "View Marks" %} </a>
+        </td>
+        {% endif %}
+      {% if user.groups.all.0.name == 'admin' %}
+     
+        <td>
+          <a href="{url('edit/course/'.$course->id)}}" class="btn btn-xs btn-danger"><i class="material-icons">edit</i> {% trans "Edit" %} </a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>

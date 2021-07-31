@@ -1,0 +1,25 @@
+{% load i18n %}
+<a class="btn btn-xs btn-info pull-right" data-toggle="collapse" href="#collapseForNewCourse{{section.id}}" aria-expanded="false" aria-controls="collapseForNewCourse{{section.id}}">+{% trans "Add New Course" %}</a>
+  <div class="collapse" id="collapseForNewCourse{{section.id}}" style="margin-top:1%;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+      <form class="form-horizontal" action='{% url "configurations:add_course" %}' method="post">
+        {% csrf_token %}
+          <input type="hidden" name="class_id" value="{{class.id}}"/>
+          <input type="" name="section_id" value="{{section.id}}"/>
+          {{ formCourse.as_p }}
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger">{% trans "Submit" %}</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+<script>
+  $('#teacherDepartment{{section.id}}').click(function () {
+    $("#assignTeacher{{section.id}} option").hide();
+    $("#assignTeacher{{section.id}} option[data-department="+$(this).val()+"]").show();
+  });
+</script>

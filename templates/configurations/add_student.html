@@ -1,0 +1,74 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('Academic Settings')
+{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" id="side-navbar">
+
+                {% include 'layouts/leftside-menubar.html' %}
+          
+            </div>
+            <div class="col-md-10" id="main-container">
+                <div class="panel panel-default">
+                    <div class="page-panel-title"> {% trans "Academic Settings" %} </div>
+                    <div class="panel-body table-responsive">
+                      {% if messages %}
+                      {% for message in messages %}
+                      <div class="alert alert-danger">
+                        <strong>{{ message|escape }}</strong>
+                    </div>
+                        
+                      {% endfor %}
+                     {% endif %}
+
+                      {% if form.errors %}
+                          {% for field in form %}
+                              {% for error in field.errors %}
+                                  <div class="alert alert-danger">
+                                      <strong>{{ error|escape }}</strong>
+                                  </div>
+                              {% endfor %}
+                          {% endfor %}
+                          {% for error in form.non_field_errors %}
+                              <div class="alert alert-danger">
+                                  <strong>{{ error|escape }}</strong>
+                              </div>
+                          {% endfor %}
+                      {% endif %}
+                        <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          {{ form.as_p }}
+                          
+                       
+                          <button type="submit">Lưu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script>
+		$(document).ready(function(){
+		  $("#ignoreSessionsId").change(function() {
+			var ignoreSessions = $("#ignoreSessionsId").is(":checked");
+
+			$.ajax({
+					type:'POST',
+					url:'/school/set-ignore-sessions',
+					headers: {'X-CSRF-TOKEN': '{ csrf_token() }}' },
+					data: { "ignoreSessions" : ignoreSessions },
+					success: function(data){
+					  if(data.data.success){
+						  console.log("Result = " + data.data.success);
+					  }
+					}
+				});
+			});
+		});	
+	</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load i18n %}
+{% for exam in exams %}
+<div class="panel-body">
+  <table class="table table-bordered table-striped">
+      <thead>
+          <tr>
+              <th>{% trans 'Class' %} </th>
+              <th>{% trans 'Course Name' %} </th>
+              <th>{% trans 'Course Type' %}  </th>
+              <th>{% trans 'Course Time' %} </th>
+              <th>{% trans 'Course Teacher' %} </th>
+          </tr>
+      </thead>
+    <tbody>
+   
+          <tr>
+              <td>{{ exam.courseOfSection  }}}</td>
+              <td>{{ exam.courseOfSection }}</td>
+              <td>{{ course.course_type }}</td>
+              <td>{{ course.course_time }}</td>
+              <td>
+                <a href="{url('user/'.$course->teacher->student_code)}}">{$course->teacher->name}}</a>
+              </td>
+          </tr>
+      
+    </tbody>
+  </table>
+</div>
+  {% endfor %}

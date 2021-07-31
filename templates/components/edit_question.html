@@ -1,0 +1,68 @@
+<div class="question" >
+  <div class="hidden" style="float: right">
+    <button class="move_question_up">Move Up</button>
+    <button class="move_question_down">Move Down</button>
+    <button class="delete_question">Delete Question</button>
+  </div>
+  
+  <div>
+    <label>Question type:</label>
+    <select class="question_type" name="question_type">
+      {% for key, value  in Question_type %}
+
+            {% if key == question.question_type  %}
+            <option value="{{key}}" selected="selected" >{{ value }}</option>
+            {%else%}
+            <option value="{{key}}"  >{{ value }}</option>
+            {%endif%} 
+        
+        {% endfor %}
+    </select>
+
+  </div>
+  <div>
+    <label>Question level:</label>
+    <select class="question_level" name="question_level">
+      {% for key, value  in Question_level %}
+
+            {% if key == question.question_level  %}
+            <option value="{{key}}" selected="selected" >{{ value }}</option>
+            {%else%}
+            <option value="{{key}}"  >{{ value }}</option>
+            {%endif%} 
+         
+        {% endfor %}
+    </select>
+
+  </div>
+  <div>
+    
+    {{ form.media }}
+
+    <textarea id="question_name" name="question_name"  required>{{question.question_name|safe }}</textarea>
+  </div>
+  {%if choices %}
+  <div class="choices_container">
+    <h4>Choices</h4>
+    <div class="choices">
+    
+        {% for choice  in choices %}
+        {% include 'components/edit_choice.html' %}
+        {% endfor %}
+      
+
+    </div>
+    <div style="margin-top: 15px">
+      <button class="add_choice">Add Choice</button>
+    </div>
+  </div>
+  {%endif%} 
+</div>
+<script type="text/javascript">
+  CKEDITOR.replace('question_name', {
+      extraPlugins: 'mathjax,format,image',
+      filebrowserBrowseUrl: 'http://127.0.0.1:8000/ckeditor/browse/',
+      filebrowserImageUploadUrl: 'http://127.0.0.1:8000/ckeditor/upload/',
+      entities : false
+  });
+</script>

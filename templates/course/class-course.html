@@ -1,0 +1,42 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('Academic Settings')
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            {% if user.groups.all.0.name != 'student' %}
+            <ol class="breadcrumb" style="margin-top: 3%;">
+                <li><a href="{url('school/sections?course=1')}}" style="color:#3b80ef;"> {% trans "All Classes" %} &amp; {% trans "Sections" %} </a></li>
+                <li class="active">{% trans "Courses" %}  </li>
+            </ol>
+            {% endif %}
+            <h2>{% trans "Courses Related to Section" %} </h2>
+            <div class="panel panel-default">
+                {% if section  %}
+              
+                    <div class="page-panel-title"><b> </b> <b>{% trans "Class" %} {{ section.myclass }} </b> - &nbsp; {{ section }} </div>
+                  
+           
+                <div class="panel-body">
+                  
+                    {% include 'components/course-table.html' %}
+                </div>
+              {% else %}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %} 
+                  
+                </div>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

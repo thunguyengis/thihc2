@@ -1,0 +1,316 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('Academic Settings')
+{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" id="side-navbar">
+
+                {% include 'layouts/leftside-menubar.html' %}
+          
+            </div>
+            <div class="col-md-10" id="main-container">
+                <div class="panel panel-default">
+                    <div class="page-panel-title"> {% trans "Academic Settings" %} </div>
+                    <div class="panel-body table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                
+                                <tr>
+                                    <th scope="col">{% trans "Department" %} </th>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#collapseDepartment" role="button" class="btn btn-danger btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
+                                            <i class="material-icons">class</i> {% trans "Manage Department" %} 
+                                        </a>
+                                       
+                                    </td>
+                                   
+                                </tr>
+                                
+                                <tr class="collapse" id="collapseDepartment" aria-labelledby="heading" aria-expanded="false">
+                                    <td colspan="12">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#departmentModal">+ {% trans "Create Department" %} </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4 class="modal-title" id="departmentModalLabel">{% trans "Create Department" %} </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" action="{% url 'configurations:add-department' %}" method="post">
+                                                        {% csrf_token %}
+                                                     
+                                                        <div class="form-group">
+                                                            <label for="department_name" class="col-sm-2 control-label">{% trans "Create Department" %} </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="department_name" name="department_name" placeholder="{% trans 'English, Mathematics,...' %}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-offset-2 col-sm-10">
+                                                                <button type="submit" class="btn btn-danger btn-sm">{% trans "Submit" %} </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">{% trans "Close" %} </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                       
+                                        <div><small>{% trans "Click Class to View All Department" %} </small></div>
+                                        <div class="row">
+
+                                                    {% for department in departments %}
+                                                    <div class="col-sm-3">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDepartment{{ department.id}}" style="margin-top: 5%;">{% trans "Manage" %}    {{ department.department_name}}</button>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="myModalDepartment{{ department.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content"> 
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel">{% trans "All Department" %}  {{ department.department_name}}</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+																		<div class="form-check">
+																		
+																		
+																		</div>
+                                                                        <ul class="list-group">
+                                                                            {% for coursOfDepartment in coursOfDepartments %}
+                                                                                {% if coursOfDepartment.department_id == department.id %}
+                                                                              
+                                                                                    <li class="list-group-item">{{coursOfDepartment.course_name}}
+                                                                                       
+                                                                                       
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                       
+                                                                        {% include "layouts/master/create-department-form.html" %}
+                                                                        
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">{% trans "Close" %}  </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                              
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <table class="table table-condensed">
+                            <thead>
+                                
+                                <tr>
+                                    
+                                    <th scope="col">{% trans "Classes" %} </th>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        
+  
+                                        <a href="#collapseClass" role="button" class="btn btn-danger btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
+                                            <i class="material-icons">class</i> {% trans "Manage Class, Section" %} 
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr class="collapse" id="collapseClass" aria-labelledby="heading" aria-expanded="false">
+                                    <td colspan="12">
+                                        {% include "layouts/master/add-class-form.html" %}
+                                       
+                                        <div><small>{% trans "Click Class to View All Sections" %} </small></div>
+                                        <div class="row">
+
+                                                    {% for class in classes %}
+                                                    <div class="col-sm-3">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal{{ class.id}}" style="margin-top: 5%;">{% trans "Manage" %}  {{ class.class_name}} - {{ class.majors }}</button>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="myModal{{ class.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content"> 
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel">{% trans "All Sections of Class" %}  {{ class.class_name}}</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+																		<div class="form-check">
+																			<?php 
+																				$checked = Session::has('ignoreSessions') ? (Session::get('ignoreSessions') == "true" ? "checked='checked'" : "") : "";
+																			?>
+																			<input class="form-check-input position-static" type="checkbox" name="ignoreSessionsCheck" id="ignoreSessionsId" <?php echo $checked ?>
+																			{% trans "Ignore Sessions when listing students for promoting" %} 
+																		</div>
+                                                                        <ul class="list-group">
+                                                                            {% for section in sections %}
+                                                                                {% if section.myclass_id == class.id %}
+                                                                              
+                                                                                    <li class="list-group-item">{{section.section_name}} &nbsp;
+                                                                                        <a class="btn btn-xs btn-warning" href="{% url 'course:section'  section_id=section.id  %}">{% trans "View All Assigned Courses" %} </a>
+                                                                                        <span class="pull-right"> &nbsp;&nbsp;
+                                                                                            {% comment "Promote Students" %}
+                                                                                            <a  class="btn btn-xs btn-success" href="{url('school/promote-students/'.$section->id)}}">+ {% trans "Promote Students" %} </a>
+                                                                                            &nbsp;<a class="btn btn-xs btn-primary" href="{% url 'configurations:add_student' %}">+ {% trans "Register Student" %} </a>
+                                                                                            {% endcomment %}
+                                                                                        </span>
+                                                                                        {% include "layouts/master/add-course-form.html" %}
+                                                                                       
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                       
+                                                                        {% include "layouts/master/create-section-form.html" %}
+                                                                        
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">{% trans "Close" %}  </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                              
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            </thead>
+                        </table>
+
+                        <h4>{% trans "Add Users" %}  </h4>
+                        <table class="table table-condensed" style="width:600px">
+                            <thead>
+                                <tr>
+                                    <th scope="col">+ {% trans "Student" %} </th>
+                                    <th scope="col">+ {% trans "Teacher" %} </th>
+                                    {% comment %}
+                                    <th scope="col">+ {% trans "Accountant" %} </th>
+                                    <th scope="col">+ {% trans "Librarian" %} </th>
+                                    {% endcomment %} 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{% url 'configurations:add_student' %}">+ {% trans "Add Student" %}</a>
+                                        <br>
+                                        <h5>{% trans "Or, Mass upload Excel" %}  </h5>
+                                            <form action="{% url 'student:importStudent' %}" method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="type" value="{ type %}">
+                                                <div class="form-group">
+                                                    <input type="file" name="excel_file">
+                                                </div>
+                                                <input type="submit" class="btn btn-default btn-sm" value='{% trans "Upload" %}'>
+                                            </form>
+          
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" href="{% url 'configurations:add_teacher' %}">+ {% trans "Add Teacher" %} </a>
+                                        <br>
+                                        <h5>{% trans "Or, Mass upload Excel" %}  </h5>
+                                        {% comment "Optional note" %}
+                                          @component('components.excel-upload-form', ['type'=>'teacher'])
+                                        @endcomponent
+                                        
+                                        {% endcomment %}
+                                        <form action="{ url 'users/import/user-xlsx' %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="type" value="teacher">
+                                            <div class="form-group">
+                                                <input type="file" name="file">
+                                            </div>
+                                            <input type="submit" class="btn btn-default btn-sm" value='{% trans "Upload" %}'>
+                                        </form>
+                                        
+
+                                      
+                                    </td>
+                                    {% comment %}
+                                    <td>
+                                        <a class="btn btn-default btn-sm" href="{% url 'configurations:add_accountant' %}">+ {% trans "Add Accountant" %} </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning btn-sm" href="{% url 'configurations:add_librarian' %}">+ {% trans "Add Librarian" %} </a>
+                                    </td>
+                                    {% endcomment %} 
+                                </tr>
+                            </tbody>
+                        </table>
+                        {% comment %}
+                        <h4>{% trans "Upload" %}</h4>
+                        <table class="table table-condensed" style="width:400px">
+                            <thead>
+                                <tr>
+                                    <th scope="col">+ {% trans "Notice" %} </th>
+                                    <th scope="col">+{% trans "Event" %} </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href='{% url "configurations:add_notice" %}''>
+                                            <i class="material-icons">developer_board</i> {% trans "Upload Notice" %} 
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{% url 'configurations:add_event'  %}">
+                                            <i class="material-icons">developer_board</i> {% trans "Upload Event" %} 
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {% endcomment %} 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script>
+		$(document).ready(function(){
+		  $("#ignoreSessionsId").change(function() {
+			var ignoreSessions = $("#ignoreSessionsId").is(":checked");
+
+			$.ajax({
+					type:'POST',
+					url:'/school/set-ignore-sessions',
+					headers: {'X-CSRF-TOKEN': '{ csrf_token() }}' },
+					data: { "ignoreSessions" : ignoreSessions },
+					success: function(data){
+					  if(data.data.success){
+						  console.log("Result = " + data.data.success);
+					  }
+					}
+				});
+			});
+		});	
+	</script>
+{% endblock %}

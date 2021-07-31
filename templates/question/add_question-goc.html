@@ -1,0 +1,71 @@
+
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+
+__('All Classes and Sections')
+{% endblock %}
+{% block content %}
+
+  <script type="text/javascript">
+    var questionHtml = "<div class=\"question\" data-question_id=\"QUESTION_ID\" data-question_number=\"\">\n  <div style=\"float: right\">\n    <button class=\"move_question_up\">Move Up<\/button>\n    <button class=\"move_question_down\">Move Down<\/button>\n    <button class=\"delete_question\">Delete Question<\/button>\n  <\/div>\n  <h4>Question <span class=\"question_number\"><\/span><\/h4>\n  <div>\n    <label>Question type:<\/label>\n    <select class=\"question_type\" name=\"question_type[QUESTION_ID]\">\n      <option value=\"input\">Open Text<\/option>\n      <option value=\"radio\">Select One<\/option>\n      <option value=\"checkbox\">Select Many<\/option>\n      <option value=\"textarea\">Multi-line open Text<\/option>\n    <\/select>\n    <div class=\"required_container\">\n      <input type=\"checkbox\" id=\"is_required_QUESTION_ID\" name=\"is_required[QUESTION_ID]\" value=\"1\" \/>\n      <label for=\"is_required_QUESTION_ID\">Required question<\/label>\n    <\/div>\n  <\/div>\n  <div>\n    <label>Question text:<\/label>\n    <input type=\"text\" class=\"question_text\" name=\"question_text[QUESTION_ID]\" value=\"\" \/>\n  <\/div>\n  <div class=\"choices_container\" style=\"display: none\">\n    <h4>Choices<\/h4>\n    <div class=\"choices\" data-question_id=\"QUESTION_ID\">\n          <\/div>\n    <div style=\"margin-top: 15px\">\n      <button class=\"add_choice\">Add Choice<\/button>\n    <\/div>\n  <\/div>\n<\/div>\n";
+    
+      var choiceHtml = "<div class=\"choice\" data-choice_id=\"CHOICE_ID\" data-choice_number=\"\">\n  <label>Choice <span class=\"choice_number\"><\/span>:<\/label>\n  <input type=\"text\" class=\"choice_text\" name=\"choice_text[QUESTION_ID][CHOICE_ID]\" value=\"\" \/>\n  <button class=\"delete_choice\">Delete Choice<\/button>\n<\/div>\n";
+  </script>
+  <script src="{% static 'assets/theme/vendors/js/survey_edit.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/survey_style.css' %}" />
+<style>
+    #cls-sec .panel{
+        margin-bottom: 0%;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+          
+            <div id="main">
+ 
+    <div id="site_content">
+      <div id="content">
+
+       {% if course %}
+        <h2>Course Information</h2>
+            <div>
+                <label>Course title:{{course}}</label>
+            </div>
+      
+            <input type="hidden" id="action" name="action" value="edit_survey" />
+            <input type="hidden" id="course_id" name="course_id" value="{{course.id}}" />
+            <div class="input_form survey_edit">
+
+              <div class="questions_container">
+                <h2>Questions</h2>
+                <div class="questions">
+                  <?php foreach ($survey->questions as $i => $question): ?>
+                  <?php include 'survey_edit_question.php'; ?>
+                  <?php endforeach; ?>
+                </div>
+                <div style="margin-top: 40px">
+                  <button id="add_question">Add Question</button>
+                </div>
+              </div>
+             
+            </div>
+        
+          <div class="submit_button">
+            <button id="delete_survey" name="delete_survey">Delete Survey</button>
+            <button id="submitButton" name="submitButton">Save</button>
+          </div>
+       {%endif%}
+      </div>
+    </div>
+  
+</div>
+        </div>
+    </div>
+
+{% endblock %}

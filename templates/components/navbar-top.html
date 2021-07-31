@@ -1,0 +1,114 @@
+{% load static %}
+{% load i18n %}
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse"
+                aria-expanded="false">
+                <span class="sr-only">{% trans "Toggle Navigation" %} </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Branding Image -->
+            <a class="navbar-brand" href="{% url 'home:index' %}" style="color: #000;">
+                {% if  config %}
+                    {{config.name}}
+                {% else %}
+                {% trans "NameShoole" %}
+                 {% endif %}
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <!-- Left Side Of Navbar -->
+ 
+            <!-- Right Side Of Navbar -->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Authentication Links -->
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'login' %}" style="color: #000;">  {% trans "Login" %} </a></li>
+                {% else %}
+
+                {% if  group == 'student' %}
+                
+                <li class="nav-item">
+                    <a href="{url('user/'.\Auth::user()->id.'/notifications')}}" class="nav-link nav-link-align-btn"
+                        role="button">
+                        <i class="material-icons text-muted">email</i>
+                        <?php
+                            $mc = \App\Notification::where('student_id',\Auth::user()->id)->where('active',1)->count();
+                        ?>
+                        @if($mc > 0)
+                        <span class="label label-danger" style="vertical-align: middle;border-style: none;border-radius: 50%;width: 30px;height: 30px;">{$mc}}</span>
+                        @endif
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle nav-link-align-btn" data-toggle="dropdown" role="button"
+                        aria-expanded="false" aria-haspopup="true">
+                        <span class="label label-danger">
+                            {{ group|title }}
+                        </span>&nbsp;&nbsp;
+                      
+                        {% if  user.employee.picpath %}
+                       
+                        <img src="{{  user.employee.picpath.path }}" data-src="{{  user.employee.picpath.url }}" alt="Profile Picture"
+                            style="vertical-align: middle;border-style: none;border-radius: 50%;width: 30px;height: 30px;">
+                       
+                        {% elif  user.employee.gender == 'male' %}
+                        
+                        <img src="{% static  'public/01-progress.gif'  %}" data-src="https://img.icons8.com/color/48/000000/architect.png"
+                            alt="Profile Picture" style="vertical-align: middle;border-style: none;border-radius: 50%;width: 30px;height: 30px;">
+                        {% else %}
+                        <img src="{% static  'public/01-progress.gif'  %}" data-src="https://img.icons8.com/color/48/000000/architect-female.png"
+                            alt="Profile Picture" style="vertical-align: middle;border-style: none;border-radius: 50%;width: 30px;height: 30px;">
+                        {% endif %}
+                       
+                        &nbsp;&nbsp;{{ user.get_username }} <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        
+                        {% if user.groups.all.0.name == 'master' %}
+                        <li>
+                            
+                            <a href="{url('user/'.Auth::user()->student_code)}}"> {% trans "Profile" %} </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'password_change' %}">{% trans "Change password" %}</a>
+                            
+                        </li>
+                      
+                        <!--
+
+                        chưa biết ý định để làm gì
+                        @if(env('APP_ENV') != 'production')
+                        <li>
+                            <a href="{url('user/config/impersonate')}}">
+                                { app('impersonate')->isImpersonating() ? __('Leave Impersonation') : __('Impersonate') }}
+                            </a>                                
+                        </li>
+                         @endif
+                        -->
+                       
+                        <li>
+                            <a href="{% url 'logout' %}" >
+                                {% trans "Logout" %} 
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+
+               
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,39 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('Academic Settings')
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            <h2>  {% trans "Courses Taken by Teacher" %} </h2>
+            <div class="panel panel-default">
+                
+                {% if mycourses %}
+                    {% comment "Optional note" %}
+                        {% for course in mycourses %}
+                        <div class="page-panel-title" style="font-size: 20px;"><b>{% trans "Teacher Code" %} </b> - {{ course.teacher }} &nbsp;<b> {% trans "Name" %} </b> - <a href="{url('user/'.$course->teacher->student_code)}}">{{ course.teacher.user.last_name}} {{ course.teacher.user.first_name}}</a></div>
+                        
+                        {% endfor %}
+                    {% endcomment %}
+              
+                    <div class="panel-body">
+                        {% include 'components/course-table.html' %}
+                    </div>
+                {% else %}
+                    <div class="panel-body">
+                        {% trans "No Related Data Found." %} 
+                    
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

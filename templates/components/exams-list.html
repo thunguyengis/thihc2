@@ -1,0 +1,216 @@
+{% load i18n %}
+<div class="card text-white bg-primary mb-3">
+    <div class="card-header">{% trans 'Information' %} </div>
+    <div class="card-body">
+      {% trans 'An Examination represents a Semester. All Courses of a Semester belong to an Examination. So, all Quiz, Class Test, Assignment, Attendance, Written, Practical, etc. in a Course are subjected to that specific Examination.' %} 
+
+    </div>
+</div>
+
+<div class="table-responsive">
+  {% if exams.has_other_pages %}
+  <ul class="pagination">
+    {% if exams.has_previous %}
+      <li><a href="?page={{ exams.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in exams.paginator.page_range %}
+      {% if exams.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if exams.has_next %}
+      <li><a href="?page={{ exams.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+  <table class="table table-bordered table-data-div table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{% trans 'Class' %} </th>
+      <th scope="col">{% trans 'Examination Name' %} </th>
+      <th scope="col">{% trans 'Examination Type' %} </th>
+      <th scope="col">{% trans 'Examination Code' %} </th>
+      <th scope="col">{% trans 'Notice Published' %} </th>
+      <th scope="col">{% trans 'Result Published' %} </th>
+      <th scope="col">{% trans 'Created At' %} </th>
+      <th scope="col">{% trans 'Examination Room' %} </th>
+      <th scope="col">{% trans 'Question ' %} </th>
+      <th scope="col">{% trans 'Set Active' %} </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for exam in exams %}
+   
+      <tr>
+        <form id="form{{exam.id}}" method="POST">
+          {% csrf_token %}
+        <input type="hidden" name="id" value="{{exam.id}}">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td scope="row">{{ exam.courseOfSection.section.myclass.class_name }}</td>
+        <td scope="row">{{ exam.courseOfSection }}</td>
+        
+        {% for key, value  in Exam_type %}
+
+            {% if key == exam.exam_type2  %}
+            <td scope="row">{{ value }}</td>
+            
+            {%endif%} 
+         
+        {% endfor %}
+        <td scope="row">{{ exam.exam_code }}</td>
+        <td scope="row">
+          {% if exam.notice_published == 0 %}
+            {% trans 'No' %} 
+          {%else%}
+              <label class="checkbox-label">  {% trans 'Yes' %} 
+                <input type="checkbox" name="notice_published" form="form{{exam.id}}" />
+                <span class="checkmark"></span>
+              </label>
+          {%endif%}
+        </td>
+        <td scope="row">
+          {% if exam.result_published == 0 %}
+            {% trans 'No' %} 
+          {%else%}
+            <label class="checkbox-label">  {% trans 'Yes' %} 
+              <input type="checkbox" name="result_published" form="form{{exam.id}}" />
+              <span class="checkmark"></span>
+            </label>
+            {%endif%}
+        </td>
+        <td scope="row">{{ exam.created_at }}</td>
+        <td scope="row">
+          <span>
+            <a href='{% url "exam:detail_room" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Detail' %}" /></a>
+            <input type="button"class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal{{ exam.id}}" style="margin-left: 1%;" value="{% trans 'Settings' %}"/>
+            <!-- Modal -->
+              <div class="modal fade" id="myModal{{ exam.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content"> 
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel">{% trans "Settings Room" %} </h4>
+                          </div>
+                          <div class="modal-body">
+
+                            {% include 'components/rooms-list.html' %}
+
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">{% trans "Close" %}  </button>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+
+          </span>
+
+        </td>
+        <td scope="row">
+          <span>
+            <a href='{% url "exam:detail_question" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Detail' %}" /></a>
+            <a href='{% url "exam:setting_question" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Settings' %}" /></a>
+          </span>
+
+        </td>
+        <td scope="row">
+          <input type="hidden" name="exam_id" value="{{exam.id}}" form="form{{exam.id}}"/>
+        
+          {% if exam.active == 1 %}
+              <label class="checkbox-label">
+                {% trans 'Active' %} 
+                <input type="checkbox" name="active" form="form{{exam.id}}" checked />
+                <span class="checkmark"></span>
+              </label>
+          {%else%}
+              {% if exam.result_published == 1 %}
+            
+              {% trans 'Completed' %} 
+              {%else%}
+                <label class="checkbox-label">
+                  {% trans 'Not Active' %} 
+                  <input type="checkbox" name="active" form="form{{exam.id}}" />
+                  <span class="checkmark"></span>
+                </label>
+              {%endif%}
+          {%endif%}
+          {% if exam.result_published != 1 %}
+          <span>
+            <input type="submit"  class="btn btn-info btn-xs pull-right" style="margin-left: 1%;" value="{% trans 'Save' %}" form="form{{exam.id}}"/>
+          </span>
+          {%endif%}
+        </td>
+      </form>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<style>
+.checkbox-label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #0000004d;
+  border-radius: 15px;
+}
+
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #E74C3C;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-label .checkmark:after {
+  left: 10px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>

@@ -1,0 +1,145 @@
+{% load i18n %}
+<div class="mb-3">
+  <a role="button" class="btn btn-info btn-xs" href="{% url 'question:add_question' course_id=course.id %}"><i class="material-icons">visibility</i> {% trans "Add Question" %} </a>
+                               
+</div>
+<div class="mb-3">
+  <h2>{% trans "Import Question" %}</h2>
+ <form action="{% url 'question:import_question' course_id=course.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="type" value="{ type %}">
+    <div class="form-group">
+        <input type="file" name="excel_file">
+    </div>
+    <input type="submit" class="btn btn-default btn-sm" value='{% trans "Upload" %}'>
+</form>
+
+</div>
+<div class="table-responsive">
+  {% if questions.has_other_pages %}
+  <ul class="pagination">
+    {% if questions.has_previous %}
+      <li><a href="?page={{ questions.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in questions.paginator.page_range %}
+      {% if questions.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if questions.has_next %}
+      <li><a href="?page={{ questions.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+  <table class="table table-bordered table-data-div table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{% trans 'Chater' %} </th>
+      <th scope="col">{% trans 'Level' %} </th>
+      <th scope="col">{% trans 'Type' %} </th>
+      <th scope="col">{% trans 'Question' %} </th>
+      <th scope="col">{% trans 'Answer ' %} </th>
+      <th scope="col">{% trans 'Created At' %} </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for question in questions %}
+   
+      <tr>
+        <form id="form{{exam.id}}" method="POST">
+          {% csrf_token %}
+        <input type="hidden" name="id" value="{{exam.id}}">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td scope="row">{{ question.chapter }}</td>
+        {% for key, value  in Question_level %}
+
+            {% if key == question.question_level  %}
+            <td scope="row">{{ value }}</td>  
+            {%endif%} 
+         
+        {% endfor %}
+        {% for key, value  in Question_type %}
+
+            {% if key == question.question_type  %}
+            <td scope="row">{{ value }}</td>  
+            {%endif%} 
+         
+        {% endfor %}
+        
+        <td scope="row">{{ question.question_name | safe}}</td>
+        <td scope="row">{{ question.correct_answer| safe}}</td>
+        <td> <a href='{% url "question:edit_question" question_id=question.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Edit' %}" /></a></td>
+        
+      </form>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<style>
+.checkbox-label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #0000004d;
+  border-radius: 15px;
+}
+
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #E74C3C;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-label .checkmark:after {
+  left: 10px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>

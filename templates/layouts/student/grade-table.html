@@ -1,0 +1,145 @@
+{% load i18n %}
+{% load static %}
+{% if grades %}
+<h3><span class="pull"><button class="btn btn-xs btn-success" role="button" id="btnPrint"><i class="material-icons">print</i>{% trans "Print Result" %} </button></span></h3>
+<div class="visible-print-block" id="table-content">
+  <table class="table table-bordered" style="font-size: 10px;">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"> {% trans "Course" %} </th>
+        <th scope="col"> {% trans "Attendance" %}  </th>
+        {% for Exam_type in Exam_types %}
+          <th scope="col"> {{Exam_type.1}}</th>
+          {%endfor%}
+         
+          <th scope="col">{% trans "Total Marks Exam" %} </th>
+          <th scope="col">{% trans "Total Marks Course" %} </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for grade in grades %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{grade.courseOfSection}}</td>
+            <td>{{grade.attendance}}</td>
+            <td scope="col">   {%if grade.coefficient_1_1  != set0 %}   {{grade.coefficient_1_1}}  {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_1_2  != set0 %} {{grade.coefficient_1_2}} {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_2_1  != set0 %}  {{grade.coefficient_2_1}}   {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_2_2  != set0 %} {{grade.coefficient_2_2}} {%endif%} </td>
+            <td scope="col"> {%if grade.end_mark_1_1  != set0 %} {{grade.end_mark_1_1}} {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_v2_1_1  != set0 %} {{grade.coefficient_v2_1_1}} {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_v2_1_2  != set0 %} {{grade.coefficient_v2_1_2}} {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_v2_2_1  != set0 %} {{grade.coefficient_v2_2_1}} {%endif%} </td>
+            <td scope="col"> {%if grade.coefficient_v2_2_2  != set0 %} {{grade.coefficient_v2_2_2}} {%endif%} </td>
+            <td scope="col"> {%if grade.end_mark_v2_1_1  != set0 %} {{grade.end_mark_v2_1_1}} {%endif%} </td>
+        
+            <td scope="col"> {%if grade.practical_1_1  != set0 %} {{grade.practical_1_1}} {%endif%} </td>
+            <td scope="col"> {%if grade.practical_v2_1_1  != set0  %} {{grade.practical_v2_1_1}} {%endif%} </td>
+        
+            <td scope="col"> {%if grade.total_mark_exam  != set0 %} {{grade.total_mark_exam}} {%endif%} </td>
+            <td scope="col"> {%if grade.total_mark_course  != set0  %} {{grade.total_mark_course}} {%endif%} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"> {% trans "Course" %} </th>
+      <th scope="col"> {% trans "Total Marks" %} </th>
+      <th scope="col"> {% trans "Grade" %} </th>
+      <!--<th scope="col">GPA</th>-->
+      <th scope="col">{% trans "Course Teacher" %} </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for grade in grades %}
+    
+    <tr id="heading{($loop->index + 1)}}">
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{grade.courseOfSection}}</td>
+      <td><b>{%if grade.total_mark_course  != set0  %} {{grade.total_mark_course}} {%endif%} </b>
+        <a class="btn btn-xs btn-danger pull-right" href="#collapse{{ forloop.counter }}" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">  {% trans "View Details" %}</a>
+      </td>
+      <td>
+ 
+      </td>
+      <td>
+        <a href="{url('user/'.$grade->teacher->student_code)}}">{{grade.teacher.getname}}</a>
+      </td>
+    </tr>
+    <tr class="collapse" id="collapse{{ forloop.counter }}" aria-labelledby="heading{{ forloop.counter }}" aria-expanded="false">
+      <td colspan="7">
+        <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-hover">
+          <thead>
+            <tr>
+              <th scope="col"> {% trans "Attendance" %}  </th>
+              {% for Exam_type in Exam_types %}
+              <th scope="col"> {{Exam_type.1}}</th>
+              {%endfor%}
+              <th scope="col">{% trans "Total Marks Exam" %} </th>
+              <th scope="col">{% trans "Total Marks Course" %} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>{{grade.attendance}}</td>
+                <td scope="col">   {%if grade.coefficient_1_1  != set0 %}   {{grade.coefficient_1_1}}  {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_1_2  != set0 %} {{grade.coefficient_1_2}} {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_2_1  != set0 %}  {{grade.coefficient_2_1}}   {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_2_2  != set0 %} {{grade.coefficient_2_2}} {%endif%} </td>
+                <td scope="col"> {%if grade.end_mark_1_1  != set0 %} {{grade.end_mark_1_1}} {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_v2_1_1  != set0 %} {{grade.coefficient_v2_1_1}} {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_v2_1_2  != set0 %} {{grade.coefficient_v2_1_2}} {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_v2_2_1  != set0 %} {{grade.coefficient_v2_2_1}} {%endif%} </td>
+                <td scope="col"> {%if grade.coefficient_v2_2_2  != set0 %} {{grade.coefficient_v2_2_2}} {%endif%} </td>
+                <td scope="col"> {%if grade.end_mark_v2_1_1  != set0 %} {{grade.end_mark_v2_1_1}} {%endif%} </td>
+            
+                <td scope="col"> {%if grade.practical_1_1  != set0 %} {{grade.practical_1_1}} {%endif%} </td>
+                <td scope="col"> {%if grade.practical_v2_1_1  != set0  %} {{grade.practical_v2_1_1}} {%endif%} </td>
+            
+                <td scope="col"> {%if grade.total_mark_exam  != set0 %} {{grade.total_mark_exam}} {%endif%} </td>
+                <td scope="col"> {%if grade.total_mark_course  != set0  %} {{grade.total_mark_course}} {%endif%} </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </td>
+    </tr>
+   
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<script>
+     
+    $("#btnPrint").on("click", function () {
+        
+        var tableContent = $('#table-content').html();
+        var printWindow = window.open('', '', 'height=720,width=1280');
+        printWindow.document.write("<html><head><title>{% trans 'Result Card' %} </title>");
+        printWindow.document.write('<link href="{% static "/public/css/vendors.css" %}" rel="stylesheet">');
+        printWindow.document.write('<link href="{% static "/public/css/app.css" %}" rel="stylesheet">');
+        printWindow.document.write('<link href="{% static "/assets/theme/vendors/css/bootstrap.min.css" %}" rel="stylesheet">');
+        printWindow.document.write('<link href="{% static "/assets/theme/application/css/app-layout.css" %}" rel="stylesheet">');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<div class="container-fluid"><div class="col-md-12"><h2 style="text-align:center;">{{config}}</h2><h4 style="text-align:center;">{% trans "Result Card" %}</h4>');
+        printWindow.document.write('<h4>{% trans "Student Name" %}:  {{student.getname}}</h4>');
+        printWindow.document.write('<h4>{% trans "Class" %}: {{student.myclass}} <span></span></h4>');
+       
+        printWindow.document.write(tableContent);
+        printWindow.document.write('</div></div></body></html>');
+        printWindow.document.close();
+        printWindow.print();
+      });
+    </script>
+
+{% else %}
+    {% trans "No related data" %}
+{%endif%}

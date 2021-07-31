@@ -1,0 +1,81 @@
+
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('All Classes and Sections')
+{% endblock %}
+{% block content %}
+<style>
+    #cls-sec .panel{
+        margin-bottom: 0%;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            <h2>{% trans "All Departments" %}  </h2>
+            <div class="panel panel-default" id="cls-sec">
+              {% if departments%}
+                
+                {% for department in departments %}
+                    <div class="panel panel-default">
+                        <div class="page-panel-title" role="tab" id="heading{{class.id}}">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <a class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{department.id}}" aria-expanded="false" aria-controls="collapse{{department.id}}">{{department.department_name}} </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{department.id}}" aria-expanded="false" aria-controls="collapse{{department.id}}"><small><b> {% trans "Click to view all Teacher" %} <i class="material-icons">keyboard_arrow_down</i></b></small></a>
+                                    </div>
+                                   
+                                    <div class="col-md-4">
+                                        <a role="button" class="btn btn-info btn-xs" href="{url('academic/syllabus/'.$class->id)}}"><i class="material-icons">visibility</i> {% trans "View Syllabus for this Class " %} </a>
+                                    </div>
+                                   
+                                </div>
+                        </div>
+                        <div id="collapse{{department.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{department.id}}">
+                            <div class="panel-body">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>{% trans "Name" %} </th>
+                                           
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for teacher in teachers %}
+                                    
+                                            {% if department.id == teacher.department_id %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{url('courses/0/'.$section->id)}}">{{ teacher.user.last_name}} {{ teacher.user.first_name}}</a>
+                                                </td>                                           
+                                            </tr>
+
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+             {% else %}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %} 
+                </div>
+             {% endif %}
+             
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

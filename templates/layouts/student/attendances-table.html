@@ -1,0 +1,32 @@
+{% load crispy_forms_tags %}
+{% load i18n %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css" integrity="sha256-AVsv7CEpB2Y1F7ZjQf0WI8SaEDCycSk4vnDRt0L2MNQ=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/moment/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js" integrity="sha256-FT1eN+60LmWX0J8P25UuTjEEE0ZYvpC07nnU6oFKFuI=" crossorigin="anonymous"></script>
+
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var attEvents = JSON.parse("{{ events|escapejs }}");//JSON.parse('{{ events }}');
+            
+            var calendarEl = document.getElementById('attendanceCalendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'vi',
+                plugins: [ 'dayGrid' ],
+                events: attEvents
+            
+              });
+
+            calendar.render();
+        });
+
+      
+    </script>
+    <div class="col-md-8">
+      <h5>{% trans "Attendance List of Full Semester" %} </h5>
+          <div id="attendanceCalendar"></div>
+    </div>
+

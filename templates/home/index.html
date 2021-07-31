@@ -1,0 +1,281 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block content %}
+<style>
+    .badge-download {
+        background-color: transparent !important;
+        color: #464443 !important;
+    }
+    .list-group-item-text{
+      font-size: 12px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+          
+        </div>
+        <div class="col-md-10" id="main-container">
+            <div class="panel panel-default" style="border-top: 0px;">
+                <div class="panel-body">
+                    {% comment "Optional note" %}
+                        @if (session('status'))
+                        <div class="alert alert-success">
+                        <!--  { session('status') } -->  
+                        </div>
+                        @endif
+                    {% endcomment %}
+                    <div class="row">
+                        <div class="page-panel-title"> {% trans "Dashboard" %} </div>
+                        <div class="col-sm-2">
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-header"> {% trans "Students" %} - <b>{{ totalStudents }}</b></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="card text-white bg-success mb-3">
+                                <div class="card-header"> {% trans "Teachers" %}  - <b>{{  totalTeachers }}</b></div>
+                            </div>
+                        </div>
+                        {% comment "Optional note" %}
+                        <div class="col-sm-4">
+                            <div class="card text-white bg-dark mb-3">
+                                <div class="card-header"> {% trans "Types of Books In Library" %}  - <b>{$totalBooks}}</b></div>
+                            </div>
+                        </div>
+                         {% endcomment %}
+                       
+                        <div class="col-sm-2">
+                            <div class="card text-white bg-danger mb-3">
+                                <div class="card-header"> {% trans "Classes" %} - <b>{{ totalClasses }}</b></div>
+                            </div>
+                        </div>
+                        {% comment "Optional note" %}
+                        <div class="col-sm-2">
+                            <div class="card text-white bg-info mb-3">
+                                <div class="card-header"> {% trans "Sections" %} - <b>{$totalSections}}</b></div>
+                            </div>
+                        </div>
+                         {% endcomment %}
+                       
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            
+                            <div class="panel panel-default">
+                                <div class="page-panel-title"> {% trans "Active Exams" %} </div>
+                                <div class="panel-body">
+                                    {%if exams %}
+                                    <table class="table">
+                                        <tr>
+                                            <th> {% trans "Exam Name" %} </th>
+                                            <th> {% trans "Course" %}</th>
+                                            <th> {% trans "Class" %}</th>
+                                            <th> {% trans "Time Exam" %}</th>
+                                            <th> {% trans "Start Date" %}</th>
+                                            <th> {% trans "active" %}</th>
+                                            
+                                        </tr>
+                                        {% for exam in exams %}
+                                        <tr>
+                                            {% for Exam_type in Exam_types %}
+                                          
+                                                {% if Exam_type.0 == exam.exam_type2 %}
+                                                <td>{{Exam_type.1}}</td>
+                                                {%endif%}
+                                            {%endfor%}
+                                            <td>{{exam.courseOfSection}}</td>
+                                            <td>{{exam.courseOfSection.section.myclass}}</td>
+                                            <td>{{exam.time_exam}}</td>
+                                            <td>{{exam.start_date}}</td>
+                                            <td>{% if exam.active == 1 %} 
+                                                <label class="checkbox-label">
+                                                    {% trans 'Active' %} 
+                                                    <input type="checkbox" name="active" checked />
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                {% else %} 
+                                                <label class="checkbox-label">
+                                                    {% trans 'Active' %} 
+                                                    <input type="checkbox" name="active" >
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                {%endif%} 
+                                            </td>
+                                            
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    {%else%}
+                                    {% trans "No Active Examination" %} 
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %}
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="page-panel-title"> {% trans "Notices" %}</div>
+                                <div class="panel-body pre-scrollable">
+                                    @if(count($notices) > 0)
+                                    <div class="list-group">
+                                        @foreach($notices as $notice)
+                                        <a href="{url($notice->file_path)}}" class="list-group-item" download>
+                                            <i class="badge badge-download material-icons">
+                                                get_app
+                                            </i>
+                                            <h5 class="list-group-item-heading">{$notice->title}}</h5>
+                                            <p class="list-group-item-text"> {% trans "Published at" %}:
+                                                {$notice->created_at->format('M d Y h:i:sa')}}</p>
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    @else
+                                    @lang('No New Notice')
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        {% endcomment %}
+                    </div>
+                    {% comment %}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="page-panel-title"> {% trans "Events" %}</div>
+                                <div class="panel-body pre-scrollable">
+                                    @if(count($events) > 0)
+                                    <div class="list-group">
+                                        @foreach($events as $event)
+                                        <a href="{url($event->file_path)}}" class="list-group-item" download>
+                                            <i class="badge badge-download material-icons">
+                                                get_app
+                                            </i>
+                                            <h5 class="list-group-item-heading">{$event->title}}</h5>
+                                            <p class="list-group-item-text"> {% trans "Published at" %}:
+                                                {$event->created_at->format('M d Y')}}</p>
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    @else
+                                    {% trans "No New Event" %}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="page-panel-title"> {% trans "Routines" %}</div>
+                                <div class="panel-body pre-scrollable">
+                                    @if(count($routines) > 0)
+                                    <div class="list-group">
+                                        @foreach($routines as $routine)
+                                        <a href="{url($routine->file_path)}}" class="list-group-item" download>
+                                            <i class="badge badge-download material-icons">
+                                                get_app
+                                            </i>
+                                            <h5 class="list-group-item-heading">{$routine->title}}</h5>
+                                            <p class="list-group-item-text"> {% trans "Published at" %}:
+                                                {$routine->created_at->format('M d Y')}}</p>
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    @else
+                                    {% trans "No New Routine" %}  
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="page-panel-title">{% trans "Syllabus" %} </div>
+                                <div class="panel-body pre-scrollable">
+                                    @if(count($syllabuses) > 0)
+                                    <div class="list-group">
+                                        @foreach($syllabuses as $syllabus)
+                                        <a href="{url($syllabus->file_path)}}" class="list-group-item" download>
+                                            <i class="badge badge-download material-icons">
+                                                get_app
+                                            </i>
+                                            <h5 class="list-group-item-heading">{$syllabus->title}}</h5>
+                                            <p class="list-group-item-text"> {% trans "Published at" %}:
+                                                {$syllabus->created_at->format('M d Y')}}</p>
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    @else
+                                    {% trans "No New Syllabus" %} 
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkbox-label {
+      position: relative;
+      padding-left: 35px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    .checkbox-label input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #0000004d;
+      border-radius: 15px;
+    }
+    
+    .checkbox-label:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+    
+    .checkbox-label input:checked ~ .checkmark {
+      background-color: #E74C3C;
+    }
+    
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    
+    .checkbox-label input:checked ~ .checkmark:after {
+      display: block;
+    }
+    
+    .checkbox-label .checkmark:after {
+      left: 10px;
+      top: 6px;
+      width: 5px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    </style>
+    
+{% endblock %}

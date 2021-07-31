@@ -1,0 +1,28 @@
+{% load static %}
+ 
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<div class="choice" data-choice_id="{{ forloop.counter }}" data-choice_number="{{ forloop.counter }} ">
+  <label>Choice <span class="choice_number"> {{ forloop.counter }} </span>:</label> 
+  {% if choice.choice_name  in  question.correct_answer  %}
+  <input type="checkbox" name="correct_answer[]" checked="checked" value="ChoiceOld{{choice.id}}" /><span>Chọn Đáp án Đúng</span> 
+  {%else%}
+  <input type="checkbox" name="correct_answer[]" value="ChoiceOld{{choice.id}}" /><span>Chọn Đáp án Đúng</span> 
+  {%endif%} 
+ 
+  <textarea class="choice_text" id="Choice{{forloop.counter}}" name="choice_text{{choice.id}}" >{{choice.choice_name}}</textarea>
+  <button class="delete_choice">Delete Choice</button>
+</div>
+<script>
+    var choiceID = getUniqueChoiceId();
+    //alert("choiceID");
+    // thêm CKEDITOR
+    //CKEDITOR.replace( choiceID );
+    CKEDITOR.replace(choiceID, {
+      extraPlugins: 'mathjax,format,image',
+      filebrowserBrowseUrl: 'http://127.0.0.1:8000/ckeditor/browse/',
+      filebrowserImageUploadUrl: 'http://127.0.0.1:8000/ckeditor/upload/',
+      entities : false
+  });
+</script>

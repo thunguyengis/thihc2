@@ -1,0 +1,154 @@
+{% load i18n %}
+{% load l10n %}
+
+<style>
+  #grade-labels > .label{
+    margin-right: 1%;
+  }
+</style>
+<div class="col-md-12" id="grade-labels">
+  <span class="label label-danger checkbox-inline">
+    <input type="checkbox" name="attendance" value="4" checked>{% trans "Attendance" %} 
+  </span>
+
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="5" checked>{% trans "coefficient_1_1" %} 
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="6">{% trans "coefficient_1_2" %}  
+  </span>
+  <span class="label label-primary checkbox-inline"></span>
+    <input type="checkbox" name="quiz[]" value="7"checked>{% trans "coefficient_2_1" %} 
+  </span>
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="8" >{% trans "coefficient_2_2" %}  
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="9" checked>{% trans "end_mark_1_1" %}  
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="10">{% trans "coefficient_v2_1_1" %} 
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="11">{% trans "coefficient_v2_1_2" %} 
+  </span>
+ 
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="12">{% trans "coefficient_v2_2_1" %} 
+  </span>
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="13">{% trans "coefficient_v2_2_2" %}  
+  </span>
+  
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="15">{% trans "end_mark_v2_1_1" %} 2
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="16">{% trans "practical_1_1" %} 3
+  </span>
+  
+  
+</div>
+<br />
+<br />
+<br />
+<br />
+<form action="{% url 'grade:save-grade' %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="section_id" value="{{ course.section_id}}">
+  <input type="hidden" name="course_id" value="{{ course.id }}">
+  
+  <input type="hidden" name="teacher_id" value="{{ course.teacher_id}}">
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover" id="marking-table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans "Code" %}</th>
+          <th scope="col">{% trans "Name" %}</th>
+          <th scope="col">{% trans "Attendance" %}</th>
+          {% for Exam_type in Exam_types %}
+          <th scope="col"> {{Exam_type.1}}</th>
+          {%endfor%}
+         
+        </tr>
+      </thead>
+      <tbody>
+       
+        {% for grade in grades %}
+       
+        <input type="hidden" name="grade_id[]" value="{{grade.id}}">
+        <tr>
+          <th scope="row">  {{ forloop.counter }}    </th>
+          <td>{{ grade.student.user.username}}</td>
+          <td>{{ grade.student.user.last_name}} {{ grade.student.user.first_name}}</td>
+          <td>
+            <input type="number" step=0.01 name="attendance[]" class="form-control input-sm" placeholder="{% trans 'Attendance' %} " value="{{ grade.attendance|unlocalize }}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_1_1[]" class="form-control input-sm input-sm" value="{{grade.coefficient_1_1|unlocalize}}"
+              placeholder="{% trans 'Qz 1' %}" max="20">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_1_2[]" class="form-control input-sm" value="{{grade.coefficient_1_2|unlocalize}}" placeholder="{% trans 'Qz 2' %}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_2_1[]" class="form-control input-sm" value="{{grade.coefficient_2_1|unlocalize}}" placeholder="{% trans 'Qz 3' %}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_2_2[]" class="form-control input-sm" value="{{grade.coefficient_2_2|unlocalize}}" placeholder="{% trans 'Qz 4' %}">
+          </td>
+          <td>
+            <input type="number" step=0.01  name="end_mark_1_1[]" class="form-control input-sm" placeholder="{% trans 'end_mark_1_1' %}" value="{{grade.end_mark_1_1|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_v2_1_1[]" class="form-control input-sm" value="{{grade.coefficient_v2_1_1|unlocalize}}" placeholder="{% trans 'Qz 5' %}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_v2_1_2[]" class="form-control input-sm" placeholder="{% trans 'Assignment 1' %}" value="{{grade.coefficient_v2_1_2|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_v2_2_1[]" class="form-control input-sm" placeholder="{% trans 'Assignment 2' %}" value="{{grade.coefficient_v2_2_1|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="coefficient_v2_2_2[]" class="form-control input-sm" placeholder="{% trans 'Assignment 3' %}" value="{{grade.coefficient_v2_2_2|unlocalize}}">
+          </td>
+         
+          <td>
+            <input type="number" step=0.01 name="end_mark_v2_1_1[]" class="form-control input-sm" placeholder="{% trans 'CT 2' %}" value="{{grade.end_mark_v2_1_1|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="practical_1_1[]" class="form-control input-sm" placeholder="{% trans 'CT 3' %}" value="{{grade.practical_1_1|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" step=0.01 name="practical_v2_1_1[]" class="form-control input-sm" placeholder="{% trans 'CT 3' %}" value="{{grade.practical_1_1|unlocalize}}">
+          </td>
+        </tr>
+        {% endfor %}
+      
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align:center;">
+    <input type="submit" name="save" class="btn btn-primary" value="{% trans 'Submit' %}">
+  </div>
+</form>
+
+<script>
+  $(function () {
+    for (var i = 5; i < 20; i++) {
+      if (i == 5 || i == 7|| i == 9)
+        continue;
+      $("#marking-table td:nth-child(" + i + "),#marking-table th:nth-child(" + i + ")").hide();
+    }
+    $(":checkbox").change(function () {
+      if ($(this).is(':checked')) {
+        $("#marking-table td:nth-child(" + $(this).val() + "),#marking-table th:nth-child(" + $(this).val() +
+          ")").show();
+      } else {
+        $("#marking-table td:nth-child(" + $(this).val() + "),#marking-table th:nth-child(" + $(this).val() +
+          ")").hide();
+      }
+    });
+  });
+</script>

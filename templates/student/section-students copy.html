@@ -1,0 +1,64 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block title %}
+
+__('Academic Settings')
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            <ol class="breadcrumb" style="margin-top: 3%;">
+                {% if grade %}
+              
+                    <li><a href="{url('grades/all-exams-grade')}}" style="color:#3b80ef;">{% trans "Grades" %}</a></li>
+                {%else%}
+                    <li><a href='{% url "configurations:classes" %}' style="color:#3b80ef;">{% trans "Section" %}</a></li>
+                {%endif%}
+                <li class="active">{% trans "Students" %}</li>
+            </ol>
+            <h2>{% trans "Section Students" %} </h2>
+            <div class="panel panel-default">
+            
+              {% if students %}
+                <div class="panel-body">
+                    <table class="table table-data-div table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">{% trans "Sl." %}</th>
+                            <th scope="col">{% trans "Student Code" %} </th>
+                            <th scope="col">{% trans "Student Name" %} </th>
+                            <th scope="col">{% trans "Status" %} </th>
+                            <th scope="col">{% trans "Grade History" %} </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for student in students %}
+                       
+                        <tr>
+                            <td>{($loop->index+1)}}</td>
+                            <td>{{student.user}}</td>
+                            <td><a href="{url('user/'.$student->student_code)}}">{$student->name}}</a></td>
+                            <td>
+                           
+                            </td>
+                            <td><a class="btn btn-xs btn-success" role="button" href="{{url 'grade:history'')}}">{% trans "View Grade History" %} </a></td>
+                        </tr>
+                        {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            {%else%}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %}
+                </div>
+            {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

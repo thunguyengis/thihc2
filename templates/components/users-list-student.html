@@ -1,0 +1,40 @@
+{% load i18n %}
+<div class="table-responsive">
+<table class="table table-bordered table-data-div table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+     
+      <th scope="col">{% trans "Code" %}</th>
+      <th scope="col">{% trans "Full Name" %} </th>
+    
+      <th scope="col">{% trans "Address" %} </th>
+      {% if user.groups.all.0.name == 'admin' %}
+        <th scope="col"> {% trans "Action" %} </th>
+     {%endif%}
+     <th scope="col">{% trans "Grade History" %} </th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for item in users%}
+   
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      
+     
+      <td><small>{{item}}</small></td>
+      <td><small>{{item.getname}}</small></td>
+
+      <td><small>{{item.religion}}</small></td>
+      {% if user.groups.all.0.name == 'admin' %}
+      <td>
+        <a class="btn btn-xs btn-danger" href="{url('edit/user/'.$user->id)}}">{% trans "Edit" %} </a>
+        <a class="btn btn-xs btn-success" href="{% url 'grade:history' student_id=item.id %}"> {% trans "View Grade History" %}  </a>
+      </td>
+    {%endif%}
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+</div>
+

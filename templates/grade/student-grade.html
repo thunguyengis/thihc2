@@ -1,0 +1,45 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+
+__('All Classes and Sections')
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" id="side-navbar">
+            {% include 'layouts/leftside-menubar.html' %}
+        </div>
+        <div class="col-md-10" id="main-container">
+            {% if user.groups.all.0.name == 'student' %}
+            <ol class="breadcrumb" style="margin-top: 3%;">
+                <li><a href="{url('grades/all-exams-grade')}}" style="color:#3b80ef;">{% trans "Grades" %} </a></li>
+                <li><a href="{url()->previous()}}" style="color:#3b80ef;">{% trans "Section Students" %} </a></li>
+                <li class="active"> {% trans "History" %} </li>
+            </ol>
+            {%endif%}
+            <h2> {% trans "Marks and Grades History" %} </h2>
+            <div class="panel panel-default">
+             
+              {% if grades %}
+             
+                {% if student %}
+                    <div class="page-panel-title"><b>{% trans "Student Code" %} </b> - {{student.user.username}} &nbsp;<b> {% trans "Name" %} </b> -  {{student.getname}} &nbsp;<b> {% trans "Class" %} </b> - {{student.myclass}}</div>
+                {%endif%}
+            
+                <div class="panel-body">
+     
+                    {% include 'layouts/student/grade-table.html' %}
+                   
+                </div>
+            {% else %}
+                <div class="panel-body">
+                    {% trans "No Related Data Found." %}
+                </div>
+            {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

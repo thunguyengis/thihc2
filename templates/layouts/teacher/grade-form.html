@@ -1,0 +1,186 @@
+{% load i18n %}
+{% load l10n %}
+<style>
+  #grade-labels > .label{
+    margin-right: 1%;
+  }
+</style>
+<div class="col-md-12" id="grade-labels">
+  <span class="label label-danger checkbox-inline">
+    <input type="checkbox" name="attendance" value="4" checked>{% trans "Attendance" %} 
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="5" checked>{% trans "Quiz" %} 1
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="6">{% trans "Quiz" %}  2
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="7">{% trans "Quiz" %} 3
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="8">{% trans "Quiz" %} 4
+  </span>
+  <span class="label label-primary checkbox-inline">
+    <input type="checkbox" name="quiz[]" value="9">{% trans "Quiz" %} 5
+  </span>
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="10" checked>{% trans "Assignment" %}  1
+  </span>
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="11">{% trans "Assignment" %} 2
+  </span>
+  <span class="label label-success checkbox-inline">
+    <input type="checkbox" name="assignment[]" value="12">{% trans "Assignment" %}  3
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="13" checked>{% trans "Class Test" %}  1
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="14">{% trans "Class Test" %} 2
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="15">{% trans "Class Test" %} 3
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="16">{% trans "Class Test" %}  4
+  </span>
+  <span class="label label-info checkbox-inline">
+    <input type="checkbox" name="ct[]" value="17">{% trans "Class Test" %}  5
+  </span>
+  <span class="label label-default checkbox-inline">
+    <input type="checkbox" name="few" value="18">{% trans "Final Exam Written" %} 
+  </span>
+  <span class="label label-default checkbox-inline">
+    <input type="checkbox" name="fem" value="19">{% trans "Final Exam MCQ" %}
+  </span>
+  <span class="label label-warning checkbox-inline">
+    <input type="checkbox" name="practical" value="20">{% trans "Practical" %} 
+  </span>
+</div>
+<br />
+<br />
+<br />
+<br />
+<form action="{% url 'grade:save-grade' %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="section_id" value="{{ course.section_id}}">
+  <input type="hidden" name="course_id" value="{{ course.id }}">
+  
+  <input type="hidden" name="teacher_id" value="{{ course.teacher_id}}">
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover" id="marking-table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans "Code" %}</th>
+          <th scope="col">{% trans "Name" %}</th>
+          <th scope="col">{% trans "Attendance" %}</th>
+          <th scope="col">{% trans "Quiz" %} 1</th>
+          <th scope="col">{% trans "Quiz" %} 2</th>
+          <th scope="col">{% trans "Quiz" %} 3</th>
+          <th scope="col">{% trans "Quiz" %} 4</th>
+          <th scope="col">{% trans "Quiz" %} 5</th>
+          <th scope="col">{% trans "Assignment" %} 1</th>
+          <th scope="col">{% trans "Assignment" %} 2</th>
+          <th scope="col">{% trans "Assignment" %} 3</th>
+          <th scope="col">{% trans "CT" %} 1</th>
+          <th scope="col">{% trans "CT" %} 2</th>
+          <th scope="col">{% trans "CT" %} 3</th>
+          <th scope="col">{% trans "CT" %} 4</th>
+          <th scope="col">{% trans "CT" %} 5</th>
+          <th scope="col">{% trans "Written" %}</th>
+          <th scope="col">{% trans "MCQ" %}</th>
+          <th scope="col">{% trans "Practical" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        {% for grade in grades %}
+        {{grade.ct1|unlocalize}}
+        <input type="hidden" name="grade_id[]" value="{{grade.id}}">
+        <tr>
+          <th scope="row">  {{ forloop.counter }}    </th>
+          <td>{{ grade.student.user.username}}</td>
+          <td>{{ grade.student.user.last_name}} {{ grade.student.user.first_name}}</td>
+          <td>
+            <input type="number" name="attendance[]" class="form-control input-sm" placeholder="{% trans 'Attendance' %} " value="{$grade->attendance}}">
+          </td>
+          <td>
+            <input type="number" name="quiz1[]" class="form-control input-sm input-sm" value="{{grade.quiz1}}"
+              placeholder="{% trans 'Qz 1' %}" max="20">
+          </td>
+          <td>
+            <input type="number" name="quiz2[]" class="form-control input-sm" value="{{grade.quiz2}}" placeholder="{% trans 'Qz 2' %}">
+          </td>
+          <td>
+            <input type="number" name="quiz3[]" class="form-control input-sm" value="{{grade.quiz3}}" placeholder="{% trans 'Qz 3' %}">
+          </td>
+          <td>
+            <input type="number" name="quiz4[]" class="form-control input-sm" value="{{rade.quiz4}}" placeholder="{% trans 'Qz 4' %}">
+          </td>
+          <td>
+            <input type="number" name="quiz5[]" class="form-control input-sm" value="{{grade.quiz5}}" placeholder="{% trans 'Qz 5' %}">
+          </td>
+          <td>
+            <input type="number" name="assign1[]" class="form-control input-sm" placeholder="{% trans 'Assignment 1' %}" value="{$grade.assignment1}}">
+          </td>
+          <td>
+            <input type="number" name="assign2[]" class="form-control input-sm" placeholder="{% trans 'Assignment 2' %}" value="{$grade.assignment2}}">
+          </td>
+          <td>
+            <input type="number" name="assign3[]" class="form-control input-sm" placeholder="{% trans 'Assignment 3' %}" value="{$grade.assignment3}}">
+          </td>
+          <td>
+            <input type="number" step=0.01  name="ct1[]" class="form-control input-sm" placeholder="{% trans 'CT 1' %}" value="{{grade.ct1|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" name="ct2[]" class="form-control input-sm" placeholder="{% trans 'CT 2' %}" value="{{grade.ct2|unlocalize}}">
+          </td>
+          <td>
+            <input type="number" name="ct3[]" class="form-control input-sm" placeholder="{% trans 'CT 3' %}" value="{{grade.ct3}}">
+          </td>
+          <td>
+            <input type="number" name="ct4[]" class="form-control input-sm" placeholder="{% trans 'CT 4' %} " value="{{grade.ct4}}">
+          </td>
+          <td>
+            <input type="number" name="ct5[]" class="form-control input-sm" placeholder="{% trans 'CT 4' %} " value="{{grade.ct5}}">
+          </td>
+          <td>
+            <input type="number" name="written[]" class="form-control input-sm" placeholder="{% trans 'Written' %} " value="{{grade.written}}">
+          </td>
+          <td>
+            <input type="number" name="mcq[]" class="form-control input-sm" placeholder="{% trans 'Mcq' %} " value="{$grade->mcq}}">
+          </td>
+          <td>
+            <input type="number" name="practical[]" class="form-control input-sm" placeholder="{% trans 'Practical' %}" value="{$grade->practical}}">
+          </td>
+        </tr>
+        {% endfor %}
+      
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align:center;">
+    <input type="submit" name="save" class="btn btn-primary" value="{% trans 'Submit' %}">
+  </div>
+</form>
+
+<script>
+  $(function () {
+    for (var i = 6; i < 21; i++) {
+      if (i == 10 || i == 13)
+        continue;
+      $("#marking-table td:nth-child(" + i + "),#marking-table th:nth-child(" + i + ")").hide();
+    }
+    $(":checkbox").change(function () {
+      if ($(this).is(':checked')) {
+        $("#marking-table td:nth-child(" + $(this).val() + "),#marking-table th:nth-child(" + $(this).val() +
+          ")").show();
+      } else {
+        $("#marking-table td:nth-child(" + $(this).val() + "),#marking-table th:nth-child(" + $(this).val() +
+          ")").hide();
+      }
+    });
+  });
+</script>

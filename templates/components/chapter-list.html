@@ -1,0 +1,94 @@
+{% load i18n %}
+
+{% if  attStudent != None %}
+{% for attS in attStudent %}
+  {% if attS.exam_id == exam.id %}
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-header">{% trans 'Total Student' %} {{attS.totalStudent}} </div>
+    </div>
+  {%endif%}
+{%endfor%}
+{% endif %}
+
+
+
+
+<form   method="POST">
+  {% csrf_token %}
+  
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <thead>
+          <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans 'Chapter Name' %} </th>
+          <th scope="col" colspan="2">{% trans 'Question Level' %} </th>
+         
+          <th scope="col">{% trans 'Number Question' %} </th>
+          
+          </tr>
+      </thead>
+      <tbody>
+          {% if List_Chater_Question %}
+          <input type="hidden" name="exam_id" value="{{ exam.id }}">
+          {% for question in List_Chater_Question %}
+         
+          <input type="hidden" name="chapter[]" value="{{ question.chapter }}">
+          
+          <tr>
+              <td class="center" scope="row" rowspan="2">{{ forloop.counter }}</td>
+              <td class="center" scope="row" rowspan="2">{{ question.chapter }}</td>
+              <td scope="row">Cơ Bản</td>
+              <td scope="row">{{ question.questioncb }}</td>
+              <td><input type="number"   name="cb{{ forloop.counter }}" value="0" min="0" max="{{ question.questioncb }}"></td>
+
+          </tr>
+          <tr>
+            <td scope="row">Nâng Cao</td>
+            <td scope="row">{{ question.questionnc }}</td>
+            <td><input type="number"   name="nc{{ forloop.counter }}" value="0" min="0" max="{{ question.questionnc }}"></td>
+
+                   
+          </tr>
+          {% endfor %}
+          {% endif %}
+      </tbody>
+    </table>
+   <hr>
+   <div style="text-align:center;">
+    
+      <H1>
+        <b>Tổng sô câu hỏi: </b><span id="numberquestion">0</span>
+    
+      </H1>
+
+   </div>
+    <div style="text-align:center;">
+       
+        {% if  attCount %}
+        <input type="submit"  class="btn btn-primary" value="{% trans 'Update' %}" />
+        
+        {% else %}
+        
+        <input type="submit" class="btn btn-primary" value="{% trans 'Save' %}"  />
+        {% endif %}
+    </div>
+  </div>
+</form>
+<script>
+  
+  $(":input[type='number']").change(function () {
+      var number =0;
+    $(":input[type='number']").each(function() {
+      // code
+      number = number + parseInt ( $(this).val()) ;
+      
+    });
+   // number = $("#numberquestion").html(); 
+
+   $("#numberquestion").html(number); 
+   
+  });
+ 
+
+</script>

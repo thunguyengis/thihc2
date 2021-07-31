@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>Test</title>
+    <link rel="author" title="Michael Turnwall" href="mailto:mturnwall@revenution.com">
+    <link rel="author" title="Hewlett-Packard Company" href="http://www.hp.com/">
+    <link rel="help" href="http://www.w3.org/TR/CSS21/page.html#page-break-props">
+    <link rel="help" href="http://www.w3.org/TR/css3-page/#pg-br-before-after">
+    <meta name="flags" content="paged">
+    <meta name="assert" content="The 'always' value of the 'page-break-before' property forces a page break before the box.">
+  <style>
+  
+    table.boody {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: center;    
+    }
+    .boody th, .boody td{
+        border: 1px solid black;
+    }
+    div.break {
+ 		page-break-before:always;
+	}
+    </style>
+</head>
+<body>
+
+    {% if List_Student_Room %}
+    
+    {% for Student_Room in List_Student_Room %}
+    <table class="head" style="width:100%">
+        <tr>
+        <th>
+            
+            <div>TRƯỜNG CAO ĐẲNG HẬU CẦN 2</div>
+            <div>{{department}}</div>
+            <div style="width:100%"></div>
+        </th>
+        <th >
+            <div>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+            <div> Độc lập – Tự do – Hạnh phúc</div>
+            <div style="width:100%"></div>
+            
+        </th>
+        </tr>
+        <tr>
+        <td></td>
+        <td><div style="width:100%">Thành phố Hồ Chí Minh, ngày     tháng      năm   </div></td>
+        
+        </tr>
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="head" style="width:100%">
+                <tr> <th>ĐỀ THI</th></tr>
+               
+                <tr><th>Môn: {{Student_Room.course}}</th> </tr>
+                
+                <tr>  <th>Lớp: {{Student_Room.class}}</th></tr>
+                <tr>  <th>Phòng: {{Student_Room.room_name}}</th></tr>
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="boody" style="width:100%">
+        <thead>
+
+            <tr>
+                <th>STT</th>
+                <th>HỌ VÀ TÊN</th>
+                <th>MÃ HỌC VIÊN</th>
+                <th>ĐIỂM</th>
+                <th>KÝ TÊN</th>
+                <th>GHI CHÚ</th>
+            </tr>
+        </thead>
+    
+            {% for gradeOfExam in Student_Room.gradeOfExams %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{gradeOfExam.student.getname}}</td>
+                    <td>{{ gradeOfExam.student }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {%endfor%}
+        
+    </table>
+    <table class="footer" style="width:100%">
+        <thead>
+
+            <tr>
+            
+                <th>Giám Thị 1</th>
+                <th>Giám Thị 2</th>
+               
+            </tr>
+        </thead>
+    
+           
+    </table>
+    <div class="break"></div>
+  {%endfor%}
+  {%endif%}
+</body>
+</html>

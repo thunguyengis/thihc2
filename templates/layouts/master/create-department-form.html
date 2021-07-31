@@ -1,0 +1,32 @@
+{% load i18n %}
+<button class="btn btn-primary btn-block" id="create-section-btn-department-{{department.id}}">+ {% trans "Create a New Course" %}  </button>
+<br/>
+<div class="panel panel-default" id="create-section-btn-panel-department-{{department.id}}" style="display:none;">
+  <div class="panel-body">
+  <form class="form-horizontal" action='{% url "configurations:add_courseOfDepartments" %}' method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="department{{department.id}}" class="col-sm-2 control-label">{% trans "Course Name" %} </label>
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="text" class="form-control" id="department{{department.id}}" name="course_name" placeholder='{% trans "Course Name" %}'>
+      </div>
+    </div>
+    <div class="form-group" style="display:none;">
+     
+    
+        <input type="text" class="form-control" id="department{{department.id}}" name="department" value="{{department.id}}">
+    
+    </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-danger btn-sm">{% trans "Submit" %} </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  $("#create-section-btn-department-{{department.id}}").click(function(){
+    $("#create-section-btn-panel-department-{{department.id}}").toggle();
+  });
+</script>
