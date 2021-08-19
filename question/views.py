@@ -325,14 +325,81 @@ def import_question(request, course_id ):
                 question.correct_answer =   row[4].value
 
                 question.save()
-                choice_texts = [4,5,6,7,8,9]
+                choice_texts = [4,5,6,7]
+               
                 if choice_texts:
                     for i, item in enumerate(choice_texts):
+                       
                         if(row[item].value != None):
                             choice = Choice()
                             choice.question_id = question.id
                             choice.choice_name = row[item].value
                             choice.save()
+                        
+            i = i +1
+
+    return redirect('question:list_question', course_id=course_id)
+    return HttpResponseRedirect(reverse('question:list_question'))
+    return HttpResponseRedirect('question/' + str(course_id )+  '/list_question/')
+
+@login_required()
+def import_question_old(request, course_id ):
+    if "POST" == request.method:
+        
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+        #print(worksheet)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        i = 1
+        question_old = Question()
+        correct_answer=""
+        for row in worksheet.iter_rows():
+            row_data = list()
+           
+            if i % 5 ==1:
+                question = Question()
+                
+                    #question_type = request.POST['question_type']
+                question.coursOfDepartment_id = course_id
+                
+                question.question_type = 'radio'
+                question.chapter = 1 #row[1].value #request.POST['chapter']
+                question.question_name = row[0].value
+                question.question_level = 'cb' # row[3].value
+                correct_answer = row[1].value
+               
+
+                question.save()
+                question_old = question
+                
+            else:
+                #question = Question.objects.filter(id = question_id).first()
+                choice = Choice()
+                choice.question_id = question_old.id
+                choice.choice_name = row[0].value
+                choice.save()
+                if  correct_answer== "A":
+                    question_old.correct_answer = row[0].value
+                    
+                    question_old.save()
+                elif  correct_answer== "B":
+                    question_old.correct_answer = row[0].value
+                    question_old.save()
+                elif  correct_answer== "C":
+                    question_old.correct_answer = row[0].value
+                    question_old.save()
+                elif  correct_answer== "D":
+                    question_old.correct_answer = row[0].value
+                    question_old.save()
             i = i +1
 
     return redirect('question:list_question', course_id=course_id)

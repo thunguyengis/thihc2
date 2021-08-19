@@ -53,24 +53,26 @@ def importStudent(request):
     if "POST" == request.method:
         
         excel_file = request.FILES["excel_file"]
-
+        
         # you may put validations here to check extension or file size
 
         wb = openpyxl.load_workbook(excel_file)
-
+       
         # getting a particular sheet by name out of many sheets
         worksheet = wb["Sheet1"]
-        #print(worksheet)
-
+        print(worksheet)
+       
         excel_data = list()
         # iterating over the rows and
         # getting value from each cell in row
         i = 0
         for row in worksheet.iter_rows():
+            
             row_data = list()
             if i!=0:
                
                 myclass = Class.objects.filter(class_name = str(row[0].value)).first()
+               
                 if myclass:
                     try:
                         user  =  User()

@@ -15,7 +15,7 @@ urlpatterns = [
    path('<int:course_id>/', views.add_question, name='add_question'),
    path('<int:course_id>/list_question/', views.list_question, name='list_question'),
    path('<int:question_id>/edit_question/', views.edit_question, name='edit_question'),
-   path('<int:course_id>/import_question/', views.import_question, name='import_question'),
+   path('<int:course_id>/import_question_old/', views.import_question_old, name='import_question'),
    #path('teacher/', views.teacher, name='teacher'),
 
    #path('<int:question_id>/vote/', views.vote, name='vote'),
