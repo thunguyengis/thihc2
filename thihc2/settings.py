@@ -165,7 +165,7 @@ CKEDITOR_CONFIGS = {
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
 #CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
-CKEDITOR_BASEPATH = "/staticfiles/ckeditor/ckeditor/"
+CKEDITOR_BASEPATH = "/staticfiles/ckeditor/"
 CKEDITOR_BROWSE_SHOW_DIRS ="True"
 #CKEDITOR_IMAGE_BACKEND ="True"
 #AWS_QUERYSTRING_AUTH = "True"
