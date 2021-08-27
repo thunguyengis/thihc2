@@ -31,6 +31,9 @@ class Exam(models.Model):
     order = models.IntegerField(default=0)
     def __str__(self):
         return self.courseOfSection.coursOfDepartment.course_name
+
+    def getClass(self):
+        return  self.courseOfSection.section.myclass.id
 class Room(models.Model):
     room_name = models.CharField(verbose_name="Cơ quan", max_length=200, null=True)
     room_number_test = models.IntegerField(default=0)

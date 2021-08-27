@@ -9,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Exam, Room, GradeOfExam
 from .forms import ExamForm, RoomForm
 #
-#from question.models import Answer, Question, QuestionOfExam
+from question.models import Answer, Question, QuestionOfExam
 #
-from configurations.models import Configurations, Course, Class, CourseOfSection, GradeOfVN, Section
+from configurations.models import Configurations, Course, Class, CourseOfSection, GradeOfVN, Section, Student
 # để phân trang
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # generate CSV. 
@@ -22,14 +22,10 @@ import io
 from django.http import FileResponse
 import time
 
-
-
-
 # generate pdf Using WeasyPrint
 from django.core.files.storage import FileSystemStorage
 #from django.http import HttpResponse
 from django.template.loader import render_to_string
-
 from weasyprint import HTML
 
 #
@@ -170,9 +166,9 @@ def create(request):
     config = Configurations.objects.filter(id = 1).first()
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
     if request.method == 'POST':
-        form = ExamForm(request.POST) 
+        #form = ExamForm(request.POST) 
         # check whether it's valid:
-        #form.myclass_id = request.POST['myclass']
+        #myclass_id = request.POST['myclass']
         
         exam = Exam()
         if 'exam_name' in request.POST:
@@ -183,10 +179,11 @@ def create(request):
             exam.exam_code = request.POST['exam_code']
         if 'courseOfSection' in request.POST:
             exam.courseOfSection_id = request.POST['courseOfSection']
-        if 'myclass' in request.POST:
-            exam.myclass_id = request.POST['myclass']
+        if 'myClass' in request.POST:
+            exam.myclass_id = request.POST['myClass']
+            
         if 'active' in request.POST:
-            exam.active = request.POST['active']
+            exam.active = True
         if 'notice_published' in request.POST:
             exam.notice_published = request.POST['notice_published']
         if 'result_published' in request.POST:
@@ -199,14 +196,17 @@ def create(request):
             exam.term = request.POST['term']
             # exam.exam_name = form.cleaned_data['exam_name']term
         #exam.save()
-     
+        
         try:
             exam.save()
-            gradeOfVNs = GradeOfVN.objects.filter(courseOfSection_id = exam.courseOfSection_id )
-            #students =  Student.objects.filter(myclass_id = myclass.id)
-            for grade in gradeOfVNs :
-                addGradeOfExam(exam.id, grade.teacher_id, grade.student_id, request.user.id )
-            #return render(request, 'exam/index.html',{'group':group , 'config':config, })
+            #gradeOfVNs = GradeOfVN.objects.filter(courseOfSection_id = exam.courseOfSection_id )
+            students =  Student.objects.filter(myclass_id = exam.myclass_id)
+            #return HttpResponse(students)
+            #for grade in gradeOfVNs :
+                #addGradeOfExam(exam.id, grade.teacher_id, grade.student_id, request.user.id )
+            for student in students :
+                addGradeOfExam(exam.id, 1, student.id, request.user.id )
+            #return render(request,S 'exam/index.html',{'group':group , 'config':config, })
             return redirect('/exam')
         except:
             #response = HttpResponse('<script>alert(\'You must remove an item before adding another\');</script>')
@@ -217,7 +217,7 @@ def create(request):
             # return HttpResponse(resp_body)
             #return render(request, 'exam/index.html',{'group':group , 'config':config, })
             messages.error(request, "Thêm bài kiểm tra không thành công!!!")
-            return render(request, 'exam/create.html', {'form': form,  'config': config})
+            return render(request, 'exam/create.html', {  'config': config})
 
      
     # if a GET (or any other method) we'll create a blank form

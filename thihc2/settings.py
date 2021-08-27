@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 2 apps
     #'home.apps.HomeConfig',
+    'quiz',
     'configurations.apps.ConfigurationsConfig',
     'exam.apps.ExamConfig',
     'attendance.apps.AttendanceConfig',
@@ -151,10 +152,10 @@ CẤU HÌNH TRANG WEB
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 #Default: '/accounts/login/'
-LOGIN_URL="/login"
+LOGIN_URL="/home/login"
 LOGOUT_URL="/logout"
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+#LOGIN_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
 
 #CKEDITOR_CONFIGS
 CKEDITOR_CONFIGS = {
