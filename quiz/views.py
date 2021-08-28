@@ -1,4 +1,6 @@
 
+from math import e
+from django.db.models.enums import Choices
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -8,16 +10,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from configurations.models import Configurations, Student, Teacher, Class
-from question.models import QuestionOfExam
-
+from question.models import QuestionOfExam, Choice
 from exam.views import Exam_type
-from exam.models import Exam
+from exam.models import Exam, GradeOfExam
+from .models import QuestionOfStudent, ChoiceOfStudent
+
 from datetime import datetime, date, timedelta
 
 # thông báo lỗi
 from django.contrib import messages 
+import random
 
 
+def checkIndex(a_list, value):
+    try:
+        return a_list.index(value)
+    except ValueError:
+        return None
 def index(request):
      #lưu dữ liệu 
     if request.method == 'POST':
@@ -35,15 +44,52 @@ def index(request):
                 messages.error(request, "Mã Học viên hoặc Mã Bài thi không tồn tại")
             else:
                 #return HttpResponse(exam.getClass())
+                # kiểm tra mã hv và mã bài thi 
                 if student.myclass.id == exam.getClass():
-                    questionOfExam = QuestionOfExam.objects.filter( exam_id = exam.id ).get()
-                    return HttpResponse(questionOfExam)
+                    gradeOfExam = GradeOfExam.objects.filter( exam_id = exam.id ).first()
+                    if gradeOfExam.doing_exam == False:
+                        gradeOfExam.doing_exam = True
+                        gradeOfExam.save()
+                        questionOfStudent = QuestionOfStudent.objects.filter( exam_id = exam.id ).first()
+                        if questionOfStudent == None:
+                            questionOfExams = QuestionOfExam.objects.filter( exam_id = exam.id )
+                            count = questionOfExams.count() -1
+                            randomlist = []
+                            
+                            i = 0
+                            while i < count:
+                                
+                                n = random.randint(0,count)
+                                if checkIndex(randomlist,n) == None:
+                                    i = i + 1
+                                    randomlist.append(n)
+                                    questionOfStudent = QuestionOfStudent()
+                                    question =  questionOfExams[n].question
+                                    questionOfStudent.exam = exam
+                                    questionOfStudent.question = question
+                                    questionOfStudent.student = student
+                                    questionOfStudent.user = user
+                                    questionOfStudent.save()
+                                    
+                                    choices = Choice.objects.filter( question_id = question.id )
+                                
+                                    countchoices = choices.count() -1
+                                
+                                    j = 0
+                                    randomchoicelist = []
+                                    while j < countchoices:
+                                        m = random.randint(0,countchoices)
+                                        if checkIndex(randomchoicelist,m) == None:
+                                            j = j + 1
+                                            randomchoicelist.append(m)
+                                            choiceOfStudent = ChoiceOfStudent()
+                                            choiceOfStudent.questionOfStudent = questionOfStudent
+                                            choiceOfStudent.choice = choices[m].choice_name
+                                            choiceOfStudent.save()
+                        else:
+                            
 
-                
-       
-        
-       
-
+                return HttpResponse("tạo đề thành công")
     ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
 
 
