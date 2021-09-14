@@ -53,6 +53,7 @@ class GradeOfExam(models.Model):
     #student_name = models.CharField(max_length=200, null=True)
     created_at = models.DateTimeField(default = timezone.now, editable=False)
     updated_at  = models.DateTimeField(default = timezone.now, editable=False)
-    doing_exam = models.BooleanField(default = False)
-    starting_time = models.DateTimeField(null=True, editable=False)
-    time_remaining = models.CharField(max_length=50, null=True)
+    doing_exam = models.BooleanField(default = False) # thí sinh đã làm bài hay chưa làm bài
+    starting_time = models.DateTimeField(null=True, editable=False) #thơi gian bắt đầy làm bài
+    #ip_student = models.CharField(max_length=50, null=True) # ip máy tính làm bài
+    time_remaining = models.CharField(max_length=50, null=True) # thời gian làm bài

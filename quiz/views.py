@@ -2,7 +2,7 @@
 from math import e
 from django.db.models.enums import Choices
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.http import HttpResponseRedirect 
 
@@ -30,7 +30,7 @@ def checkIndex(a_list, value):
 def index(request):
      #lưu dữ liệu 
     if request.method == 'POST':
-        #return HttpResponse("exam")
+        
         username = request.POST['username']
         user = User.objects.filter(username = username).first()
         if user == None :
@@ -40,17 +40,25 @@ def index(request):
             
             exam_code = request.POST['exam_code']
             exam = Exam.objects.filter(exam_code = exam_code).first()
+            
             if exam == None :
                 messages.error(request, "Mã Học viên hoặc Mã Bài thi không tồn tại")
             else:
-                #return HttpResponse(exam.getClass())
+                #return HttpResponse(student.myclass.id)
                 # kiểm tra mã hv và mã bài thi 
                 if student.myclass.id == exam.getClass():
+                   
+                    request.session['check'] = True
+                    request.session['username'] = username
+                    request.session['exam_code'] = exam_code
                     gradeOfExam = GradeOfExam.objects.filter( exam_id = exam.id ).first()
+                    
                     if gradeOfExam.doing_exam == False:
+                        # doing exam
                         gradeOfExam.doing_exam = True
                         gradeOfExam.save()
                         questionOfStudent = QuestionOfStudent.objects.filter( exam_id = exam.id ).first()
+                        #kiểm tra đã tạo câu hỏi chưa
                         if questionOfStudent == None:
                             questionOfExams = QuestionOfExam.objects.filter( exam_id = exam.id )
                             count = questionOfExams.count() -1
@@ -86,10 +94,16 @@ def index(request):
                                             choiceOfStudent.questionOfStudent = questionOfStudent
                                             choiceOfStudent.choice = choices[m].choice_name
                                             choiceOfStudent.save()
+                            return redirect('question:quiz', q=1)
                         else:
                             
+                            return redirect('quiz:quiz', q=1)
+                    else:
+                        # doing exam   
+                            return redirect('quiz:quiz')
 
-                return HttpResponse("tạo đề thành công")
+
+                #return HttpResponse("tạo đề thành công")
     ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
 
 
@@ -127,3 +141,7 @@ def index(request):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
+def quiz(request, q=1):
+    if request.session.get('check', True):
+        #return HttpResponse("request.user.groups")
+        return render(request, 'quiz/quiz.html',{ })

@@ -82,7 +82,7 @@ def index(request):
         exam.save() 
       
         gradeOfExams = GradeOfExam.objects.filter(exam_id = id)
-        #return HttpResponse(gradeOfExams)
+        #return HttpResponse(gradeOfExams.count())
         
         key = 0
         for room in rooms:
@@ -95,10 +95,11 @@ def index(request):
                 #return HttpResponse(totalRoom)
                
                 for i in range(totalRoom):
-                    key = key + i
-                    gradeOfExam = gradeOfExams[i]
+                   
+                    gradeOfExam = gradeOfExams[key]
                     gradeOfExam.room_id = room.id
                     gradeOfExam.save()
+                    key = key + 1
   
     # Phần exams
     page = request.GET.get('page', 1)
@@ -380,8 +381,7 @@ def detail_room(request, exam_id):
                 att['gradeOfExams'] = gradeOfExams
                 List_Student_Room.append(att)
 
-               
-               
+             
            
     html_string = render_to_string('pdf_template.html', {'paragraphs': paragraphs,
                                                             'department':'KHOA KHCB',
@@ -389,7 +389,8 @@ def detail_room(request, exam_id):
                                                             'class': 'Y49A',
                                                             'List_Student_Room':List_Student_Room,
                                                             })
-    html = HTML(string=html_string)     
+    
+    html = HTML(string=html_string)
     html.write_pdf(target='media/mypdf.pdf')   
 
     fs = FileSystemStorage()

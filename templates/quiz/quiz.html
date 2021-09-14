@@ -1,0 +1,210 @@
+{% load static %}
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React Quiz Application</title>
+<link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.min.css' %}" >
+  <style type="text/css">
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+</style>
+
+ <style type="text/css">
+ .btn {
+    border-radius: 0;
+}
+
+.btn + .btn {
+    margin-left: 10px;
+}
+
+.option {
+    background-color: #cadaee;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 4px;
+}
+
+.option label {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+}
+
+#quiz .options input[type=checkbox] {
+    height: 22px;
+    margin-right: 6px;
+    width: 22px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.result-question {
+    background-color: #eee;
+    margin: 4px;
+    padding: 6px;
+}
+
+/* Create Quiz Styles */
+.create-quiz .question {
+    text-align: left;
+}
+
+.create-quiz input[type=text] {
+    border: 1px solid #ddd;
+    width: 95%;
+}
+
+.create-quiz .tb-quiz-name {
+    background-color: #ccffcc;
+    text-align: center;
+}
+
+.create-quiz .tb-desc {
+    background-color: #fff;
+}
+
+.create-quiz .options > div {
+    margin-left: 20px;
+}
+
+.create-quiz .options input[type=checkbox] {
+    border: 1px solid #262626;
+    display: inline-block;
+    height: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding: 0;
+    width: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+    h1, .h1 {
+        font-size: 22px;
+    }
+
+    h2, .h2 {
+        font-size: 20px;
+    }
+
+    h3, .h3 {
+        font-size: 18px;
+    }
+
+    .option {
+        font-size: 16px;
+        padding: 6px;
+    }
+}
+</style></head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root">
+        <div class="container">
+            <header class="p-2">
+                <div class="row">
+                    <div class="col-6">
+                        <h3>Quiz Application</h3>
+                    </div>
+                    <div class="col-6 text-right">
+                        <label class="mr-1">Select Quiz:</label>
+                        <select>
+                            <option value="data/javascript.json">Javascript</option>
+                            <option value="data/aspnet.json">Asp.Net</option>
+                            <option value="data/csharp.json">C Sharp</option>
+                            <option value="data/designPatterns.json">Design Patterns</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+            <div>
+                <div id="quiz">
+                    <h2 class="text-center font-weight-normal">Javascript Quiz</h2>
+                    <hr>
+                    <div>
+                        <div class="badge badge-info">Question 1 of 10.</div>
+                        <h3 class="font-weight-normal">1. <span>Inside which HTML element do we put the JavaScript?</span></h3>
+                        <div class="row text-left options">
+                            <div class="col-6">
+                                <div class="option">
+                                    <label class="font-weight-normal" for="1055">
+                                        <input id="1055" type="checkbox">javascript
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="option">
+                                    <label class="font-weight-normal" for="1056">
+                                        <input id="1056" type="checkbox">scripting
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="option">
+                                    <label class="font-weight-normal" for="1057">
+                                        <input id="1057" type="checkbox">script
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="option">
+                                    <label class="font-weight-normal" for="1058">
+                                        <input id="1058" type="checkbox">js
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <button id="first" class="btn btn-default">First</button>
+                        <button id="prev" class="btn btn-default">Prev</button>
+                        <button id="next" class="btn btn-primary">Next</button>
+                        <button id="last" class="btn btn-default">Last</button>
+                    </div>
+                </div>
+                <div>
+                <hr>
+                <button id="quiz" class="btn btn-info">Quiz</button>
+                <button id="review" class="btn btn-info">Review</button>
+                <button id="submit" class="btn btn-primary">Submit Quiz</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  <script type="text/javascript" src="/static/js/bundle.js"></script>
+
+</body></html>
