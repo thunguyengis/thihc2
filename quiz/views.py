@@ -20,6 +20,8 @@ from datetime import datetime, date, timedelta
 # thông báo lỗi
 from django.contrib import messages 
 import random
+#Paginator
+from django.core.paginator import Paginator
 
 
 def checkIndex(a_list, value):
@@ -32,6 +34,7 @@ def index(request):
     if request.method == 'POST':
         
         username = request.POST['username']
+        
         user = User.objects.filter(username = username).first()
         if user == None :
             messages.error(request, "Mã Học viên hoặc Mã Bài thi không tồn tại")
@@ -51,13 +54,15 @@ def index(request):
                     request.session['check'] = True
                     request.session['username'] = username
                     request.session['exam_code'] = exam_code
-                    gradeOfExam = GradeOfExam.objects.filter( exam_id = exam.id ).first()
-                    
+                    gradeOfExam = GradeOfExam.objects.filter( exam_id = exam.id, student_id = student.id ).first()
+                    #return HttpResponse( gradeOfExam.doing_exam)
                     if gradeOfExam.doing_exam == False:
+                        
                         # doing exam
                         gradeOfExam.doing_exam = True
                         gradeOfExam.save()
-                        questionOfStudent = QuestionOfStudent.objects.filter( exam_id = exam.id ).first()
+                        questionOfStudent = QuestionOfStudent.objects.filter( exam_id = exam.id, student_id = student.id  ).first()
+                        #return HttpResponse( questionOfStudent)
                         #kiểm tra đã tạo câu hỏi chưa
                         if questionOfStudent == None:
                             questionOfExams = QuestionOfExam.objects.filter( exam_id = exam.id )
@@ -94,10 +99,10 @@ def index(request):
                                             choiceOfStudent.questionOfStudent = questionOfStudent
                                             choiceOfStudent.choice = choices[m].choice_name
                                             choiceOfStudent.save()
-                            return redirect('question:quiz', q=1)
+                            return redirect('quiz:quiz')
                         else:
                             
-                            return redirect('quiz:quiz', q=1)
+                            return redirect('quiz:quiz')
                     else:
                         # doing exam   
                             return redirect('quiz:quiz')
@@ -141,7 +146,12 @@ def index(request):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
-def quiz(request, q=1):
+def quiz(request):
     if request.session.get('check', True):
         #return HttpResponse("request.user.groups")
-        return render(request, 'quiz/quiz.html',{ })
+        question_list = QuestionOfStudent.objects.all()
+        paginator = Paginator(question_list, 1) # Show 25 contacts per page.
+        #ChoiceOfStudent
+        page_number = request.GET.get('q')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'quiz/quiz.html', {'page_obj': page_obj})

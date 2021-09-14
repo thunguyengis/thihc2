@@ -184,6 +184,19 @@
                         <button id="prev" class="btn btn-default">Prev</button>
                         <button id="next" class="btn btn-primary">Next</button>
                         <button id="last" class="btn btn-default">Last</button>
+                        {% if page_obj.has_previous %}
+                            <a href="?q=1">&laquo; first</a>
+                            <a href="?q={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?q={{ page_obj.next_page_number }}">next</a>
+                            <a href="?q={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div>
