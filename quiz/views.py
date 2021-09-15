@@ -54,6 +54,7 @@ def index(request):
                     request.session['check'] = True
                     request.session['username'] = username
                     request.session['exam_code'] = exam_code
+                    request.session['student_id'] = student.id 
                     gradeOfExam = GradeOfExam.objects.filter( exam_id = exam.id, student_id = student.id ).first()
                     #return HttpResponse( gradeOfExam.doing_exam)
                     if gradeOfExam.doing_exam == False:
@@ -80,6 +81,7 @@ def index(request):
                                     question =  questionOfExams[n].question
                                     questionOfStudent.exam = exam
                                     questionOfStudent.question = question
+                                    questionOfStudent.question_content = question.question_content
                                     questionOfStudent.student = student
                                     questionOfStudent.user = user
                                     questionOfStudent.save()
@@ -149,7 +151,12 @@ def index(request):
 def quiz(request):
     if request.session.get('check', True):
         #return HttpResponse("request.user.groups")
-        question_list = QuestionOfStudent.objects.all()
+        #question_list = QuestionOfStudent.objects.all()
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        question_list = QuestionOfStudent.objects.filter( exam_id = exam.id,
+                                                            student_id = student_id)
         paginator = Paginator(question_list, 1) # Show 25 contacts per page.
         #ChoiceOfStudent
         page_number = request.GET.get('q')

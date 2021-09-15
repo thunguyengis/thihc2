@@ -511,16 +511,27 @@ def setting_question(request, exam_id):
     for i in range(11):
         j= i + 1
         questioncb = Question.objects.filter(coursOfDepartment_id = course_id, chapter = j, question_level = 'cb').count()
-        questioncbsetting = QuestionOfExam.objects.filter( exam_id = exam.id).count()
+       
         questionnc = Question.objects.filter(coursOfDepartment_id = course_id, chapter = j, question_level = 'nc').count()
-        questionncsetting = QuestionOfExam.objects.filter( exam_id = exam.id).count()
+        
             #exam = Exam.objects.filter(id = exam_id).first()
             #return HttpResponse(questioncb)
         att = dict()
+        
+        
         if questioncb :
             att['questioncb'] = questioncb
+            # lọc bằng cách join 2 bảng
+            questioncbsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'cb').count()
+            
+            if questioncbsetting :
+                att['questioncbsetting'] = questioncbsetting
         if questionnc :
             att['questionnc'] = questionnc
+            questionncsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'nc').count()
+            
+            if questionncsetting :
+                att['questionncsetting'] = questionncsetting
         if att :
             att['chapter'] = j
             List_Chater_Question.append(att)

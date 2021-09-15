@@ -40,13 +40,13 @@
               <td class="center" scope="row" rowspan="2">{{ question.chapter }}</td>
               <td scope="row">Cơ Bản</td>
               <td scope="row">{{ question.questioncb }}</td>
-              <td><input type="number"   name="cb{{ forloop.counter }}" value="0" min="0" max="{{ question.questioncb }}"></td>
+              <td><input type="number"   name="cb{{ forloop.counter }}" value="{{ question.questioncbsetting }}" min="0" max="{{ question.questioncb }}"></td>
 
           </tr>
           <tr>
             <td scope="row">Nâng Cao</td>
             <td scope="row">{{ question.questionnc }}</td>
-            <td><input type="number"   name="nc{{ forloop.counter }}" value="0" min="0" max="{{ question.questionnc }}"></td>
+            <td><input type="number"   name="nc{{ forloop.counter }}" value="{{ question.questionncsetting }}" min="0" max="{{ question.questionnc }}"></td>
 
                    
           </tr>
