@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from configurations.models import Configurations, Student, Teacher, Class
-from question.models import QuestionOfExam, Choice
+from question.models import QuestionOfExam, Choice, Question
 from exam.views import Exam_type
 from exam.models import Exam, GradeOfExam
 from .models import QuestionOfStudent, ChoiceOfStudent
@@ -22,7 +22,8 @@ from django.contrib import messages
 import random
 #Paginator
 from django.core.paginator import Paginator
-
+#
+import math
 
 def checkIndex(a_list, value):
     try:
@@ -71,7 +72,7 @@ def index(request):
                             randomlist = []
                             
                             i = 0
-                            while i < count:
+                            while i <= count:
                                 
                                 n = random.randint(0,count)
                                 if checkIndex(randomlist,n) == None:
@@ -81,7 +82,9 @@ def index(request):
                                     question =  questionOfExams[n].question
                                     questionOfStudent.exam = exam
                                     questionOfStudent.question = question
-                                    questionOfStudent.question_content = question.question_content
+                                    questionOfStudent.question_content = question.question_name
+                                    questionOfStudent.question_type = question.question_type
+                                    questionOfStudent.correct_answer = question.correct_answer
                                     questionOfStudent.student = student
                                     questionOfStudent.user = user
                                     questionOfStudent.save()
@@ -92,7 +95,7 @@ def index(request):
                                 
                                     j = 0
                                     randomchoicelist = []
-                                    while j < countchoices:
+                                    while j <= countchoices:
                                         m = random.randint(0,countchoices)
                                         if checkIndex(randomchoicelist,m) == None:
                                             j = j + 1
@@ -101,13 +104,13 @@ def index(request):
                                             choiceOfStudent.questionOfStudent = questionOfStudent
                                             choiceOfStudent.choice = choices[m].choice_name
                                             choiceOfStudent.save()
-                            return redirect('quiz:quiz')
+                            return redirect('quiz:check')
                         else:
                             
-                            return redirect('quiz:quiz')
+                            return redirect('quiz:check')
                     else:
                         # doing exam   
-                            return redirect('quiz:quiz')
+                            return redirect('quiz:check')
 
 
                 #return HttpResponse("tạo đề thành công")
@@ -148,17 +151,175 @@ def index(request):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
+def check(request):
+    
+    if request.session.get('check', True):
+      
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        student = Student.objects.filter(id = student_id).first()
+        #return HttpResponse(  icorrect/question_list.count() ) 
+        ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
+
+
+        group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
+                                        # QuerySet to `list`
+    
+        #for g in request.user.groups.all():
+        #    l.append(g.name)
+        request.session['foo'] = 'bar'
+        
+        config = Configurations.objects.filter(id = 1).first()
+
+        ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
+        totalStudents = Student.objects.count()
+        totalTeachers = Teacher.objects.count()
+        totalClasses = Class.objects.count()
+        return render(request, 'quiz/check.html',{
+                                                'group':group ,
+                                                'config':config,
+                                                'totalStudents':totalStudents,
+                                                'totalClasses':totalClasses,
+                                                'totalTeachers':totalTeachers,
+                                                'student':student,
+                                                'exam':exam,
+                                                'Exam_types':Exam_type,
+                                                'messages':messages
+                                             })         
 def quiz(request):
+    #return HttpResponse(request.POST)
+    
+    
     if request.session.get('check', True):
         #return HttpResponse("request.user.groups")
         #question_list = QuestionOfStudent.objects.all()
         exam_code = request.session.get('exam_code')
         exam = Exam.objects.filter(exam_code = exam_code).first()
         student_id = request.session.get('student_id')
-        question_list = QuestionOfStudent.objects.filter( exam_id = exam.id,
-                                                            student_id = student_id)
+        question_list = QuestionOfStudent.objects.filter( exam_id = exam.id,student_id = student_id)
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        time_remaining = int (grade.time_remaining)
+        if 'time_second' in request.POST :
+            second = request.POST['time_second']
+           
+            time_remaining =  time_remaining + int(second)  - time_remaining%60 + 1
+           
+            grade.time_remaining =    time_remaining
+            grade.save()                                 
+        #---------------------------------------------------
+        if 'qcurent' in request.POST :
+            qcurent = request.POST['qcurent']
+                # cập nhật cấu trả lời
+               
+            question_prev = question_list[int(qcurent) -1]
+            if 'answers[]' in request.POST :
+                answers = request.POST.getlist("answers[]")
+                correct_answers = ""
+                for i, item in enumerate(answers):
+                    correct_answers = correct_answers + item
+                question_prev.choice = correct_answers
+                question_prev.save()
+                
+        if 'type' in request.POST and request.POST['type']=='review' :
+            if 'qcurent' in request.POST :
+                    qcurent = request.POST['qcurent']
+                    return HttpResponseRedirect('review/' + str(qcurent ))
+        #---------------------------------------------------                                                    
         paginator = Paginator(question_list, 1) # Show 25 contacts per page.
         #ChoiceOfStudent
-        page_number = request.GET.get('q')
+        page_number=None
+        if 'q' in request.GET :
+            page_number = request.GET.get('q')
+        if 'q' in request.POST :
+            page_number = request.POST['q']
+        #return HttpResponse(page_number)
+        #page_number = request.GET.get('q')
+        #return HttpResponse(page_number)
         page_obj = paginator.get_page(page_number)
-        return render(request, 'quiz/quiz.html', {'page_obj': page_obj})
+        if page_number == None:
+            question = question_list[0]
+            question_choice = question.choice
+            choices = ChoiceOfStudent.objects.filter(questionOfStudent_id = question.id )
+            
+        else:
+            #return HttpResponse(request.POST)
+           
+            
+            question = question_list[int(page_number)-1]
+            question_choice = question.choice
+            choices = ChoiceOfStudent.objects.filter(questionOfStudent_id = question.id )
+       
+
+        minute = time_remaining//60
+        second = time_remaining%60
+        return render(request, 'quiz/quiz.html', {'page_obj': page_obj, 'choices':choices,
+                                                 'question_choice': question_choice,
+                                                 'minute':minute,
+                                                 'second':second,
+                                                 'time_exam': exam.time_exam })
+def review(request, c):
+    if request.session.get('check', True):
+      
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        question_list = QuestionOfStudent.objects.filter( exam_id = exam.id, student_id = student_id)
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        time_remaining = int (grade.time_remaining)
+        minute = time_remaining//60
+        second = time_remaining%60
+
+        return render(request, 'quiz/review.html', {'question_list':question_list,
+                                                    'minute':minute,
+                                                    'second':second})
+def time(request):
+    
+    if request.session.get('check', True):
+      
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        
+        
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        grade.time_remaining = int( grade.time_remaining ) + 60
+        grade.save()
+        return HttpResponse('1')
+def timesecond(request):
+    
+    if request.session.get('check', True):
+      
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        
+        
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        grade.time_remaining = int( grade.time_remaining ) + 1
+        grade.save()
+        return HttpResponse('1')  
+
+def diem(request):
+    
+    if request.session.get('check', True):
+      
+        exam_code = request.session.get('exam_code')
+        exam = Exam.objects.filter(exam_code = exam_code).first()
+        student_id = request.session.get('student_id')
+        question_list =QuestionOfStudent.objects.filter( exam_id = exam.id, student_id = student_id)
+         
+        icorrect=0
+        for item in question_list:
+            q = Question.objects.filter( id = item.question_id).first()
+            #return HttpResponse(q.correct_answer)
+            if q.correct_answer == item.choice:
+                icorrect = icorrect + 1
+        
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        mark = round( icorrect/question_list.count(), 2) 
+        grade.mark = mark
+        grade.save()
+        #return HttpResponse(  icorrect/question_list.count() ) 
+
+        return HttpResponse(mark)                                                     

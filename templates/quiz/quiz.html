@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,93 +128,100 @@
             <header class="p-2">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Quiz Application</h3>
+                        <h3>TRƯỜNG CAO ĐẲNG HẬU CẦN 2</h3>
                     </div>
                     <div class="col-6 text-right">
-                        <label class="mr-1">Select Quiz:</label>
-                        <select>
-                            <option value="data/javascript.json">Javascript</option>
-                            <option value="data/aspnet.json">Asp.Net</option>
-                            <option value="data/csharp.json">C Sharp</option>
-                            <option value="data/designPatterns.json">Design Patterns</option>
-                        </select>
+                        <label class="mr-1">Thời gian <span id="idminute"></span>:<span id="idsecond"></span> </label>
+                        
                     </div>
                 </div>
             </header>
             <div>
-                <div id="quiz">
-                    <h2 class="text-center font-weight-normal">Javascript Quiz</h2>
-                    <hr>
-                    <div>
-                        <div class="badge badge-info">Question  {{ page_obj.number }}   of {{ page_obj.paginator.num_pages }}.</div>
-                        <h3 class="font-weight-normal">{{ page_obj.number }}. 
-                            <span>{{ page_obj }}</span>
-                            {% for question in page_obj %}
-                             
-                                {{ question.full_name|upper }}<br>
-                              
-                            {% endfor %}
-                        </h3>
-                        <div class="row text-left options">
-                            <div class="col-6">
-                                <div class="option">
-                                    <label class="font-weight-normal" for="1055">
-                                        <input id="1055" type="checkbox">javascript
-                                    </label>
-                                </div>
+                
+                    <div id="quiz">
+                        <form method="POST" >
+                            {% csrf_token %}
+                        <h2 class="text-center font-weight-normal">BÊNH HỌC NỘI</h2>
+                        <hr>
+                        <div>
+                            <div class="badge badge-info">
+                                
+                                Question  {{ page_obj.number }}   of {{ page_obj.paginator.num_pages }}.
                             </div>
-                            <div class="col-6">
-                                <div class="option">
-                                    <label class="font-weight-normal" for="1056">
-                                        <input id="1056" type="checkbox">scripting
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="option">
-                                    <label class="font-weight-normal" for="1057">
-                                        <input id="1057" type="checkbox">script
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="option">
-                                    <label class="font-weight-normal" for="1058">
-                                        <input id="1058" type="checkbox">js
-                                    </label>
-                                </div>
+                            <h3 class="font-weight-normal">{{ page_obj.number }}. 
+                                <span>
+                                {% for question in page_obj %}
+                                    
+                                   {{ question.question_content }}<br>
+                                
+                                {% endfor %}
+                                </span>
+                            </h3>
+                            <div class="row text-left options">
+                                
+                                {% for choice in choices %}
+                                
+                                    
+                                    <div class="col-6">
+                                        <div class="option">
+                                            <label class="font-weight-normal" for="1055">
+                                                {% if choice.choice in question_choice  %}
+                                                
+                                                <input name="answers[]" id="c{{forloop.counter}}" checked type="checkbox" value="{{choice.choice}}"><label style="display:contents" for="c{{forloop.counter}}"> {{ choice.choice }}</label><br>
+                                                {% else %}
+                                                <input name="answers[]" id="c{{forloop.counter}}" type="checkbox" value="{{choice.choice}}"><label style="display:contents" for="c{{forloop.counter}}"> {{ choice.choice }}</label><br>
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %}
+
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="text-center">
-                       
-                       
+                        <hr>
+                        <div class="text-center">
                         
-                        {% if page_obj.has_previous %}
-                            <a href="?q=1"> 
-                                <button id="first" class="btn btn-default"> &laquo; First </button>
-                            </a>
-                            <a href="?q={{ page_obj.previous_page_number }}">
-                                <button id="prev" class="btn btn-default"> Prev</button>
-                            </a> 
+                        
                             
-                        {% endif %}
-                        {% if page_obj.has_next %}
-                            <a href="?q={{ page_obj.next_page_number }}">
-                                <button id="next" class="btn btn-primary">  Next </button>
-                            </a> 
-                            <a href="?q={{ page_obj.paginator.num_pages }}"></a>
-                                <button id="last" class="btn btn-default">Last &raquo;</button> 
-                            </a>                        
-                        {% endif %}
+                            {% if page_obj.has_previous %}
+                            <button type="button" onclick='clickChange(q=1)' class="btn btn-primary">
+                                First
+                            </button>
+                            <button type="button" onclick='clickChange(q={{ page_obj.previous_page_number }},c={{ page_obj.number }})' class="btn btn-primary">
+                                Prev
+                            </button>                                
+                        
+                            {% endif %}
+                            {% if page_obj.has_next %}
+                                   
+                                
+                                <button type="button" onclick='clickChange(q={{ page_obj.next_page_number }},c={{ page_obj.number }})' class="btn btn-primary">
+                                    Next
+                                </button>
+                                <button type="button" onclick='clickChange(q={{ page_obj.paginator.num_pages }},c={{ page_obj.number }})' class="btn btn-primary">
+                                    Last &raquo; 
+                                </button>                                
+                                                        
+                                                               
+                            {% endif %}
+                        </div>
+                        <input type="hidden" id="time_exam" value=" {{ time_exam }}"/>
+                        <input type="hidden" id="time_minute" name="time_minute" value=" {{ minute }}"/> 
+                        <input type="hidden" id="time_second" name="time_second" value=" {{ second }}"/>            
+                        <input type="hidden" id="qcurent" name="qcurent" value="{{ page_obj.number }}"/> 
+                        <input type="hidden" id="idquestion" name="q" value="0"/> 
+                        <input type="hidden" id="idType" name="type" value="quiz"/> 
+                        <button type="submit" id="idSubmitQuestion" class="hidden">Submit Quiz</button>
+                    </form>
                     </div>
-                </div>
-                <div>
-                <hr>
-                <button id="quiz" class="btn btn-info">Quiz</button>
-                <button id="review" class="btn btn-info">Review</button>
-                <button id="submit" class="btn btn-primary">Submit Quiz</button>
+                    <div>
+                    <hr>
+                    
+                    <button onclick="clickReview()" class="btn btn-primary">Review</button>
+                    <button id="submit" class="btn btn-primary">Submit Quiz</button>
+                    <a id="idsubmitpoint" href="{% url 'quiz:point' %}">Submit Quiz</a>
+               
             </div>
         </div>
     </div>
@@ -229,5 +237,57 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   <script type="text/javascript" src="/static/js/bundle.js"></script>
-
+<script>
+    function clickChange(q=1,c=2){
+        
+       document.getElementById('idquestion').value  = q;
+       document.getElementById('idSubmitQuestion').click() ;
+       
+    }
+    function clickReview(){
+        
+        document.getElementById('idType').value  = 'review';
+        document.getElementById('idSubmitQuestion').click() ;
+        
+     }
+     
+    var myminute = parseInt(document.getElementById('time_minute').value );
+    var mysecond = parseInt(document.getElementById('time_second').value );
+    var time_exam = parseInt(document.getElementById('time_exam').value );
+    myFunction()
+    function myFunction() {
+        document.getElementById('idminute').innerHTML  = myminute;
+        document.getElementById('idsecond').innerHTML  = mysecond;
+        setInterval(funcsecond, 1000);
+        setInterval(funcminute, 60000);
+    }
+    function funcminute() {
+        mysecond=0;
+        document.getElementById('idsecond').innerHTML  = 0;
+        myminute= myminute + 1;
+       
+        if( myminute == 2)
+            document.getElementById('idsubmitpoint').click() ;
+        
+        //alert(myVar)
+        
+        document.getElementById('idminute').innerHTML  = myminute;
+        document.getElementById('time_minute').value =  myminute;
+        loadDoc();
+    
+    }
+    function funcsecond() {
+        mysecond= mysecond + 1;
+        //alert(myVar)
+        document.getElementById('time_second').value =  mysecond;
+        document.getElementById('idsecond').innerHTML  = mysecond;
+        
+    }
+    function loadDoc() {
+        
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "{% url 'quiz:time' %}" );
+        xhttp.send();
+    }
+</script>
 </body></html>

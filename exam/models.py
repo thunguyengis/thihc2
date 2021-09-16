@@ -34,6 +34,8 @@ class Exam(models.Model):
 
     def getClass(self):
         return  self.courseOfSection.section.myclass.id
+    def getClassName(self):
+        return  self.courseOfSection.section.myclass
 class Room(models.Model):
     room_name = models.CharField(verbose_name="Cơ quan", max_length=200, null=True)
     room_number_test = models.IntegerField(default=0)

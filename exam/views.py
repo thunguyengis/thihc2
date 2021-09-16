@@ -470,6 +470,7 @@ def setting_question(request, exam_id):
         if chapters:
             QuestionOfExam.objects.filter(exam_id = exam_id).delete()
             for i, chapter in enumerate(chapters):
+                
                 j = i + 1
                 if 'cb' + str(j) in request.POST:
                     intcb = int ( request.POST["cb" + str(j) ] )
@@ -479,7 +480,7 @@ def setting_question(request, exam_id):
                         pk = random.randint(0, question.count() -1 )
                         
                         while QuestionOfExam.objects.filter(exam_id = exam.id, question_id = question[pk].id).count() != 0 :
-                            pk = random.randint(0, question.count()-1 )
+                            pk = random.randint(0, question.count() -1 )
                             #print (pk)
                         qExam = QuestionOfExam()
                         qExam.question_id = question[pk].id

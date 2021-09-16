@@ -11,6 +11,8 @@ class QuestionOfStudent(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     question_content = models.TextField( null=True)
+    question_type = models.CharField(max_length=200, null=True)
+    correct_answer = models.TextField(default="-", null=True)
     choice = models.TextField( null=True)
     choice_index = models.TextField( null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
