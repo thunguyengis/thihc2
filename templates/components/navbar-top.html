@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 {% if not user.is_authenticated %}
-                    <li><a href="{% url 'login' %}" style="color: #000;">  {% trans "Login" %} </a></li>
+                    <li><a href="{% url 'home:login' %}" style="color: #000;">  {% trans "Login" %} </a></li>
                 {% else %}
 
                 {% if  group == 'student' %}

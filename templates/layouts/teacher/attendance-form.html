@@ -28,7 +28,7 @@
         <th scope="col">{% trans "Total Attended" %} </th>
         <th scope="col">{% trans "Total Missed" %} </th>
         <th scope="col">{% trans "Total Escaped" %} </th>
-        <th scope="col">{% trans "Adjust Missed Attendance" %} </th>
+        <th scope="col" class="hidden">{% trans "Adjust Missed Attendance" %} </th>
       </tr>
     </thead>
     <tbody>
@@ -56,7 +56,7 @@
               {% else %}
                 <span class="label label-danger attdState">{% trans "Absent" %}</span>
               {% endif %}
-              <a href="{url('user/'.$attendance->student->student_code)}}">{{ attendance.student.student_name}}</a>
+              <a href="">{{ attendance.student.student_name}}</a>
             </td>
             <td>
               <input type="hidden" name="attendances[]" value="{{attendance.id}}">
@@ -86,7 +86,7 @@
               <td>0</td>
               <td>0</td>
               {% endif %}
-            <td><a href="{url('attendance/adjust/'.$attendance->student->id)}}" role="button" class="btn btn-danger btn-sm">@lang('Adjust Missing Attendances')</a></td>
+            <td><a href="" role="button" class="btn btn-danger btn-sm hidden">{% trans "Adjust Missed Attendance" %})</a></td>
           </tr>
         {% endfor %}
        
@@ -123,7 +123,7 @@
               <td>0</td>
               <td>0</td>
           {% endif %}
-          <td ><a href="" role="button" class="btn btn-danger btn-sm">{% trans "Adjust Missing Attendances" %} </a></td>
+          <td ><a href="" role="button" class="btn btn-danger btn-sm hidden">{% trans "Adjust Missing Attendances" %} </a></td>
         </tr>
         {% endfor %}
         {% endif %}

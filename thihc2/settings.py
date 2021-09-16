@@ -65,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # <-- here
 ]
 
 ROOT_URLCONF = 'thihc2.urls'
@@ -154,8 +155,8 @@ MEDIA_URL = '/media/'
 #Default: '/accounts/login/'
 LOGIN_URL="/home/login"
 LOGOUT_URL="/home/logout"
-#LOGIN_REDIRECT_URL = '/'
-#LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/home'
 
 #CKEDITOR_CONFIGS
 CKEDITOR_CONFIGS = {
