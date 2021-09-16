@@ -49,7 +49,7 @@ class GradeOfExam(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     #teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    mark = models.FloatField(default=0, null=True)
+    mark = models.FloatField(default=-1, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     #exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     #student_name = models.CharField(max_length=200, null=True)
@@ -58,4 +58,4 @@ class GradeOfExam(models.Model):
     doing_exam = models.BooleanField(default = False) # thí sinh đã làm bài hay chưa làm bài
     starting_time = models.DateTimeField(null=True, editable=False) #thơi gian bắt đầy làm bài
     #ip_student = models.CharField(max_length=50, null=True) # ip máy tính làm bài
-    time_remaining = models.CharField(max_length=50, null=True) # thời gian làm bài
+    time_remaining = models.CharField(default='0',max_length=50, null=True) # thời gian làm bài

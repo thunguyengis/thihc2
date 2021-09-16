@@ -18,7 +18,7 @@
                 {% if  config %}
                     {{config.name}}
                 {% else %}
-                {% trans "NameShoole" %}
+                {% trans "NameSchool" %}
                  {% endif %}
             </a>
         </div>
@@ -98,7 +98,7 @@
                         -->
                        
                         <li>
-                            <a href="{% url 'logout' %}" >
+                            <a href="{% url 'home:logout' %}" >
                                 {% trans "Logout" %} 
                             </a>
 

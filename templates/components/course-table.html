@@ -41,12 +41,12 @@
       {% if user.groups.all.0.name == 'student' %}
         <td>{{ course.section}}</td>
         <td>
-          <a href="{url('user/'.$course->teacher->student_code)}}">{course->teacher->name}}</a>
+         
         </td>
       {% endif %}
 
       {% if user.groups.all.0.name != 'student' %}
-        <td>{{ course.teacher.user.last_name}}  {{ course.teacher.user.first_name }}</td>
+        <td>{{ course.teacher.user.last_name}}  </td>
       
 
       

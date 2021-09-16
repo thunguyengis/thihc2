@@ -15,8 +15,8 @@ __('Attendance')
                 {% if user.groups.all.0.name == 'admin' %}
              
                 <ol class="breadcrumb" style="margin-top: 3%;">
-                    <li><a href="{url('school/sections?att=1')}}" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
-                    <li><a href="{url()->previous()}}" style="color:#3b80ef;"> {% trans "List of Students" %} </a></li>
+                    <li><a href="" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
+                    <li><a href="" style="color:#3b80ef;"> {% trans "List of Students" %} </a></li>
                     <li class="active">{% trans "View Attendance" %} </li>
                 </ol>
                 {%endif%}

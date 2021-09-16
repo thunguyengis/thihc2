@@ -13,7 +13,7 @@ urlpatterns = [
    path('review/<int:c>/', views.review, name="review"),
    path('time', views.time, name="time"),
    path('timesecond', views.timesecond, name="timesecond"),
-   path('diem', views.diem, name="point"),
+   path('point/<int:c>/', views.diem, name="point"),
 
    
 ]

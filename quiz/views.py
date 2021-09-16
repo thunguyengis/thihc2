@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from configurations.models import Configurations, Student, Teacher, Class
+from configurations.models import Configurations, GradeOfVN, Student, Teacher, Class
 from question.models import QuestionOfExam, Choice, Question
 from exam.views import Exam_type
 from exam.models import Exam, GradeOfExam
@@ -159,9 +159,11 @@ def check(request):
         exam = Exam.objects.filter(exam_code = exam_code).first()
         student_id = request.session.get('student_id')
         student = Student.objects.filter(id = student_id).first()
+
         #return HttpResponse(  icorrect/question_list.count() ) 
         ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
-
+        grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+        mark = grade.mark
 
         group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                         # QuerySet to `list`
@@ -184,6 +186,7 @@ def check(request):
                                                 'totalTeachers':totalTeachers,
                                                 'student':student,
                                                 'exam':exam,
+                                                'mark':mark,
                                                 'Exam_types':Exam_type,
                                                 'messages':messages
                                              })         
@@ -208,6 +211,7 @@ def quiz(request):
             grade.time_remaining =    time_remaining
             grade.save()                                 
         #---------------------------------------------------
+        #
         if 'qcurent' in request.POST :
             qcurent = request.POST['qcurent']
                 # cập nhật cấu trả lời
@@ -225,6 +229,10 @@ def quiz(request):
             if 'qcurent' in request.POST :
                     qcurent = request.POST['qcurent']
                     return HttpResponseRedirect('review/' + str(qcurent ))
+        if 'type' in request.POST and request.POST['type']=='point' :
+            if 'qcurent' in request.POST :
+                    qcurent = request.POST['qcurent']
+                    return HttpResponseRedirect('point/' + str(qcurent ))
         #---------------------------------------------------                                                    
         paginator = Paginator(question_list, 1) # Show 25 contacts per page.
         #ChoiceOfStudent
@@ -300,7 +308,7 @@ def timesecond(request):
         grade.save()
         return HttpResponse('1')  
 
-def diem(request):
+def diem(request, c):
     
     if request.session.get('check', True):
       
@@ -315,11 +323,42 @@ def diem(request):
             #return HttpResponse(q.correct_answer)
             if q.correct_answer == item.choice:
                 icorrect = icorrect + 1
-        
+        # điểm theo buổi thi
         grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
         mark = round( icorrect/question_list.count(), 2) 
         grade.mark = mark
         grade.save()
-        #return HttpResponse(  icorrect/question_list.count() ) 
+        # cập nhật điểm theo môn học
+        gradeOfVN = GradeOfVN.objects.filter( student_id=student_id, courseOfSection_id = exam.courseOfSection_id ).first()
+        #return HttpResponse( exam.courseOfSection_id)
+        if gradeOfVN !=None:
+            if exam.exam_type2 == 'coefficient_1_1':
+                gradeOfVN.coefficient_1_1 =mark
+                
+            elif exam.exam_type2 == 'coefficient_1_2':
+                gradeOfVN.coefficient_1_2 =mark
+            elif exam.exam_type2 == 'coefficient_2_1':
+                gradeOfVN.coefficient_2_1 =mark
+            elif exam.exam_type2 == 'coefficient_2_2':
+                gradeOfVN.coefficient_2_2 =mark
+            elif exam.exam_type2 == 'end_mark_1_1':
+                gradeOfVN.end_mark_1_1 =mark
+            elif exam.exam_type2 == 'coefficient_v2_1_1': 
+                gradeOfVN.coefficient_v2_1_1 =mark
+            elif exam.exam_type2 == 'coefficient_v2_1_2':
+                gradeOfVN.coefficient_v2_1_2 =mark
+            elif exam.exam_type2 == 'coefficient_v2_2_1':
+                gradeOfVN.coefficient_v2_2_1 =mark
+            elif exam.exam_type2 == 'coefficient_v2_2_2': 
+                gradeOfVN.coefficient_v2_2_2 =mark
+            elif exam.exam_type2 == 'end_mark_v2_1_1':
+                gradeOfVN.end_mark_v2_1_1 =mark
+            elif exam.exam_type2 == 'practical_1_1': 
+                gradeOfVN.practical_1_1 =mark
+            else:
+                gradeOfVN.practical_v2_1_1 =mark
 
-        return HttpResponse(mark)                                                     
+            gradeOfVN.save()
+        
+
+        return redirect('quiz:check')                                                 

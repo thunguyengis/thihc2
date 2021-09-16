@@ -128,7 +128,7 @@
             <header class="p-2">
                 <div class="row">
                     <div class="col-6">
-                        <h3>TRƯỜNG CAO ĐẲNG HẬU CẦN 2</h3>
+                        <h3>{% trans "NameSchool" %}</h3>
                     </div>
                     <div class="col-6 text-right">
                         <label class="mr-1">Thời gian <span id="idminute"></span>:<span id="idsecond"></span> </label>
@@ -218,9 +218,9 @@
                     <div>
                     <hr>
                     
-                    <button onclick="clickReview()" class="btn btn-primary">Review</button>
-                    <button id="submit" class="btn btn-primary">Submit Quiz</button>
-                    <a id="idsubmitpoint" href="{% url 'quiz:point' %}">Submit Quiz</a>
+                    <button onclick="clickAction('review')" class="btn btn-primary">Review</button>
+                    <button id="idsubmitpoint" onclick="clickAction('point')" class="btn btn-primary">Submit Quiz</button>
+                   
                
             </div>
         </div>
@@ -244,9 +244,9 @@
        document.getElementById('idSubmitQuestion').click() ;
        
     }
-    function clickReview(){
+    function clickAction(type){
         
-        document.getElementById('idType').value  = 'review';
+        document.getElementById('idType').value  = type;
         document.getElementById('idSubmitQuestion').click() ;
         
      }
@@ -266,7 +266,7 @@
         document.getElementById('idsecond').innerHTML  = 0;
         myminute= myminute + 1;
        
-        if( myminute == 2)
+        if( myminute >= time_exam)
             document.getElementById('idsubmitpoint').click() ;
         
         //alert(myVar)

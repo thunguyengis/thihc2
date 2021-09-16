@@ -490,20 +490,22 @@ def setting_question(request, exam_id):
                    
                     #item_q = Question.objects.filter(coursOfDepartment_id = course_id, chapter = chapter, question_level = 'cb').get(pk=pk)
                     #if item_q:
-
-                if 'nc' + str(j) in request.POST:
-                    intnc =  int( request.POST["nc" + str(j) ] )
-                    question = Question.objects.filter(coursOfDepartment_id = course_id, chapter = chapter, question_level = 'nc')
-                    for inc in range(intnc):
-                        pk = random.randint(0, question.count() -1 )
-                        while QuestionOfExam.objects.filter(exam_id = exam.id, question_id = question[pk].id).count() != 0 :
-                            pk = random.randint(0, question.count() -1  )
-                            #print (pk)
-                        qExam = QuestionOfExam()
-                        qExam.question_id = question[pk].id
-                        qExam.exam_id = exam.id 
-                        qExam.user_id = request.user.id
-                        qExam.save()
+                strnc = 'nc' + str(j)
+                if strnc in request.POST:
+                    strnc = request.POST[strnc]
+                    if strnc != "":
+                        intnc =  int( strnc )
+                        question = Question.objects.filter(coursOfDepartment_id = course_id, chapter = chapter, question_level = 'nc')
+                        for inc in range(intnc):
+                            pk = random.randint(0, question.count() -1 )
+                            while QuestionOfExam.objects.filter(exam_id = exam.id, question_id = question[pk].id).count() != 0 :
+                                pk = random.randint(0, question.count() -1  )
+                                #print (pk)
+                            qExam = QuestionOfExam()
+                            qExam.question_id = question[pk].id
+                            qExam.exam_id = exam.id 
+                            qExam.user_id = request.user.id
+                            qExam.save()
         
                 
         #return HttpResponse(request.POST)

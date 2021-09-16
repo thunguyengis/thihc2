@@ -243,6 +243,7 @@ def marks(request, course_id):
     classes = Class.objects.all()
     sections = Section.objects.all()
     grades = GradeOfVN.objects.filter(courseOfSection_id = course_id)
+    #return HttpResponse(grades)
     #for g in grades:
     #    return HttpResponse(g.coefficient_2_1 != -1.0)
     return render(request, 'grade/teacher-grade.html',{

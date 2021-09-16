@@ -296,14 +296,14 @@ def addGradeToCourse(course_id, teacher_id, student_id , user_id):
     grade.course_id =  course_id
     grade.teacher_id = teacher_id
     grade.student_id = student_id
-    grade.user_id = 2    
+    grade.user_id = user_id   
     grade.save()
 def addGradeToCourseVN(course_id, teacher_id, student_id , user_id):
     grade = GradeOfVN()
     grade.courseOfSection_id =  course_id
     grade.teacher_id = teacher_id
     grade.student_id = student_id
-    grade.user_id = 2    
+    grade.user_id = user_id   
     grade.save()
 #
 @login_required()

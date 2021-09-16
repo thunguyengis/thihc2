@@ -34,7 +34,7 @@ __('Attendance')
                                     {% if course %}
                                    
                                     <div class="col-md-4">
-                                        <a role="button" class="btn btn-info btn-xs" href="{url('academic/syllabus/'.$class->id)}}"><i class="material-icons">visibility</i> {% trans "View Syllabus for this Class" %} </a>
+                                        <a role="button" class="btn btn-info btn-xs" href=""><i class="material-icons">visibility</i> {% trans "View Syllabus for this Class" %} </a>
                                     </div>
                                     {% endif %}
                                 </div>
@@ -85,7 +85,7 @@ __('Attendance')
                                                                         
                                                                         <tr>
                                                                         <td>
-                                                                            <a href="{url('courses/0/'.$section->id)}}">{{course}}</a>
+                                                                            <a href="">{{course}}</a>
                                                                         </td>
                                                                     
                                                                         <td>
@@ -103,7 +103,7 @@ __('Attendance')
                                                                                     <?php
                                                                                         $ce = 1;
                                                                                     ?>
-                                                                                    <a role="button" class="btn btn-info btn-xs" href="{url('attendances/'.$section->id.'/0/'.$ex->exam_id)}}"><i class="material-icons">spellcheck</i>{% trans "Take Attendance" %}  </a>
+                                                                                    <a role="button" class="btn btn-info btn-xs" href=""><i class="material-icons">spellcheck</i>{% trans "Take Attendance" %}  </a>
                                                                                 {% endif %}
                                                                             {% endfor %}
                                                                             {% if ce == 0 %}
