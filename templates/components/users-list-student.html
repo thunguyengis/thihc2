@@ -8,11 +8,12 @@
       <th scope="col">{% trans "Code" %}</th>
       <th scope="col">{% trans "Full Name" %} </th>
     
-      <th scope="col">{% trans "Address" %} </th>
+      <th scope="col" class="hidden">{% trans "Address" %} </th>
       {% if user.groups.all.0.name == 'admin' %}
-        <th scope="col"> {% trans "Action" %} </th>
+        <th scope="col" class="hidden" > {% trans "Action" %} </th>
+        <th scope="col">{% trans "Grade History" %} </th>
      {%endif%}
-     <th scope="col">{% trans "Grade History" %} </th>
+    
     </tr>
   </thead>
   <tbody>
@@ -25,10 +26,12 @@
       <td><small>{{item}}</small></td>
       <td><small>{{item.getname}}</small></td>
 
-      <td><small>{{item.religion}}</small></td>
+      <td class="hidden"><small>{{item.religion}}</small></td>
       {% if user.groups.all.0.name == 'admin' %}
-      <td>
+      <td class="hidden">
         <a class="btn btn-xs btn-danger" href="{url('edit/user/'.$user->id)}}">{% trans "Edit" %} </a>
+        </td>
+      <td>
         <a class="btn btn-xs btn-success" href="{% url 'grade:history' student_id=item.id %}"> {% trans "View Grade History" %}  </a>
       </td>
     {%endif%}

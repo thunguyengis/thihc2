@@ -1,29 +1,30 @@
+{% load i18n %}
 <div class="question" data-question_id="QUESTION_ID" data-question_number="1">
   
-  <h4>Question <span class="question_number">1</span></h4>
+ 
   <div>
-    <label>Question Chapter:</label>
-    <input type="number" name="chapter" min="1" value="1"/>
+    <label>{% trans "Question Chapter" %}:</label>
+    <input style="width: 300px;" type="number" name="chapter" min="1" value="1"/>
   </div>
   <div>
-    <label>Question type:</label>
-    <select class="question_type" name="question_type">
-      <option value="input" >Open Text</option>
-      <option value="radio" >Select One</option>
-      <option value="checkbox" >Select Many</option>
-      <option value="textarea" >Multi-line open Text</option>
+    <label>{% trans "Question type" %}:</label>
+    <select style="width: 300px;" class="question_type" name="question_type">
+      <option value="input" >{% trans "Open Text" %}</option>
+      <option value="radio" >{% trans "Select One" %}</option>
+      <option value="checkbox" >{% trans "Select Many" %}</option>
+      <option value="textarea" >{% trans "Multi-line open Text" %}</option>
     </select>
   </div>
   <div>
-    <label>Question Level:</label>
-    <select class="question_level" name="question_level">
+    <label>{% trans "Question Level" %}:</label>
+    <select style="width: 300px;" class="question_level" name="question_level">
       <option value="cb" >Cơ Bản</option>
       <option value="nc" >Nâng cao</option>
   
     </select>
   </div>
   <div>
-    <label>Question text:</label>
+    <label>{% trans "Question text" %}:</label>
     <div class="col l12 s12" style="padding-top: 20px">
         <span class="title" style="margin: 0">Nhập Câu Hỏi (Hỗ trợ nhập bằng LaTeX):</span>
         <div class="input-field">
@@ -33,26 +34,18 @@
     </div>
   </div>
   <div class="choices_container" style="display: none">
-    <h4>Choices</h4>
-
-    <div class="col l12 s12" id="div-url">
-      <span class="title" style="margin: 0">Copy đường dẫn phía dưới và chọn icon <img src="res/img/image_btn.png" alt="">, sau đó dán vào ô URL, chỉnh sửa thông tin nếu cần và nhấn Đồng ý.</span><br />
-      <span class="title" style="margin: 0">URL Ảnh:</span>
-      <div class="input-field">
-          <textarea id="url" readonly onclick="this.select()"></textarea>
-      </div>
-  </div>
-  
 
     <div class="choices" data-question_id="QUESTION_ID"></div>
     <div style="margin-top: 15px">
-      <button class="add_choice"  >Add Choice</button>
+      <button  class="add_choice" >{% trans "Add Choice" %}</button>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   CKEDITOR.replace('question_name', {
       extraPlugins: 'mathjax,format,image',
+      filebrowserBrowseUrl: 'http://127.0.0.1:8000/ckeditor/browse/',
+      filebrowserImageUploadUrl: 'http://127.0.0.1:8000/ckeditor/upload/',
       entities : false
   });
 </script>

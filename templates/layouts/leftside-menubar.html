@@ -27,30 +27,35 @@
 {% if user.groups.all.0.name == 'master' %}
 <ul class="nav flex-column">
   <li class="nav-item">
-    <a class="nav-link" href="{url('user/'.Auth::user()->student_code)}}"><i class="material-icons">face</i> <span
+    <a class="nav-link" href=""><i class="material-icons">face</i> <span
         class="nav-link-text">{% trans 'Profile' %} </span></a>
   </li>
 </ul>
 {% endif %}
 <ul class="nav flex-column">
   <li class="nav-item active">
-    <a class="nav-link" href="/"><i class="material-icons">dashboard</i> <span class="nav-link-text">{% trans 'Dashboard' %} </span></a>
+    <a class="nav-link" href="{% url 'home:index' %}"><i class="material-icons">dashboard</i> <span class="nav-link-text">{% trans 'Dashboard' %} </span></a>
   </li>
   {% if user.groups.all.0.name == 'admin' %}
   <li class="nav-item dropdown">
     <a role="button" href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
         class="material-icons">date_range</i> <span class="nav-link-text"> {% trans 'Attendance' %} </span> <i class="material-icons pull-right">keyboard_arrow_down</i></a>
     <ul class="dropdown-menu" style="width: 100%;">
+      {% comment "Menu note" %}
       <li class="nav-item">
         <a class="dropdown-item" href="#"><i class="material-icons">contacts</i> <span class="nav-link-text">{% trans 'Teacher Attendance' %} </span></a>
       </li>
+      {% endcomment %}
+    
       <li class="nav-item">
         <a class="dropdown-item" href="{% url 'attendance:allstudent' %}"><i class="material-icons">contacts</i> <span
             class="nav-link-text">{% trans "Student Attendance" %} </span></a>
       </li>
+      {% comment "Menu note" %}
       <li class="nav-item">
         <a class="dropdown-item" href="#"><i class="material-icons">account_balance_wallet</i> <span class="nav-link-text">{% trans "Staff Attendance" %} </span></a>
       </li>
+      {% endcomment %}
     </ul>
   </li>
   <li class="nav-item">
@@ -76,10 +81,12 @@
       <li>
         <a class="dropdown-item" href="{% url 'exam:create'  %}"><i class="material-icons">note_add</i> <span class="nav-link-text">{% trans "Add Examination" %} </span></a>
       </li>
+      {% comment "Menu note" %}
       <li>
         <a class="dropdown-item" href="{% url 'exam:active'  %}"><i class="material-icons">developer_board</i> <span
             class="nav-link-text">{% trans "Active Exams" %} </span></a>
       </li>
+      {% endcomment %}
       <li>
         <a class="dropdown-item" href="{% url 'exam:room'  %}"><i class="material-icons">developer_board</i> <span
             class="nav-link-text">{% trans "Room Examination" %} </span></a>

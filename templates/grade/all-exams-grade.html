@@ -35,9 +35,9 @@ __('Academic Settings')
                                         <thead>
                                             <tr>
                                                 <th scope="col"> {% trans "Section Name" %} </th>
-                                                <th scope="col"> {% trans "View Each Student\'s Grade History" %} </th>
+                                                
                                                 <th scope="col"> {% trans "View all Course under this Section" %} </th>
-                                                <th scope="col"> {% trans "View all Students Marks under this Section" %} </th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,15 +48,11 @@ __('Academic Settings')
                                                 <td>
                                                     <a href="{url('grades/section/'.$section->id)}}">{{ section.section_name}}</a>
                                                 </td>
-                                                <td>
-                                                    <a href="{url('section/students/'.$section->id)}}" class="btn btn-info btn-xs"><i class="material-icons">visibility</i> {% trans "View Each Student\'s Grade History" %}  </a>
-                                                </td>
+                                                
                                                 <td>
                                                     <a href="{% url 'course:section' section_id=section.id %}" role="button" class="btn btn-xs btn-danger"><i class="material-icons">visibility</i> {% trans "View all Course under this Section" %}  </a>
                                                 </td>
-                                                <td>
-                                                    <a href="{% url 'grade:section' section_id=section.id %}" role="button" class="btn btn-xs btn-danger"><i class="material-icons">visibility</i> {% trans "View all Students Marks under this Section" %}  </a>
-                                                </td>
+                                                
                                                 </tr>
                                                 {%endif%}
                                             {%endfor%}

@@ -52,47 +52,52 @@ class ExamForm(forms.Form):
     myClass = forms.ModelChoiceField(
             queryset = Class.objects.all(),
             widget=forms.Select( attrs={'class': 'form-control'}),
+            label= gettext_lazy('myClass')
            
     ) 
     section = forms.ModelChoiceField(
             queryset = Section.objects.none(),
             widget=forms.Select( attrs={'class': 'form-control'}),
+            label= gettext_lazy('section')
            
     ) 
     courseOfSection = forms.ModelChoiceField(
             queryset = CourseOfSection.objects.none(),
             widget=forms.Select( attrs={'class': 'form-control'}),
-           
+           label= gettext_lazy('courseOfSection')
     ) 
 
     exam_type2 = forms.MultipleChoiceField(
             required=False,
             widget=forms.Select( attrs={'class': 'form-control'}),
             choices=FAVORITE_COLORS_CHOICES,
-           
+            label= gettext_lazy('exam_type2')  
         )
     exam_code = forms.CharField(
-                        widget=forms.TextInput(attrs={
+                label= gettext_lazy('exam_code'),
+                widget=forms.TextInput(attrs={
                                 'class': 'form-control',
                                 'readonly': 'true',
-                                'value': random_char(5)
-                            })
+                                'value': random_char(5) })
         )
     active = forms.MultipleChoiceField(
             required=False,
-            widget=forms.CheckboxInput,      
+            widget=forms.CheckboxInput,
+            label= gettext_lazy('active')      
         )
     notice_published = forms.MultipleChoiceField(
             required=False,
-            widget=forms.CheckboxInput,    
+            widget=forms.CheckboxInput,
+            label= gettext_lazy('notice_published')    
         )
     result_published = forms.MultipleChoiceField(
             required=False,
-            widget=forms.CheckboxInput,    
+            widget=forms.CheckboxInput,
+            label= gettext_lazy('result_published')    
         )
     time_exam = forms.IntegerField(
-                       
-                        widget=forms.NumberInput(attrs={
+                label= gettext_lazy('time_exam'),      
+                widget=forms.NumberInput(attrs={
                                 'class': 'form-control',
                                 'value':90,
                                 'step':5
@@ -105,7 +110,8 @@ class ExamForm(forms.Form):
         widget=forms.DateTimeInput(attrs={
             'class': 'form-control datetimepicker-input datepicker',
            
-        })
+        }),
+        label= gettext_lazy('start_date')
     )
 
     end_date = forms.DateTimeField(
@@ -113,7 +119,8 @@ class ExamForm(forms.Form):
         widget=forms.DateTimeInput(attrs={
             'class': 'form-control datetimepicker-input datepicker',
            
-        })
+        }),
+        label= gettext_lazy('end_date')
     )
   
 class GradeOfExamForm(ModelForm):  

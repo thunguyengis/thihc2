@@ -56,10 +56,7 @@ __('All Classes and Sections')
       <div id="content">
 
        {% if course %}
-            <h2>Course Information</h2>
-            <div>
-                <label>Course title:{{course}}</label>
-            </div>
+            <h2> {% trans "Exam subject" %} :{{course}} </h2>
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
                 <input type="hidden" id="action" name="action" value="edit_survey" />
@@ -67,7 +64,7 @@ __('All Classes and Sections')
                 <div class="input_form survey_edit">
 
                 <div class="questions_container">
-                  <h2>Questions</h2>
+                  <h2>{% trans "Questions" %}</h2>
                   <div class="questions">
                         {% include 'components/edit_question.html' %}
                   </div>
@@ -76,7 +73,7 @@ __('All Classes and Sections')
                 
               <div class="submit_button">
  
-                <button type="submit" id="submitButton" name="submitButton">Save</button>
+                <button class="btn btn-primary" type="submit" id="submitButton" name="submitButton">Save</button>
 
               </div>
           </form>

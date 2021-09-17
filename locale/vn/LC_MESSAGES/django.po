@@ -1,0 +1,1579 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-17 21:52+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\configurations\forms.py:19 .\configurations\forms.py:34
+msgid "First Name"
+msgstr "Tên"
+
+#: .\configurations\forms.py:20 .\configurations\forms.py:35
+msgid "Last Name"
+msgstr "Họ và Tên lót"
+
+#: .\configurations\forms.py:21
+msgid "code_student"
+msgstr "Mã Học viên"
+
+#: .\configurations\forms.py:36
+msgid "Code Teacher"
+msgstr "Mã Giáo viên"
+
+#: .\configurations\models.py:63
+msgid "department"
+msgstr "Cơ quan, đơn vị"
+
+#: .\configurations\models.py:65 .\configurations\models.py:222
+msgid "birthday"
+msgstr "Ngày tháng năm sinh"
+
+#: .\configurations\models.py:67 .\configurations\models.py:224
+msgid "picpath"
+msgstr "Ảnh"
+
+#: .\configurations\models.py:69 .\configurations\models.py:116
+#: .\configurations\models.py:227
+msgid "order"
+msgstr "Vị trí"
+
+#: .\configurations\models.py:110
+msgid "class_name"
+msgstr "Tên lớp"
+
+#: .\configurations\models.py:111
+msgid "majors"
+msgstr "Ngành học"
+
+#: .\configurations\models.py:112 .\configurations\models.py:226
+msgid "year_begins"
+msgstr "Năm nhập học"
+
+#: .\configurations\models.py:113
+msgid "year_end"
+msgstr "Năm ra trường"
+
+#: .\configurations\models.py:114
+#, fuzzy
+#| msgid "Created At"
+msgid "created_at"
+msgstr "Thời gian tạo"
+
+#: .\configurations\models.py:115
+#, fuzzy
+#| msgid "Update"
+msgid "updated_at"
+msgstr "Cập nhật"
+
+#: .\configurations\models.py:220
+msgid "myclass"
+msgstr "Lớp"
+
+#: .\configurations\models.py:223
+msgid "religion"
+msgstr "Nguyên quán"
+
+#: .\configurations\models.py:225
+msgid "gender"
+msgstr "Giơi tính"
+
+#: .\exam\forms.py:55
+msgid "myClass"
+msgstr "Lớp"
+
+#: .\exam\forms.py:61
+msgid "section"
+msgstr "Học kỳ"
+
+#: .\exam\forms.py:67
+msgid "courseOfSection"
+msgstr "Môn thi"
+
+#: .\exam\forms.py:74
+msgid "exam_type2"
+msgstr "Hệ số"
+
+#: .\exam\forms.py:77
+msgid "exam_code"
+msgstr "Mã đề thi"
+
+#: .\exam\forms.py:86 .\templates\home\index.html:78
+msgid "active"
+msgstr "Kích hoạt"
+
+#: .\exam\forms.py:91
+msgid "notice_published"
+msgstr "Thông báo đã xuất bản"
+
+#: .\exam\forms.py:96
+msgid "result_published"
+msgstr "Kết quả đã xuất bản"
+
+#: .\exam\forms.py:99
+msgid "time_exam"
+msgstr "Thời gian Thi/Kiểm tra"
+
+#: .\exam\forms.py:114
+msgid "start_date"
+msgstr "Thời gian bắt đầu"
+
+#: .\exam\forms.py:123
+msgid "end_date"
+msgstr "Thời gian kết thúc"
+
+#: .\exam\forms.py:136 .\templates\components\rooms-list.html:29
+#: .\templates\layouts\master\create-room-exam-form.html:49
+msgid "Room Name"
+msgstr "Tên phòng"
+
+#: .\exam\forms.py:143 .\templates\components\rooms-list.html:30
+#: .\templates\layouts\master\create-room-exam-form.html:50
+msgid "Number Test"
+msgstr "Số máy"
+
+#: .\templates\account\password\password_reset_confirm.html:19
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: .\templates\attendance\attendance.html:15
+#: .\templates\course\class-course.html:17
+msgid "All Classes"
+msgstr "Danh sách Lớp học"
+
+#: .\templates\attendance\attendance.html:15
+#: .\templates\attendance\student-attendances.html:18
+#: .\templates\course\class-course.html:17 .\templates\home\index copy.html:57
+#: .\templates\home\index.html:57
+msgid "Sections"
+msgstr "Học kỳ"
+
+#: .\templates\attendance\attendance.html:16
+#: .\templates\components\users-list-attendance.html:13
+#: .\templates\grade\course-grade.html:67
+#: .\templates\layouts\leftside-menubar.html:42
+#: .\templates\layouts\student\grade-table.html:11
+#: .\templates\layouts\student\grade-table.html:82
+#: .\templates\layouts\teacher\grade-form.html:10
+#: .\templates\layouts\teacher\grade-form.html:78
+#: .\templates\layouts\teacher\grade-form.html:107
+#: .\templates\layouts\teacher\grade-formVN.html:11
+#: .\templates\layouts\teacher\grade-formVN.html:69
+#: .\templates\layouts\teacher\grade-formVN.html:86
+#: .\templates\layouts\teacher\grade-tableVN.html:9
+msgid "Attendance"
+msgstr "Điểm danh"
+
+#: .\templates\attendance\attendance.html:18
+#: .\templates\attendance\section-attendances.html:104
+#: .\templates\components\course-table.html:61
+#: .\templates\student\section-students.html:111
+msgid "Take Attendance"
+msgstr "Điểm danh"
+
+#: .\templates\attendance\attendance.html:26
+msgid "Current Date Time"
+msgstr "Ngày giờ hiện tại"
+
+#: .\templates\attendance\attendance.html:38
+#: .\templates\attendance\section-attendances.html:137
+#: .\templates\attendance\student-attendances.html:69
+#: .\templates\configurations\classes copy.html:86
+#: .\templates\configurations\classes.html:82
+#: .\templates\configurations\departments.html:73
+#: .\templates\course\class-course.html:34
+#: .\templates\course\teacher-course.html:31
+#: .\templates\course\teacher-courseVN.html:31
+#: .\templates\grade\all-exams-grade.html:69
+#: .\templates\grade\class-result.html:64
+#: .\templates\grade\course-grade.html:165
+#: .\templates\grade\course-grade.html:199
+#: .\templates\grade\student-grade.html:38
+#: .\templates\grade\teacher-grade.html:37
+#: .\templates\grade\teacher-grade.html:44
+#: .\templates\list\student-list-attendance.html:33
+#: .\templates\question\index.html:70
+#: .\templates\student\class-students.html:28
+#: .\templates\student\section-students copy.html:57
+#: .\templates\student\section-students.html:144
+msgid "No Related Data Found."
+msgstr "Không có Dữ liệu"
+
+#: .\templates\attendance\section-attendances.html:19
+#: .\templates\configurations\classes copy.html:20
+#: .\templates\configurations\classes.html:20
+msgid "All Classes and Sections"
+msgstr "Danh sách Lớp và Học kỳ"
+
+#: .\templates\attendance\section-attendances.html:32
+#: .\templates\configurations\classes copy.html:32
+#: .\templates\configurations\classes.html:32
+#: .\templates\grade\all-exams-grade.html:28
+#: .\templates\student\section-students.html:37
+msgid "Click to view all Sections under this Class"
+msgstr "Danh sách Học kỳ"
+
+#: .\templates\attendance\section-attendances.html:37
+#: .\templates\student\section-students.html:42
+msgid "View Syllabus for this Class"
+msgstr "Giáo trình"
+
+#: .\templates\attendance\section-attendances.html:48
+#: .\templates\grade\all-exams-grade.html:37
+#: .\templates\layouts\master\create-room-exam-form.html:9
+#: .\templates\layouts\master\create-room-exam-form.html:11
+#: .\templates\layouts\master\create-section-form.html:9
+#: .\templates\layouts\master\create-section-form.html:11
+#: .\templates\student\section-students.html:53
+msgid "Section Name"
+msgstr "Tên Học kỳ"
+
+#: .\templates\attendance\section-attendances.html:49
+#: .\templates\configurations\classes copy.html:48
+#: .\templates\configurations\classes.html:49
+msgid "View Courses"
+msgstr "Danh sách Môn học"
+
+#: .\templates\attendance\section-attendances.html:61
+#: .\templates\student\section-students.html:66
+msgid "Click to view all Course  under this Section"
+msgstr "Danh sách môn học"
+
+#: .\templates\attendance\section-attendances.html:72
+#: .\templates\components\active-exams copy.html:17
+#: .\templates\components\active-exams.html:8
+#: .\templates\components\course-table.html:7
+#: .\templates\layouts\master\create-department-form.html:9
+#: .\templates\layouts\master\create-department-form.html:11
+#: .\templates\student\section-students.html:77
+msgid "Course Name"
+msgstr "Tên Môn học"
+
+#: .\templates\attendance\section-attendances.html:74
+#: .\templates\attendance\section-attendances.html:92
+msgid "View Todays Attendance"
+msgstr "Điểm danh Hôm nay"
+
+#: .\templates\attendance\section-attendances.html:75
+#, fuzzy
+#| msgid "View Each Student\\'s Attendance"
+msgid "View Each Students Attendance"
+msgstr "Danh sách Học viên"
+
+#: .\templates\attendance\section-attendances.html:76
+#: .\templates\student\section-students.html:81
+msgid "Give Attendance"
+msgstr "Gửi"
+
+#: .\templates\attendance\section-attendances.html:95
+#: .\templates\student\section-students.html:80
+#: .\templates\student\section-students.html:100
+msgid "View Each Student\\'s Attendance"
+msgstr "Danh sách Học viên"
+
+#: .\templates\attendance\section-attendances.html:109
+#: .\templates\student\section-students.html:116
+msgid "Assign Class Under Exam"
+msgstr ""
+
+#: .\templates\attendance\student-attendances.html:18
+#: .\templates\configurations\index.html:129 .\templates\home\index
+#: copy.html:51 .\templates\home\index.html:51
+msgid "Classes"
+msgstr "Lớp học"
+
+#: .\templates\attendance\student-attendances.html:19
+msgid "List of Students"
+msgstr "Danh sách Học viên"
+
+#: .\templates\attendance\student-attendances.html:20
+#: .\templates\components\users-list-attendance.html:28
+msgid "View Attendance"
+msgstr "Chi tiết"
+
+#: .\templates\attendance\student-attendances.html:23
+msgid "Attendance of Student"
+msgstr "Điểm danh"
+
+#: .\templates\attendance\student-attendances.html:32
+msgid "Attendance List of This Term"
+msgstr "Danh sách Điểm danh"
+
+#: .\templates\attendance\student-attendances.html:35
+#: .\templates\student\section-students copy.html:35
+msgid "Status"
+msgstr "Trạng thái"
+
+#: .\templates\attendance\student-attendances.html:36
+msgid "Date"
+msgstr "Ngày"
+
+#: .\templates\attendance\student-attendances.html:43
+#: .\templates\layouts\teacher\attendance-form copy.html:27 copy.html:51
+#: copy.html:103 copy.html:148
+#: .\templates\layouts\teacher\attendance-form.html:27
+#: .\templates\layouts\teacher\attendance-form.html:51
+#: .\templates\layouts\teacher\attendance-form.html:103
+#: .\templates\layouts\teacher\attendance-form.html:148
+msgid "Present"
+msgstr "Có mặt"
+
+#: .\templates\attendance\student-attendances.html:49
+#: .\templates\layouts\teacher\attendance-form copy.html:54
+#: .\templates\layouts\teacher\attendance-form.html:54
+msgid "Escaped"
+msgstr "Xóa"
+
+#: .\templates\attendance\student-attendances.html:55
+#: .\templates\layouts\teacher\attendance-form copy.html:57 copy.html:150
+#: .\templates\layouts\teacher\attendance-form.html:57
+#: .\templates\layouts\teacher\attendance-form.html:150
+msgid "Absent"
+msgstr "Vắng mặt"
+
+#: .\templates\components\active-exams copy.html:7
+msgid "Click to view all courses under this Exam"
+msgstr "Danh sách Môn học"
+
+#: .\templates\components\active-exams copy.html:16
+#: .\templates\components\active-exams.html:7
+#: .\templates\components\exams-list.html:36
+#: .\templates\course\class-course.html:25
+#: .\templates\grade\course-grade.html:32
+#: .\templates\grade\student-grade.html:28
+#: .\templates\grade\teacher-grade.html:27 .\templates\home\index copy.html:75
+#: .\templates\home\index.html:75
+#: .\templates\layouts\student\grade-table.html:134
+msgid "Class"
+msgstr "Lớp"
+
+#: .\templates\components\active-exams copy.html:18
+#: .\templates\components\active-exams.html:9
+msgid "Course Type"
+msgstr ""
+
+#: .\templates\components\active-exams copy.html:19
+#: .\templates\components\active-exams.html:10
+#: .\templates\components\course-table.html:8
+msgid "Course Time"
+msgstr "Thời gian"
+
+#: .\templates\components\active-exams copy.html:20
+#: .\templates\components\active-exams.html:11
+#: .\templates\components\course-table.html:15
+#: .\templates\layouts\student\grade-table.html:57
+msgid "Course Teacher"
+msgstr "Giảng viên"
+
+#: .\templates\components\add-room.html:8
+#: .\templates\configurations\index.html:62
+#: .\templates\layouts\master\add-class-form.html:20
+#: .\templates\layouts\master\add-course-form.html:13
+#: .\templates\layouts\master\create-department-form.html:22
+#: .\templates\layouts\master\create-room-exam-form.html:22
+#: .\templates\layouts\master\create-room-exam-form.html:88
+#: .\templates\layouts\master\create-section-form.html:22
+#: .\templates\layouts\teacher\attendance-form copy.html:140
+#: .\templates\layouts\teacher\attendance-form.html:140
+#: .\templates\layouts\teacher\grade-form.html:165
+#: .\templates\layouts\teacher\grade-formVN.html:133
+#: .\templates\quiz\index.html:63
+msgid "Submit"
+msgstr "Lưu"
+
+#: .\templates\components\add_question.html:6
+msgid "Question Chapter"
+msgstr "Chương"
+
+#: .\templates\components\add_question.html:10
+#: .\templates\components\edit_question.html:10
+msgid "Question type"
+msgstr "Loại Câu hỏi"
+
+#: .\templates\components\add_question.html:12
+msgid "Open Text"
+msgstr "Điền vào chổ trống"
+
+#: .\templates\components\add_question.html:13
+msgid "Select One"
+msgstr "Chọn đáp án đúng"
+
+#: .\templates\components\add_question.html:14
+msgid "Select Many"
+msgstr "Chọn nhiều đáp án "
+
+#: .\templates\components\add_question.html:15
+msgid "Multi-line open Text"
+msgstr "Điền vào chổ trống (nhiều dòng)"
+
+#: .\templates\components\add_question.html:19
+#: .\templates\components\chapter-list.html:25
+#: .\templates\components\edit_question.html:25
+msgid "Question Level"
+msgstr "Mức độ câu hỏi"
+
+#: .\templates\components\add_question.html:27
+msgid "Question text"
+msgstr "Nội dung Câu hỏi"
+
+#: .\templates\components\add_question.html:40
+msgid "Add Choice"
+msgstr "Thêm đáp án"
+
+#: .\templates\components\chapter-list.html:7
+#: .\templates\components\rooms-list.html:7
+msgid "Total Student"
+msgstr "Tổng số Học viên"
+
+#: .\templates\components\chapter-list.html:24
+msgid "Chapter Name"
+msgstr "Chương"
+
+#: .\templates\components\chapter-list.html:27
+msgid "Number Question"
+msgstr "Số câu hỏi"
+
+#: .\templates\components\chapter-list.html:69
+#: .\templates\components\rooms-list.html:62
+#: .\templates\layouts\master\create-room-exam-form.html:84
+#: .\templates\layouts\teacher\attendance-form copy.html:136
+#: .\templates\layouts\teacher\attendance-form.html:136
+msgid "Update"
+msgstr "Cập nhật"
+
+#: .\templates\components\chapter-list.html:73
+#: .\templates\components\exams-list.html:128
+#: .\templates\components\rooms-list.html:66
+#: .\templates\question\add_question.html:57
+msgid "Save"
+msgstr ""
+
+#: .\templates\components\course-table.html:11
+msgid "Room Number"
+msgstr ""
+
+#: .\templates\components\course-table.html:18
+#: .\templates\components\users-list-student.html:13
+msgid "Action"
+msgstr "Hành động"
+
+#: .\templates\components\course-table.html:20
+msgid "Give Marks"
+msgstr "Cập nhập Điểm"
+
+#: .\templates\components\course-table.html:21
+#: .\templates\components\course-table.html:75
+msgid "View Marks"
+msgstr "Xem Điểm"
+
+#: .\templates\components\course-table.html:24
+#: .\templates\components\course-table.html:81
+#: .\templates\components\questions-list.html:79
+#: .\templates\components\users-list-student.html:32
+msgid "Edit"
+msgstr "Sửa"
+
+#: .\templates\components\course-table.html:56
+#: .\templates\components\course-table.html:64
+msgid "Save under Exam to Add Student"
+msgstr ""
+
+#: .\templates\components\course-table.html:72
+msgid "Submit Grade"
+msgstr "Cập nhập Điểm"
+
+#: .\templates\components\exams-list.html:3
+#: .\templates\layouts\master\create-room-exam-form.html:35
+msgid "Information"
+msgstr "Thông tin"
+
+#: .\templates\components\exams-list.html:5
+msgid ""
+"An Examination represents a Semester. All Courses of a Semester belong to an "
+"Examination. So, all Quiz, Class Test, Assignment, Attendance, Written, "
+"Practical, etc. in a Course are subjected to that specific Examination."
+msgstr ""
+
+#: .\templates\components\exams-list.html:37
+msgid "Examination Name"
+msgstr "Môn học"
+
+#: .\templates\components\exams-list.html:38
+msgid "Examination Type"
+msgstr "Loại"
+
+#: .\templates\components\exams-list.html:39
+msgid "Examination Code"
+msgstr "Mã"
+
+#: .\templates\components\exams-list.html:41
+#: .\templates\components\questions-list.html:49
+msgid "Created At"
+msgstr "Thời gian tạo"
+
+#: .\templates\components\exams-list.html:42
+msgid "Examination Room"
+msgstr "Phòng thi"
+
+#: .\templates\components\exams-list.html:43
+msgid "Question "
+msgstr "Câu hỏi"
+
+#: .\templates\components\exams-list.html:44
+msgid "Set Active"
+msgstr "Kích hoạt"
+
+#: .\templates\components\exams-list.html:71
+#: .\templates\components\exams-list.html:100
+msgid "Detail"
+msgstr "Chi tiết"
+
+#: .\templates\components\exams-list.html:72
+#: .\templates\components\exams-list.html:101
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: .\templates\components\exams-list.html:81
+msgid "Settings Room"
+msgstr "Phòng thi"
+
+#: .\templates\components\exams-list.html:89
+#: .\templates\configurations\index.html:68
+#: .\templates\configurations\index.html:111
+#: .\templates\configurations\index.html:192
+#: .\templates\layouts\master\add-class-form.html:26
+msgid "Close"
+msgstr "Đóng"
+
+#: .\templates\components\exams-list.html:110 .\templates\home\index.html:95
+#: .\templates\home\index.html:101
+msgid "Active"
+msgstr "Kích hoạt"
+
+#: .\templates\components\exams-list.html:117
+msgid "Completed"
+msgstr "Hoàn thành"
+
+#: .\templates\components\exams-list.html:120
+msgid "Not Active"
+msgstr "Không kích hoạt"
+
+#: .\templates\components\excel-upload-form.html:8
+#: .\templates\components\questions-list.html:14
+#: .\templates\configurations\index.html:232
+#: .\templates\configurations\index.html:251
+msgid "Upload"
+msgstr "Upload"
+
+#: .\templates\components\navbar-top.html:10
+msgid "Toggle Navigation"
+msgstr ""
+
+#: .\templates\components\navbar-top.html:21 .\templates\quiz\mark.html:129
+#: .\templates\quiz\quiz.html:131
+msgid "NameSchool"
+msgstr "TRƯỜNG CAO ĐẲNG HẬU CẦN 2"
+
+#: .\templates\components\navbar-top.html:33 .\templates\home\login.html:13
+#: .\templates\home\login.html:63 .\templates\registration\login.html:13
+#: .\templates\registration\login.html:59
+msgid "Login"
+msgstr "Đăng nhập"
+
+#: .\templates\components\navbar-top.html:80
+#: .\templates\layouts\leftside-menubar.html:31
+msgid "Profile"
+msgstr "Hồ sơ"
+
+#: .\templates\components\navbar-top.html:84
+msgid "Change password"
+msgstr "Thay đổi mật khẩu"
+
+#: .\templates\components\navbar-top.html:102
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: .\templates\components\questions-list.html:3
+msgid "Add Question"
+msgstr "Thêm Câu hỏi"
+
+#: .\templates\components\questions-list.html:7
+msgid "Import Question"
+msgstr ""
+
+#: .\templates\components\questions-list.html:44
+msgid "Chater"
+msgstr "Chương"
+
+#: .\templates\components\questions-list.html:45
+msgid "Level"
+msgstr "Cấp độ"
+
+#: .\templates\components\questions-list.html:46
+msgid "Type"
+msgstr "Loại"
+
+#: .\templates\components\questions-list.html:47
+#: .\templates\layouts\leftside-menubar.html:72
+msgid "Question"
+msgstr "Câu hỏi"
+
+#: .\templates\components\questions-list.html:48
+msgid "Answer "
+msgstr "Đáp án"
+
+#: .\templates\components\rooms-list.html:32
+#: .\templates\layouts\master\create-room-exam-form.html:52
+msgid "Number Student"
+msgstr "Số Học viên"
+
+#: .\templates\components\users-export.html:6
+msgid "Export in Excel by Year"
+msgstr "Xuất File"
+
+#: .\templates\components\users-list-attendance.html:11
+#: .\templates\components\users-list-student.html:8
+#: .\templates\layouts\teacher\grade-form.html:76
+#: .\templates\layouts\teacher\grade-formVN.html:67
+msgid "Code"
+msgstr "Mã"
+
+#: .\templates\components\users-list-attendance.html:12
+#: .\templates\components\users-list-student.html:9
+msgid "Full Name"
+msgstr "Họ & Tên"
+
+#: .\templates\components\users-list-student.html:11
+msgid "Address"
+msgstr "Địa chỉ"
+
+#: .\templates\components\users-list-student.html:14
+#: .\templates\student\section-students copy.html:36
+msgid "Grade History"
+msgstr "Điểm Khóa học"
+
+#: .\templates\components\users-list-student.html:35
+#: .\templates\student\section-students copy.html:49
+msgid "View Grade History"
+msgstr "Chi tiết"
+
+#: .\templates\configurations\add_event.html:15
+msgid "Add Event"
+msgstr "Thêm"
+
+#: .\templates\configurations\add_student.html:18
+#: .\templates\configurations\index.html:18
+#: .\templates\layouts\leftside-menubar.html:122
+msgid "Academic Settings"
+msgstr "Cài đặt"
+
+#: .\templates\configurations\classes copy.html:36
+#: .\templates\configurations\classes.html:38
+#: .\templates\configurations\departments.html:36
+msgid "View Syllabus for this Class "
+msgstr "Danh sách Giáo trình"
+
+#: .\templates\configurations\classes copy.html:49
+msgid "View Students"
+msgstr "Danh sách Học viên"
+
+#: .\templates\configurations\classes copy.html:50
+#: .\templates\configurations\classes.html:50
+msgid "View Routines"
+msgstr ""
+
+#: .\templates\configurations\classes copy.html:64
+#: .\templates\configurations\classes.html:63
+msgid "View Courses under this section"
+msgstr "Danh sách Môn học"
+
+#: .\templates\configurations\classes copy.html:67
+msgid "View Students of this section"
+msgstr "Danh sách Học viên"
+
+#: .\templates\configurations\classes copy.html:70
+#: .\templates\configurations\classes.html:66
+msgid "View Routines for this section"
+msgstr ""
+
+#: .\templates\configurations\classes.html:35
+msgid "View Student for this Class "
+msgstr "Danh sách Học viên"
+
+#: .\templates\configurations\departments.html:20
+#: .\templates\question\index.html:20
+msgid "All Departments"
+msgstr "Danh sách Cơ quan, đơn vị"
+
+#: .\templates\configurations\departments.html:32
+msgid "Click to view all Teacher"
+msgstr "Danh sách Giảng viên"
+
+#: .\templates\configurations\departments.html:47
+#: .\templates\course\teacher-course.html:21
+#: .\templates\course\teacher-courseVN.html:21
+#: .\templates\grade\student-grade.html:28
+#: .\templates\grade\teacher-grade.html:22
+#: .\templates\layouts\teacher\attendance-form copy.html:26
+#: .\templates\layouts\teacher\attendance-form.html:26
+#: .\templates\layouts\teacher\grade-form.html:77
+#: .\templates\layouts\teacher\grade-formVN.html:68
+#: .\templates\question\index.html:44
+msgid "Name"
+msgstr "Tên"
+
+#: .\templates\configurations\index.html:24
+#: .\templates\configurations\index.html:48
+#: .\templates\layouts\leftside-menubar.html:68
+msgid "Department"
+msgstr "Cơ quan, đơn vị"
+
+#: .\templates\configurations\index.html:30
+msgid "Manage Department"
+msgstr "Cơ quan, đơn vị"
+
+#: .\templates\configurations\index.html:39
+msgid "Create Department"
+msgstr "Thêm "
+
+#: .\templates\configurations\index.html:55
+msgid "Department Name"
+msgstr "Tên Cơ quan, đơn vị"
+
+#: .\templates\configurations\index.html:57
+msgid "English, Mathematics,..."
+msgstr "Phòng Đào tạo, KYHQS"
+
+#: .\templates\configurations\index.html:74
+msgid "Click Class to View All Department"
+msgstr "Danh sách Cơ quan, đơn vị"
+
+#: .\templates\configurations\index.html:79
+#: .\templates\configurations\index.html:150
+msgid "Manage"
+msgstr "Quản lý"
+
+#: .\templates\configurations\index.html:137
+msgid "Manage Class, Section"
+msgstr "Quản lý Lớp, Học kỳ"
+
+#: .\templates\configurations\index.html:145
+msgid "Click Class to View All Sections"
+msgstr "Danh sách Học kỳ"
+
+#: .\templates\configurations\index.html:159
+msgid "All Sections of Class"
+msgstr "Danh sách Học kỳ"
+
+#: .\templates\configurations\index.html:167
+msgid "Ignore Sessions when listing students for promoting"
+msgstr "Bỏ"
+
+#: .\templates\configurations\index.html:174
+msgid "View All Assigned Courses"
+msgstr "Danh dách Môn học"
+
+#: .\templates\configurations\index.html:177
+msgid "Promote Students"
+msgstr "Khuyến khích"
+
+#: .\templates\configurations\index.html:178
+msgid "Register Student"
+msgstr "Đăng ký"
+
+#: .\templates\configurations\index.html:207
+msgid "Add Users"
+msgstr "Thêm"
+
+#: .\templates\configurations\index.html:211
+msgid "Student"
+msgstr "Học viên"
+
+#: .\templates\configurations\index.html:212
+msgid "Teacher"
+msgstr "Giảng viên"
+
+#: .\templates\configurations\index.html:223
+msgid "Add Student"
+msgstr "Thêm"
+
+#: .\templates\configurations\index.html:225
+#: .\templates\configurations\index.html:239
+msgid "Or, Mass upload Excel"
+msgstr "Upload Excel"
+
+#: .\templates\configurations\index.html:237
+msgid "Add Teacher"
+msgstr "Thêm"
+
+#: .\templates\course\class-course.html:18
+msgid "Courses"
+msgstr "Môn học"
+
+#: .\templates\course\class-course.html:21
+msgid "Courses Related to Section"
+msgstr "Môn học"
+
+#: .\templates\course\teacher-course.html:15
+#: .\templates\course\teacher-courseVN.html:15
+msgid "Courses Taken by Teacher"
+msgstr "Môn Giảng dạy"
+
+#: .\templates\course\teacher-course.html:21
+#: .\templates\course\teacher-courseVN.html:21
+#: .\templates\grade\teacher-grade.html:22
+msgid "Teacher Code"
+msgstr "Mã Giảng viên"
+
+#: .\templates\exam\active.html:11
+msgid "All Active Examinations"
+msgstr "Danh sách Bài kiểm tra đang kích hoạt"
+
+#: .\templates\exam\create.html:11 .\templates\exam\index.html:11
+#: .\templates\question\list_question.html:11
+msgid "All Examinations"
+msgstr "Danh sách Kỳ thi/Bài kiểm tra"
+
+#: .\templates\exam\detail_room.html:11 .\templates\exam\room.html:11
+msgid "All Room Examinations"
+msgstr "Danh sách phòng thi"
+
+#: .\templates\exam\setting_question.html:11
+msgid "All Chater"
+msgstr "Danh sách chương"
+
+#: .\templates\grade\all-exams-grade.html:15
+msgid "Marks and Grades of All Classes"
+msgstr "Điểm của Lớp"
+
+#: .\templates\grade\all-exams-grade.html:39
+#: .\templates\grade\all-exams-grade.html:53
+msgid "View all Course under this Section"
+msgstr "Danh sách Môn học"
+
+#: .\templates\grade\class-result.html:18
+#: .\templates\grade\student-grade.html:17
+#: .\templates\layouts\leftside-menubar.html:100
+#: .\templates\student\section-students copy.html:18
+#: .\templates\student\section-students.html:18
+msgid "Grades"
+msgstr "Điểm"
+
+#: .\templates\grade\class-result.html:19
+msgid "Section Grade"
+msgstr "Điểm"
+
+#: .\templates\grade\class-result.html:22
+msgid "Marks and Grades"
+msgstr "Điểm"
+
+#: .\templates\grade\course-grade.html:33
+#: .\templates\grade\teacher-grade.html:27 .\templates\student\section-students
+#: copy.html:20 .\templates\student\section-students.html:20
+msgid "Section"
+msgstr "Học kỳ"
+
+#: .\templates\grade\course-grade.html:34
+#: .\templates\grade\teacher-grade.html:28 .\templates\home\index copy.html:74
+#: .\templates\home\index.html:74
+#: .\templates\layouts\student\grade-table.html:10
+#: .\templates\layouts\student\grade-table.html:53
+msgid "Course"
+msgstr "Môn học"
+
+#: .\templates\grade\course-grade.html:45
+msgid "Select which Grade System you want to use."
+msgstr ""
+
+#: .\templates\grade\course-grade.html:49
+msgid "Count Example"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:49
+msgid "If you take 3 Quizes and want to count best 2, then Quiz Count is 2."
+msgstr ""
+
+#: .\templates\grade\course-grade.html:52
+msgid "Percentage Example"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:52
+#, python-format
+msgid ""
+"Total percentage must be 100%%. You can put 100%% to a field or distribute "
+"it according to your need. Full mark is also needed for Percentage to work"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:55
+msgid "Full Mark Example"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:55
+msgid ""
+"If you take a Class Test where full mark is 15, then Full mark for Class "
+"Test is 15"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:63
+msgid "Select Grade System"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:64
+msgid "Quiz Count"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:65
+msgid "Assignment Count"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:66
+msgid "Class Test Count"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:68
+#: .\templates\layouts\teacher\grade-form.html:28
+#: .\templates\layouts\teacher\grade-form.html:31
+#: .\templates\layouts\teacher\grade-form.html:34
+#: .\templates\layouts\teacher\grade-form.html:84
+#: .\templates\layouts\teacher\grade-form.html:85
+#: .\templates\layouts\teacher\grade-form.html:86
+msgid "Assignment"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:69
+#: .\templates\layouts\teacher\grade-form.html:13
+#: .\templates\layouts\teacher\grade-form.html:16
+#: .\templates\layouts\teacher\grade-form.html:19
+#: .\templates\layouts\teacher\grade-form.html:22
+#: .\templates\layouts\teacher\grade-form.html:25
+#: .\templates\layouts\teacher\grade-form.html:79
+#: .\templates\layouts\teacher\grade-form.html:80
+#: .\templates\layouts\teacher\grade-form.html:81
+#: .\templates\layouts\teacher\grade-form.html:82
+#: .\templates\layouts\teacher\grade-form.html:83
+#: .\templates\quiz\check.html:13 .\templates\quiz\index.html:13
+msgid "Quiz"
+msgstr "Trắc nghiệm"
+
+#: .\templates\grade\course-grade.html:70
+msgid "Class Test "
+msgstr "Kiểm tra"
+
+#: .\templates\grade\course-grade.html:178
+msgid "Give Marks to Students"
+msgstr ""
+
+#: .\templates\grade\course-grade.html:187
+msgid "Get Total Marks"
+msgstr "Điểm trung bình"
+
+#: .\templates\grade\student-grade.html:18 .\templates\student\section-students
+#: copy.html:24 .\templates\student\section-students.html:24
+msgid "Section Students"
+msgstr ""
+
+#: .\templates\grade\student-grade.html:19
+msgid "History"
+msgstr ""
+
+#: .\templates\grade\student-grade.html:22
+msgid "Marks and Grades History"
+msgstr "Điểm"
+
+#: .\templates\grade\student-grade.html:28
+#: .\templates\layouts\teacher\grade-tableVN.html:7
+#: .\templates\quiz\check.html:28 .\templates\quiz\index.html:34
+#: .\templates\student\section-students copy.html:33
+msgid "Student Code"
+msgstr "Mã Học viên"
+
+#: .\templates\grade\teacher-grade.html:21
+msgid "Marks Given by"
+msgstr " Cập nhập Điểm"
+
+#: .\templates\home\index copy.html:30 .\templates\home\index.html:30
+#: .\templates\layouts\leftside-menubar.html:37
+msgid "Dashboard"
+msgstr "Trang chủ"
+
+#: .\templates\home\index copy.html:33 .\templates\home\index.html:33
+#: .\templates\student\section-students copy.html:22
+#: .\templates\student\section-students.html:22
+msgid "Students"
+msgstr "Học viên"
+
+#: .\templates\home\index copy.html:38 .\templates\home\index.html:38
+msgid "Teachers"
+msgstr "GIảng viên"
+
+#: .\templates\home\index copy.html:44 .\templates\home\index.html:44
+msgid "Types of Books In Library"
+msgstr "Thư viện"
+
+#: .\templates\home\index copy.html:68
+#: .\templates\layouts\leftside-menubar.html:87
+msgid "Active Exams"
+msgstr "Kích hoạt"
+
+#: .\templates\home\index copy.html:73 .\templates\home\index.html:73
+msgid "Exam Name"
+msgstr "Loại"
+
+#: .\templates\home\index copy.html:76
+msgid "Notice Published"
+msgstr "Thông báo đã xuất bản"
+
+#: .\templates\home\index copy.html:77
+msgid "Result Published"
+msgstr "Kết quả đã xuất bản"
+
+#: .\templates\home\index copy.html:96 .\templates\home\index.html:113
+msgid "No Active Examination"
+msgstr "Không Kích hoạt"
+
+#: .\templates\home\index.html:68
+msgid "List Exams"
+msgstr "Kỳ thi/Bài kiểm tra"
+
+#: .\templates\home\index.html:76
+msgid "Time Exam"
+msgstr "Thời gian (phút)"
+
+#: .\templates\home\index.html:77
+msgid "Start Date"
+msgstr "Thời gian bắt đầu"
+
+#: .\templates\home\login.html:34 .\templates\registration\login.html:28
+msgid "Username"
+msgstr "Tên đăng nhập"
+
+#: .\templates\home\login.html:43 .\templates\registration\login.html:37
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: .\templates\layouts\leftside-menubar.html:46
+msgid "Teacher Attendance"
+msgstr "Điểm danh Giảng viên"
+
+#: .\templates\layouts\leftside-menubar.html:52
+msgid "Student Attendance"
+msgstr "Điểm danh Học viên"
+
+#: .\templates\layouts\leftside-menubar.html:56
+msgid "Staff Attendance"
+msgstr "Điểm danh Cán bộ, Nhân viên"
+
+#: .\templates\layouts\leftside-menubar.html:62
+msgid "Classes &amp; Sections"
+msgstr "Lớp và Học kỳ"
+
+#: .\templates\layouts\leftside-menubar.html:78
+msgid "Exams"
+msgstr "Kỳ thi/Bài kiểm tra"
+
+#: .\templates\layouts\leftside-menubar.html:82
+msgid "Add Examination"
+msgstr "Thêm"
+
+#: .\templates\layouts\leftside-menubar.html:92
+msgid "Room Examination"
+msgstr "Phòng thi"
+
+#: .\templates\layouts\leftside-menubar.html:95
+msgid "Manage Examinations"
+msgstr "Quản lý"
+
+#: .\templates\layouts\leftside-menubar.html:105
+msgid "Class Routine"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:108
+msgid "Syllabus"
+msgstr "Giáo trình"
+
+#: .\templates\layouts\leftside-menubar.html:111
+msgid "Notice"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:114
+msgid "Event"
+msgstr "Sự kiện"
+
+#: .\templates\layouts\leftside-menubar.html:127
+msgid "Manage GPA"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:132
+msgid "All GPA "
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:135
+msgid "Add New GPA"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:145
+msgid "Fees Generator"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:149
+msgid "Generate Form"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:152
+msgid "Add Fee Field"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:161
+msgid "Manage Accounts"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:166
+msgid "Accountant List"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:170
+msgid "Add Account Sector"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:174
+msgid "Add New Expense"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:178
+msgid "Expense List"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:181
+msgid "Add New Income"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:185
+msgid "Income List"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:196
+msgid "My Attendance"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:212
+#: .\templates\layouts\leftside-menubar.html:264
+msgid "My Courses"
+msgstr "Môn giảng dạy"
+
+#: .\templates\layouts\leftside-menubar.html:216
+msgid "My Grade"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:219
+msgid "Payment"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:222
+msgid "Receipt"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:233
+msgid "Manage Library"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:238
+msgid "Librarian List"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:242
+msgid "All Books"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:246
+msgid "All Issued Books"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:250
+msgid "Issue Book"
+msgstr ""
+
+#: .\templates\layouts\leftside-menubar.html:254
+msgid "Add New Book"
+msgstr ""
+
+#: .\templates\layouts\master\add-class-form.html:2
+#: .\templates\layouts\master\add-class-form.html:12
+msgid "Add New Class"
+msgstr "Thêm Lớp học"
+
+#: .\templates\layouts\master\add-course-form.html:2
+msgid "Add New Course"
+msgstr "Thêm Môn học"
+
+#: .\templates\layouts\master\create-department-form.html:2
+msgid "Create Course"
+msgstr "Thêm Môn học"
+
+#: .\templates\layouts\master\create-room-exam-form.html:2
+#: .\templates\layouts\master\create-section-form.html:2
+msgid "Create a New Section"
+msgstr "Thêm Học kỳ"
+
+#: .\templates\layouts\student\attendances-table copy.html:37
+#: .\templates\layouts\student\attendances-table.html:29
+msgid "Attendance List of Full Semester"
+msgstr ""
+
+#: .\templates\layouts\student\grade-table.html:4
+msgid "Print Result"
+msgstr ""
+
+#: .\templates\layouts\student\grade-table.html:16
+#: .\templates\layouts\student\grade-table.html:86
+#: .\templates\layouts\teacher\grade-tableVN.html:15
+msgid "Total Marks Exam"
+msgstr ""
+
+#: .\templates\layouts\student\grade-table.html:17
+#: .\templates\layouts\student\grade-table.html:87
+#: .\templates\layouts\teacher\grade-tableVN.html:16
+msgid "Total Marks Course"
+msgstr "Điểm trung bình"
+
+#: .\templates\layouts\student\grade-table.html:54
+msgid "Total Marks"
+msgstr "Điểm trung bình"
+
+#: .\templates\layouts\student\grade-table.html:55
+msgid "Grade"
+msgstr ""
+
+#: .\templates\layouts\student\grade-table.html:67
+msgid "View Details"
+msgstr "Chi tiết"
+
+#: .\templates\layouts\student\grade-table.html:126
+#: .\templates\layouts\student\grade-table.html:132
+msgid "Result Card"
+msgstr ""
+
+#: .\templates\layouts\student\grade-table.html:133
+#: .\templates\layouts\teacher\grade-tableVN.html:8
+#: .\templates\student\section-students copy.html:34
+msgid "Student Name"
+msgstr "Tên Học viên"
+
+#: .\templates\layouts\student\grade-table.html:144
+msgid "No related data"
+msgstr "Không có dữ liệu liên quan"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:25
+#: .\templates\layouts\teacher\attendance-form.html:25
+msgid "Student_Code"
+msgstr "Mã Học viên"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:28
+#: .\templates\layouts\teacher\attendance-form.html:28
+msgid "Total Attended"
+msgstr "Tổng có mặt"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:29
+#: .\templates\layouts\teacher\attendance-form.html:29
+msgid "Total Missed"
+msgstr "Tổng vắng mặt"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:30
+#: .\templates\layouts\teacher\attendance-form.html:30
+msgid "Total Escaped"
+msgstr ""
+
+#: .\templates\layouts\teacher\attendance-form copy.html:31
+#: .\templates\layouts\teacher\attendance-form.html:31
+#: .\templates\layouts\teacher\attendance-form.html:89
+msgid "Adjust Missed Attendance"
+msgstr "Điều chỉnh Điểm danh bị nhỡ"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:126
+#: .\templates\layouts\teacher\attendance-form.html:126
+msgid "Adjust Missing Attendances"
+msgstr "Điều chỉnh Điểm danh bị nhỡ"
+
+#: .\templates\layouts\teacher\attendance-form copy.html:134
+#: .\templates\layouts\teacher\attendance-form.html:134
+msgid "Cancel"
+msgstr "Hủy"
+
+#: .\templates\layouts\teacher\grade-form.html:37
+#: .\templates\layouts\teacher\grade-form.html:40
+#: .\templates\layouts\teacher\grade-form.html:43
+#: .\templates\layouts\teacher\grade-form.html:46
+#: .\templates\layouts\teacher\grade-form.html:49
+msgid "Class Test"
+msgstr "Kỳ thi/Bài kiểm tra"
+
+#: .\templates\layouts\teacher\grade-form.html:52
+msgid "Final Exam Written"
+msgstr "Kiểm tra viết"
+
+#: .\templates\layouts\teacher\grade-form.html:55
+msgid "Final Exam MCQ"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:58
+#: .\templates\layouts\teacher\grade-form.html:94
+#: .\templates\layouts\teacher\grade-form.html:156
+msgid "Practical"
+msgstr "Thực hành"
+
+#: .\templates\layouts\teacher\grade-form.html:87
+#: .\templates\layouts\teacher\grade-form.html:88
+#: .\templates\layouts\teacher\grade-form.html:89
+#: .\templates\layouts\teacher\grade-form.html:90
+#: .\templates\layouts\teacher\grade-form.html:91
+msgid "CT"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:92
+#: .\templates\layouts\teacher\grade-form.html:150
+msgid "Written"
+msgstr "Thi viết"
+
+#: .\templates\layouts\teacher\grade-form.html:93
+msgid "MCQ"
+msgstr "Thi Trắc nghiệm"
+
+#: .\templates\layouts\teacher\grade-form.html:111
+#: .\templates\layouts\teacher\grade-formVN.html:90
+msgid "Qz 1"
+msgstr "Thi Trắc nghiệm 1"
+
+#: .\templates\layouts\teacher\grade-form.html:114
+#: .\templates\layouts\teacher\grade-formVN.html:93
+msgid "Qz 2"
+msgstr "Thi Trắc nghiệm 2"
+
+#: .\templates\layouts\teacher\grade-form.html:117
+#: .\templates\layouts\teacher\grade-formVN.html:96
+msgid "Qz 3"
+msgstr "Thi Trắc nghiệm 3"
+
+#: .\templates\layouts\teacher\grade-form.html:120
+#: .\templates\layouts\teacher\grade-formVN.html:99
+msgid "Qz 4"
+msgstr "Thi Trắc nghiệm 4"
+
+#: .\templates\layouts\teacher\grade-form.html:123
+#: .\templates\layouts\teacher\grade-formVN.html:105
+msgid "Qz 5"
+msgstr "Thi Trắc nghiệm 5"
+
+#: .\templates\layouts\teacher\grade-form.html:126
+#: .\templates\layouts\teacher\grade-formVN.html:108
+msgid "Assignment 1"
+msgstr "Bài tập lớn 1"
+
+#: .\templates\layouts\teacher\grade-form.html:129
+#: .\templates\layouts\teacher\grade-formVN.html:111
+msgid "Assignment 2"
+msgstr "Bài tập lớn 2"
+
+#: .\templates\layouts\teacher\grade-form.html:132
+#: .\templates\layouts\teacher\grade-formVN.html:114
+msgid "Assignment 3"
+msgstr "Bài tập lớn 3"
+
+#: .\templates\layouts\teacher\grade-form.html:135
+msgid "CT 1"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:138
+#: .\templates\layouts\teacher\grade-formVN.html:118
+msgid "CT 2"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:141
+#: .\templates\layouts\teacher\grade-formVN.html:121
+#: .\templates\layouts\teacher\grade-formVN.html:124
+msgid "CT 3"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:144
+#: .\templates\layouts\teacher\grade-form.html:147
+msgid "CT 4"
+msgstr ""
+
+#: .\templates\layouts\teacher\grade-form.html:153
+msgid "Mcq"
+msgstr "Thi Trắc nghiệm"
+
+#: .\templates\layouts\teacher\grade-formVN.html:15
+msgid "coefficient_1_1"
+msgstr "Hệ Số 1 Lần 1"
+
+#: .\templates\layouts\teacher\grade-formVN.html:18
+msgid "coefficient_1_2"
+msgstr "Hệ Số 1 Lần 2"
+
+#: .\templates\layouts\teacher\grade-formVN.html:21
+msgid "coefficient_2_1"
+msgstr "Hệ Số 2 Lần 1"
+
+#: .\templates\layouts\teacher\grade-formVN.html:24
+msgid "coefficient_2_2"
+msgstr "Hệ Số 2 Lần 2"
+
+#: .\templates\layouts\teacher\grade-formVN.html:27
+#: .\templates\layouts\teacher\grade-formVN.html:102
+msgid "end_mark_1_1"
+msgstr "Thi kết thúc môm"
+
+#: .\templates\layouts\teacher\grade-formVN.html:30
+msgid "coefficient_v2_1_1"
+msgstr "Hệ Số 1 Lần 1 Thi lại"
+
+#: .\templates\layouts\teacher\grade-formVN.html:33
+msgid "coefficient_v2_1_2"
+msgstr "Hệ Số 1 Lần 2 Thi lại"
+
+#: .\templates\layouts\teacher\grade-formVN.html:37
+msgid "coefficient_v2_2_1"
+msgstr "Hệ Số 2 Lần 1 Thi lại"
+
+#: .\templates\layouts\teacher\grade-formVN.html:40
+msgid "coefficient_v2_2_2"
+msgstr "Hệ Số 2 Lần 2 Thi lại"
+
+#: .\templates\layouts\teacher\grade-formVN.html:44
+msgid "end_mark_v2_1_1"
+msgstr "Thi kết thúc môm Thi lại"
+
+#: .\templates\layouts\teacher\grade-formVN.html:47
+msgid "practical_1_1"
+msgstr "Thi Thực hành"
+
+#: .\templates\list\student-list-attendance.html:16
+#: .\templates\list\student-list.html:16
+msgid "Classes  &amp; Sections"
+msgstr "Lớp và Học kỳ"
+
+#: .\templates\list\student-list-attendance.html:20
+#: .\templates\list\student-list.html:20
+msgid "List of all Students"
+msgstr "Danh sách Học viên"
+
+#: .\templates\question\add_question.html:13
+msgid "Delete Choice"
+msgstr "Xóa đáp án"
+
+#: .\templates\question\add_question.html:39
+#: .\templates\question\edit_question.html:59
+msgid "Exam subject"
+msgstr "Môn thi"
+
+#: .\templates\question\add_question.html:48
+#: .\templates\question\edit_question.html:67
+msgid "Questions"
+msgstr "Câu hỏi"
+
+#: .\templates\question\index.html:32
+msgid "Click to view all Courses"
+msgstr "Danh sách Môn học"
+
+#: .\templates\quiz\check.html:18 .\templates\quiz\check.html:33
+#: .\templates\quiz\index.html:43
+msgid "Exam Code"
+msgstr "Mã Bài thi"
+
+#: .\templates\quiz\check.html:23
+msgid "fullname"
+msgstr "Họ và Tên"
+
+#: .\templates\quiz\check.html:40 .\templates\quiz\check.html:46
+msgid "Mark"
+msgstr "Điểm"
+
+#: .\templates\quiz\check.html:54 .\templates\quiz\mark.html:170
+msgid "Submit Quiz"
+msgstr "Bắt đầu thi"
+
+#: .\templates\quiz\mark.html:148
+msgid "Answered"
+msgstr "Đã trả lời"
+
+#: .\templates\quiz\mark.html:156
+msgid "Not Answered"
+msgstr "Chưa trả lời"
+
+#: .\templates\registration\logged_out.html:4
+msgid "Home"
+msgstr "Trang chủ"
+
+#: .\templates\registration\logged_out.html:10
+msgid "Log in again"
+msgstr "Đăng nhập lại"
+
+#: .\templates\registration\login.html:50
+msgid "Remember me"
+msgstr "Nhớ mật khẩu"
+
+#: .\templates\registration\login.html:63
+msgid "Forgot Your Password?"
+msgstr "Quên mật khẩu"
+
+#: .\templates\student\class-students.html:19
+msgid "List of all Class"
+msgstr "Danh sách Lớp"
+
+#: .\templates\student\section-students copy.html:32
+msgid "Sl."
+msgstr ""
+
+#: .\templates\student\section-students.html:54
+#: .\templates\student\section-students.html:79
+#: .\templates\student\section-students.html:97
+msgid "View Today\\'s Attendance"
+msgstr "Điểm danh Hôm nay"
+
+#~ msgid "Subject title"
+#~ msgstr "Môn"
+
+#~ msgid "No"
+#~ msgstr "Không"
+
+#~ msgid "Yes"
+#~ msgstr "Có"
+
+#~ msgid "All Department"
+#~ msgstr "Danh sách Cơ quan, đơn vị"
+
+#~ msgid "Create Teacher"
+#~ msgstr "Thêm Giảng viên"
+
+#~ msgid "FullNameTeacher"
+#~ msgstr "Họ & Tên"
+
+#, fuzzy
+#~| msgid "Create Department"
+#~ msgid "Create a New Departments"
+#~ msgstr "Thêm Cơ quan, đơn vị"
+
+#, fuzzy
+#~| msgid "Department"
+#~ msgid "Departments Name"
+#~ msgstr "Cơ quan, đơn vị"
+
+#~ msgid "View Each Student\\'s Grade History"
+#~ msgstr "Điểm của Học viên"
+
+#~ msgid "View all Students Marks under this Section"
+#~ msgstr "Điểm của Học viên"

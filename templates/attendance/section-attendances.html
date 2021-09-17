@@ -46,7 +46,7 @@ __('Attendance')
                                         <thead>
                                             <tr>
                                                 <th>{% trans "Section Name" %} </th>                                            
-                                                <th>{% trans "View Today\'s Attendance" %} </th>                                                
+                                                <th>{% trans "View Courses" %} </th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,9 +71,9 @@ __('Attendance')
                                                                     <tr>
                                                                         <th>{% trans "Course Name" %} </th>
                                                                     
-                                                                        <th>{% trans "View Today\'s Attendance" %} </th>
-                                                                        <th>{% trans "View Each Student\'s Attendance" %} </th>
-                                                                        <th>{% trans "Give Attendance" %} </th>
+                                                                        <th>{% trans "View Todays Attendance" %} </th>
+                                                                        <th class="hidden">{% trans "View Each Students Attendance" %} </th>
+                                                                        <th class="hidden">{% trans "Give Attendance" %} </th>
                                                                         
                                                                     </tr>
                                                                 </thead>
@@ -89,15 +89,13 @@ __('Attendance')
                                                                         </td>
                                                                     
                                                                         <td>
-                                                                            <a role="button" class="btn btn-primary btn-xs" href="{% url 'attendance:course' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Today\'s Attendance" %} </a>
+                                                                            <a role="button" class="btn btn-primary btn-xs" href="{% url 'attendance:course' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Todays Attendance" %} </a>
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="hidden">
                                                                             <a role="button" class="btn btn-danger btn-xs" href="{% url 'attendance:listofstudent' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Each Student\'s Attendance" %} </a>
                                                                         </td>
-                                                                        <td>
-                                                                            <?php
-                                                                                $ce = 0;    
-                                                                            ?>
+                                                                        <td class="hidden">
+                                                                           
                                                                             {% for ex in exams %}  
                                                                                 {% if ex.class_id == class.id %}
                                                                                     <?php

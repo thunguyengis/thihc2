@@ -16,9 +16,9 @@ class StudentForm1(forms.Form):
      order = forms.IntegerField(widget=forms.NumberInput( attrs={'class': 'form-control'}))
      
 class StudentForm(ModelForm):
-    first_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}),)
-    last_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}),)
-    code_student = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}),)
+    first_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}), label= gettext_lazy('First Name'))
+    last_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}), label= gettext_lazy('Last Name'))
+    code_student = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}), label= gettext_lazy('code_student'))
     #birthday = forms.DateField(input_type='date' ,template_name = 'django/forms/widgets/date.html')
     class Meta:
         model = Student
@@ -31,15 +31,16 @@ class StudentForm(ModelForm):
         }
 class TeacherForm(ModelForm):
     #first_name = forms.CharField(label ="Tên")
-    first_name = forms.CharField(required=True, label= gettext_lazy('First Name'))
-    last_name = forms.CharField(required=True, label= gettext_lazy('Last Name'))
-    code_teacher = forms.CharField(required=True, label= gettext_lazy('Code Teacher'))
+    first_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}), required=True, label= gettext_lazy('First Name'))
+    last_name = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}),required=True, label= gettext_lazy('Last Name'))
+    code_teacher = forms.CharField(widget=forms.TextInput( attrs={'class': 'form-control'}), required=True, label= gettext_lazy('Code Teacher'))
     #birthday = forms.DateField(input_type='date' ,template_name = 'django/forms/widgets/date.html')
     class Meta:
         model = Teacher
         fields = [ 'first_name', 'last_name', 'code_teacher', 'department','birthday', 'picpath']
         widgets = {
-            'birthday': NumberInput(attrs={'type': 'date'})
+            'department': Select( attrs={'class': 'form-control'}),
+            'birthday': NumberInput(attrs={'type': 'date','class': 'form-control'})
         }  
 class SectionForm(ModelForm):
     class Meta:
@@ -68,6 +69,17 @@ class CourseOfSectionForm(ModelForm):
             'teacher': Select( attrs={'class': 'form-control'}),
             'course_time': TextInput(attrs={  'class': 'form-control',}),   
         } 
+class ClassForm(ModelForm):
+    class Meta:
+        model = Class
+        fields = '__all__'
+        widgets = {
+            'class_name': TextInput( attrs={'class': 'form-control'}),
+            'majors': Select( attrs={'class': 'form-control'}),
+            'year_begins': NumberInput(attrs={'type': 'date','class': 'form-control'}),
+            'year_end': NumberInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'order': TextInput( attrs={'class': 'form-control'}),
+        }
 
         
     

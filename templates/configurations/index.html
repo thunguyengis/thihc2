@@ -45,14 +45,14 @@ __('Academic Settings')
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <h4 class="modal-title" id="departmentModalLabel">{% trans "Create Department" %} </h4>
+                                                    <h4 class="modal-title" id="departmentModalLabel">{% trans "Department" %} </h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form class="form-horizontal" action="{% url 'configurations:add-department' %}" method="post">
                                                         {% csrf_token %}
                                                      
                                                         <div class="form-group">
-                                                            <label for="department_name" class="col-sm-2 control-label">{% trans "Create Department" %} </label>
+                                                            <label for="department_name" class="col-sm-2 control-label">{% trans "Department Name" %} </label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="department_name" name="department_name" placeholder="{% trans 'English, Mathematics,...' %}">
                                                             </div>
@@ -85,7 +85,7 @@ __('Academic Settings')
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
-                                                                        <h4 class="modal-title" id="myModalLabel">{% trans "All Department" %}  {{ department.department_name}}</h4>
+                                                                        <h4 class="modal-title" id="myModalLabel">{{ department.department_name}}</h4>
                                                                     </div>
                                                                     <div class="modal-body">
 																		<div class="form-check">

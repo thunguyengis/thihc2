@@ -6,11 +6,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
-from .models import Configurations, Department , Student,   ClassForm #, UserForm
+from .models import Configurations, Department , Student    #, UserForm
 from .models import Teacher, Class, Section, Course, Grade, GradeOfVN, CourseOfSection, CoursOfDepartment
 # Create your views here.
 #form
-from .forms import TeacherForm, SectionForm, CourseForm, CourseOfSectionForm, StudentForm
+from .forms import TeacherForm, SectionForm, CourseForm, CourseOfSectionForm, StudentForm, ClassForm
 
 # thông báo lỗi
 from django.contrib import messages 
@@ -25,7 +25,7 @@ import re
 #@login_required(redirect_field_name="/polls/3")
 @login_required()
 @permission_required('configurations.configurations', raise_exception=True)
-
+@login_required()
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -85,13 +85,18 @@ def departments(request):
     #    l.append(g.name)
     #return HttpResponse(l)
     config = Configurations.objects.filter(id = 1).first()
+    list_departments = []
     departments = Department.objects.all()
+    for dep in departments:
+        teacher = Teacher.objects.filter(department_id = dep.id).first()
+        if teacher != None:
+            list_departments.append(dep)
     teachers = Teacher.objects.all()
     #return HttpResponse(sections)
     return render(request, 'configurations/departments.html',{
                                                 'group':group ,
                                                 'config':config,
-                                                'departments':departments,
+                                                'departments':list_departments,
                                                 'teachers':teachers,
                                              })
  

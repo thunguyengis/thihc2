@@ -17,19 +17,24 @@ import openpyxl
 @login_required()
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
-                                      # QuerySet to `list`
    
     #for g in request.user.groups.all():
     #    l.append(g.name)
     #return HttpResponse(l)
     config = Configurations.objects.filter(id = 1).first()
+    list_departments = []
     departments = Department.objects.all()
+    for dep in departments:
+        cour =  CoursOfDepartment.objects.filter(department_id =dep.id).first()
+        if cour != None:
+            list_departments.append(dep)
+
     courseOfDepartments = CoursOfDepartment.objects.all()
     #return HttpResponse(sections)
     return render(request, 'question/index.html',{
                                                 'group':group ,
                                                 'config':config,
-                                                'departments':departments,
+                                                'departments':list_departments,
                                                 'courseOfDepartments':courseOfDepartments,
                                              })
 
@@ -94,14 +99,14 @@ def add_question(request, course_id):
                                              })
 # Danh sách 
 Question_type = [
-        ('text', 'Open Text'),
-        ('radio', 'Select One'),
-        ('checkbox', 'Select Many'),
-        ('textarea', 'Multi-line open Text'),
+        ('text', 'Điền vào chổ trống'),
+        ('radio', 'Chọn đáp án đúng'),
+        ('checkbox', 'Chọn nhiều đáp án'),
+        ('textarea', 'Điền vào chổ trống (nhiều dòng)'),
 ]
 Question_level = [
-        ('cb', 'cb'),
-        ('nc', 'nc'),
+        ('cb', 'Cơ bản'),
+        ('nc', 'Nâng cao'),
 ]
 #
 @login_required()
@@ -382,26 +387,25 @@ def import_question_old(request, course_id ):
                 question_old = question
                 
             else:
+                
                 #question = Question.objects.filter(id = question_id).first()
                 choice = Choice()
                 choice.question_id = question_old.id
                 choice.choice_name = row[0].value
                 choice.save()
-                if  correct_answer== "A":
-                    question_old.correct_answer = row[0].value
-                    
-                    question_old.save()
-                elif  correct_answer== "B":
+               
+                if  correct_answer== "A" and (i % 5)==2:
                     question_old.correct_answer = row[0].value
                     question_old.save()
-                elif  correct_answer== "C":
+                elif  correct_answer== "B"  and (i % 5)==3:
                     question_old.correct_answer = row[0].value
                     question_old.save()
-                elif  correct_answer== "D":
+                elif  correct_answer== "C"  and (i % 5)==4:
+                    question_old.correct_answer = row[0].value
+                    question_old.save()
+                elif  correct_answer== "D" and (i % 5)==0:
                     question_old.correct_answer = row[0].value
                     question_old.save()
             i = i +1
 
     return redirect('question:list_question', course_id=course_id)
-    return HttpResponseRedirect(reverse('question:list_question'))
-    return HttpResponseRedirect('question/' + str(course_id )+  '/list_question/')

@@ -27,7 +27,7 @@
                         @endif
                     {% endcomment %}
                     <div class="row">
-                        <div class="page-panel-title"> {% trans "Dashboard" %} </div>
+                        <div class="page-panel-title hidden"> {% trans "Dashboard" %} </div>
                         <div class="col-sm-2">
                             <div class="card text-white bg-primary mb-3">
                                 <div class="card-header"> {% trans "Students" %} - <b>{{ totalStudents }}</b></div>
@@ -65,7 +65,7 @@
                         <div class="col-sm-8">
                             
                             <div class="panel panel-default">
-                                <div class="page-panel-title"> {% trans "Active Exams" %} </div>
+                                <div class="page-panel-title"> {% trans "List Exams" %} </div>
                                 <div class="panel-body">
                                     {%if exams %}
                                     <table class="table">

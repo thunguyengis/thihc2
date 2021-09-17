@@ -14,6 +14,8 @@ from django import forms
 from django.forms import  CharField, DateField, ModelForm, DateInput, Textarea
 from django.forms.widgets import NumberInput
 
+#
+from django.utils.translation import gettext_lazy 
 
 class Configurations(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -58,13 +60,13 @@ class CoursOfDepartment(models.Model):
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name =gettext_lazy('department'))
     #student_name = models.CharField(max_length=200, null=True)
-    birthday = models.DateField()
+    birthday = models.DateField(verbose_name =gettext_lazy('birthday'))
     #religion = models.CharField(max_length=200, null=True)
-    picpath =  models.ImageField(upload_to ='uploads', null=True)
+    picpath =  models.ImageField(upload_to ='uploads', null=True, verbose_name =gettext_lazy('picpath'))
     #gender = models.CharField(max_length=100, null=True)
-    order = models.IntegerField(default=0)
+    order = models.IntegerField(default=0, verbose_name =gettext_lazy('order'))
     def __str__(self):
         return self.user.username
     def getname(self):
@@ -105,25 +107,18 @@ def min_value_current_year(value):
     return MinValueValidator(current_year())(value) 
 
 class Class(models.Model):
-    class_name = models.CharField(max_length=200, null=True)
-    majors = models.ForeignKey(Majors, on_delete=models.CASCADE)
-    year_begins = models.IntegerField(default = current_year(), validators=[min_value_current_year, max_value_current_year])
-    year_end = models.IntegerField(default = current_year(), validators=[min_value_current_year, max_value_current_year])
-    created_at = models.DateTimeField(default = timezone.now, editable=False)
-    updated_at  = models.DateTimeField(default = timezone.now, editable=False)
-    order = models.IntegerField(default=0)
+    class_name = models.CharField(max_length=200, null=True, verbose_name =gettext_lazy('class_name'))
+    majors = models.ForeignKey(Majors, on_delete=models.CASCADE, verbose_name =gettext_lazy('majors'))
+    year_begins = models.IntegerField(default = current_year(), validators=[min_value_current_year, max_value_current_year], verbose_name =gettext_lazy('year_begins'))
+    year_end = models.IntegerField(default = current_year(), validators=[min_value_current_year, max_value_current_year], verbose_name =gettext_lazy('year_end'))
+    created_at = models.DateTimeField(default = timezone.now, editable=False, verbose_name =gettext_lazy('created_at'))
+    updated_at  = models.DateTimeField(default = timezone.now, editable=False, verbose_name =gettext_lazy('updated_at'))
+    order = models.IntegerField(default=0, verbose_name =gettext_lazy('order') )
     def __str__(self):
         return self.class_name
 
-class ClassForm(ModelForm):
-    class Meta:
-        model = Class
-        fields = '__all__'
-        """widgets = {
-            'year_begins': NumberInput(attrs={'type': 'date'}),
-            'year_end': NumberInput(attrs={'type': 'date'})
-        }
-        """
+
+        
    
 
 # học phần, học kỳ
@@ -222,14 +217,14 @@ class CourseOfSection(models.Model):
 # học viên
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    myclass = models.ForeignKey(Class, on_delete=models.CASCADE)
+    myclass = models.ForeignKey(Class, on_delete=models.CASCADE, verbose_name =gettext_lazy('myclass'))
     #student_name = models.CharField(max_length=200, null=True)
-    birthday = models.DateField()
-    religion = models.CharField(max_length=200, null=True)
-    picpath =  models.ImageField(upload_to ='uploads', null=True)
-    gender = models.CharField(max_length=100, null=True)
-    year_begins = models.IntegerField(default = current_year())
-    order = models.IntegerField(default=0)
+    birthday = models.DateField(verbose_name =gettext_lazy('birthday'))
+    religion = models.CharField(max_length=200, null=True, verbose_name =gettext_lazy('religion'))
+    picpath =  models.ImageField(upload_to ='uploads', null=True, verbose_name =gettext_lazy('picpath'))
+    gender = models.CharField(max_length=100, null=True, verbose_name =gettext_lazy('gender'))
+    year_begins = models.IntegerField(default = current_year(), verbose_name =gettext_lazy('year_begins'))
+    order = models.IntegerField(default=0, verbose_name =gettext_lazy('order'))
     def __str__(self):
         return self.user.username
     def getname(self):
