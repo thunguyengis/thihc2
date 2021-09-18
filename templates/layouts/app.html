@@ -13,9 +13,8 @@
    
     --> 
     <title>
-    {% if user.is_authenticated %}
-        {{config.name}}
-     {% endif %}
+        {% block title %}
+        {% endblock %}
     </title>
 
     <link rel="stylesheet" href="{% static '/assets/theme/application/css/loader.css' %}" />

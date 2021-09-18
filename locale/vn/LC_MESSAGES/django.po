@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 21:52+0700\n"
+"POT-Creation-Date: 2021-09-18 07:19+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,6 +397,7 @@ msgid "Submit"
 msgstr "Lưu"
 
 #: .\templates\components\add_question.html:6
+#: .\templates\components\questions-list.html:11
 msgid "Question Chapter"
 msgstr "Chương"
 
@@ -424,6 +425,7 @@ msgstr "Điền vào chổ trống (nhiều dòng)"
 #: .\templates\components\add_question.html:19
 #: .\templates\components\chapter-list.html:25
 #: .\templates\components\edit_question.html:25
+#: .\templates\components\questions-list.html:15
 msgid "Question Level"
 msgstr "Mức độ câu hỏi"
 
@@ -483,7 +485,7 @@ msgstr "Xem Điểm"
 
 #: .\templates\components\course-table.html:24
 #: .\templates\components\course-table.html:81
-#: .\templates\components\questions-list.html:79
+#: .\templates\components\questions-list.html:91
 #: .\templates\components\users-list-student.html:32
 msgid "Edit"
 msgstr "Sửa"
@@ -522,7 +524,7 @@ msgid "Examination Code"
 msgstr "Mã"
 
 #: .\templates\components\exams-list.html:41
-#: .\templates\components\questions-list.html:49
+#: .\templates\components\questions-list.html:61
 msgid "Created At"
 msgstr "Thời gian tạo"
 
@@ -574,7 +576,7 @@ msgid "Not Active"
 msgstr "Không kích hoạt"
 
 #: .\templates\components\excel-upload-form.html:8
-#: .\templates\components\questions-list.html:14
+#: .\templates\components\questions-list.html:26
 #: .\templates\configurations\index.html:232
 #: .\templates\configurations\index.html:251
 msgid "Upload"
@@ -584,8 +586,8 @@ msgstr "Upload"
 msgid "Toggle Navigation"
 msgstr ""
 
-#: .\templates\components\navbar-top.html:21 .\templates\quiz\mark.html:129
-#: .\templates\quiz\quiz.html:131
+#: .\templates\components\navbar-top.html:21 .\templates\pdf_template.html:42
+#: .\templates\quiz\mark.html:129 .\templates\quiz\quiz.html:131
 msgid "NameSchool"
 msgstr "TRƯỜNG CAO ĐẲNG HẬU CẦN 2"
 
@@ -614,26 +616,26 @@ msgstr "Thêm Câu hỏi"
 
 #: .\templates\components\questions-list.html:7
 msgid "Import Question"
-msgstr ""
+msgstr "Nhập Câu hỏi"
 
-#: .\templates\components\questions-list.html:44
+#: .\templates\components\questions-list.html:56
 msgid "Chater"
 msgstr "Chương"
 
-#: .\templates\components\questions-list.html:45
+#: .\templates\components\questions-list.html:57
 msgid "Level"
 msgstr "Cấp độ"
 
-#: .\templates\components\questions-list.html:46
+#: .\templates\components\questions-list.html:58
 msgid "Type"
 msgstr "Loại"
 
-#: .\templates\components\questions-list.html:47
+#: .\templates\components\questions-list.html:59
 #: .\templates\layouts\leftside-menubar.html:72
 msgid "Question"
 msgstr "Câu hỏi"
 
-#: .\templates\components\questions-list.html:48
+#: .\templates\components\questions-list.html:60
 msgid "Answer "
 msgstr "Đáp án"
 

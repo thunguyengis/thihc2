@@ -372,17 +372,12 @@ def import_question_old(request, course_id ):
            
             if i % 5 ==1:
                 question = Question()
-                
-                    #question_type = request.POST['question_type']
-                question.coursOfDepartment_id = course_id
-                
+                question.coursOfDepartment_id = course_id               
                 question.question_type = 'radio'
-                question.chapter = 1 #row[1].value #request.POST['chapter']
+                question.chapter = request.POST['chapter']
                 question.question_name = row[0].value
-                question.question_level = 'cb' # row[3].value
+                question.question_level = request.POST['question_level'] # row[3].value
                 correct_answer = row[1].value
-               
-
                 question.save()
                 question_old = question
                 
