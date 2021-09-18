@@ -9,6 +9,7 @@ from configurations.models import Configurations, Student, Teacher, Class, Cours
 from .models import Attendance
 #rom django.utils import timezone
 from datetime import datetime
+from django.utils import timezone
 # Create your views here.
 def index(request):
  
@@ -51,8 +52,15 @@ def course1(request, course_id):
         for i, student in enumerate(students) :
             at = dict()
             at['student_id'] = student.id
-            at['totalPresent'] = Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
-            at['totalAbsent'] = Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            totalPresent = Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
+            at['totalPresent'] = totalPresent #Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
+            totalAbsent = Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            at['totalAbsent'] = totalAbsent #Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+           
+            if (int (totalPresent) + int(totalAbsent)) >0:
+                at['percentPresent']  = totalPresent*100/(totalPresent +totalAbsent)
+            else:
+                at['percentPresent'] = 0
             at['totalEscaped'] = Attendance.objects.filter(course_id = course_id).filter(present = 2).filter(student_id = student.id).count()
             attCount.append(at)
     #return HttpResponse(attCount)
@@ -108,9 +116,21 @@ def course(request, course_id):
         for i, student in enumerate(students) :
             at = dict()
             at['student_id'] = student.id
-            at['totalPresent'] = Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
-            at['totalAbsent'] = Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            #at['totalPresent'] = Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
+            #at['totalAbsent'] = Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            
+            totalPresent = Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
+            at['totalPresent'] = totalPresent #Attendance.objects.filter(course_id = course_id).filter(present = 1).filter(student_id = student.id).count()
+            totalAbsent = Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            at['totalAbsent'] = totalAbsent #Attendance.objects.filter(course_id = course_id).filter(present = 0).filter(student_id = student.id).count()
+            
+            if (int (totalPresent) + int(totalAbsent)) >0:
+                at['percentPresent']  = totalPresent*100/(totalPresent +totalAbsent)
+            else:
+                at['percentPresent'] = 0
+            
             at['totalEscaped'] = Attendance.objects.filter(course_id = course_id).filter(present = 2).filter(student_id = student.id).count()
+            
             attCount.append(at)
     #return HttpResponse(attCount)
     grades = GradeOfVN.objects.filter(courseOfSection_id = course_id)
@@ -171,8 +191,8 @@ def listofstudent(request, course_id):
 import json
 def student_details(request, student_id, course_id):
     classes = Class.objects.all
-    sections = Section.objects.all
-    courses = Course.objects.all
+    #sections = Section.objects.all
+    course = CourseOfSection.objects.filter( id=course_id).first()
     student = Student.objects.filter( id=student_id).first()
     mytype='student'
     attendances = Attendance.objects.filter(course_id = course_id, student_id=student_id)#[:2]
@@ -183,21 +203,23 @@ def student_details(request, student_id, course_id):
     events = []    
     for attendance in attendances :
         at = dict()
-        at["start"] = attendance.created_at.strftime ("%Y-%m-%dT%H:%M:%S") #"Apr 06 2021 10:58:01pm" #
-        at["end"] = attendance.updated_at.strftime ("%Y-%m-%dT%H:%M:%S") #"Apr 06 2021 10:58:01pm" #
+        
+       
+        at["start"] = timezone.localtime(attendance.created_at).strftime ("%Y-%m-%dT%H:%M:%S") #"Apr 06 2021 10:58:01pm" #
+        at["end"] = timezone.localtime(attendance.updated_at).strftime ("%Y-%m-%dT%H:%M:%S") #"Apr 06 2021 10:58:01pm" #
         if attendance.present == 1:
-            at["title"] = "Present"            
+            at["title"] = "Có mặt"            
             at["color"] = "green"
         elif  attendance.present == 2:
             at["title"] = "Present"   
             at["color"] = "orange"          
             
         else :
-            at["title"] = "Present" 
+            at["title"] = "Vắng mặt" 
             at["color"] = "red"           
            
         events.append(at)
-        
+        #return HttpResponse(events)
     #data = serializers.serialize('json', events)
     #return HttpResponse(json.dumps(events))
     return render(request, 'attendance/student-attendances.html', {
@@ -206,7 +228,9 @@ def student_details(request, student_id, course_id):
                                                 'events':json.dumps(events),
                                                 'student':student,
                                                 #'users':students,
-                                                'type':mytype
+                                                'type':mytype,
+                                                'course_id':course_id,
+                                                'course':course,
                                     
                                             })
 

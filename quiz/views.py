@@ -212,7 +212,7 @@ def quiz(request):
             grade.save()                                 
         #---------------------------------------------------
         #
-        if 'qcurent' in request.POST :
+        if 'qcurent' in request.POST and question_list.count() != 0 :
             qcurent = request.POST['qcurent']
                 # cập nhật cấu trả lời
                
@@ -245,12 +245,15 @@ def quiz(request):
         #page_number = request.GET.get('q')
         #return HttpResponse(page_number)
         page_obj = paginator.get_page(page_number)
-        if page_number == None:
+        choices = None
+        question_choice = None
+        
+        if page_number == None and question_list.count() != 0:
             question = question_list[0]
             question_choice = question.choice
             choices = ChoiceOfStudent.objects.filter(questionOfStudent_id = question.id )
             
-        else:
+        elif question_list.count() != 0:
             #return HttpResponse(request.POST)
            
             
@@ -263,6 +266,7 @@ def quiz(request):
         second = time_remaining%60
         return render(request, 'quiz/quiz.html', {'page_obj': page_obj, 'choices':choices,
                                                  'question_choice': question_choice,
+                                                 'exam': exam,
                                                  'minute':minute,
                                                  'second':second,
                                                  'time_exam': exam.time_exam })
@@ -325,13 +329,15 @@ def diem(request, c):
                 icorrect = icorrect + 1
         # điểm theo buổi thi
         grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
-        mark = round( icorrect/question_list.count(), 2) 
-        grade.mark = mark
-        grade.save()
+        mark = None
+        if question_list.count() != 0:
+            mark = round( icorrect/question_list.count(), 2) 
+            grade.mark = mark
+            grade.save()
         # cập nhật điểm theo môn học
         gradeOfVN = GradeOfVN.objects.filter( student_id=student_id, courseOfSection_id = exam.courseOfSection_id ).first()
         #return HttpResponse( exam.courseOfSection_id)
-        if gradeOfVN !=None:
+        if gradeOfVN !=None and mark != None:
             if exam.exam_type2 == 'coefficient_1_1':
                 gradeOfVN.coefficient_1_1 =mark
                 

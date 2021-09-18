@@ -1,7 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-__('Attendance')
+{% trans "Attendance" %} 
 {% endblock %}
 
 {% block content %}
@@ -13,8 +13,8 @@ __('Attendance')
         <div class="col-md-10" id="main-container">
             <div class="panel panel-default">
                 <ol class="breadcrumb" style="margin-top: 3%;">
-                    <li><a href="{% url 'configurations:classes' %}" style="color:#3b80ef;">{% trans "Classes  &amp; Sections" %} </a></li>
-                    <li class="active">{ucfirst($user->role)}}s</li>
+                    <li><a href="{% url 'attendance:allstudent' %}" style="color:#3b80ef;">{% trans "Classes  &amp; Sections" %} </a></li>
+                    <li class="active">{% trans "View Each Students Attendance" %} </li>
                 </ol>
 
                 <div class="page-panel-title">{% trans "List of all Students" %} </div>

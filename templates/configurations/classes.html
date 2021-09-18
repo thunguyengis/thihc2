@@ -46,7 +46,7 @@
                                         <tr>
                                             <th> 
                                             <th>{% trans "View Courses" %} </th>
-                                            <th>{% trans "View Routines" %} </th>
+                                            <th class="hidden">{% trans "View Routines" %} </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,7 +61,7 @@
                                             <td>
                                                 <a role="button" class="btn btn-info btn-xs" href="{% url 'course:section'  section_id=section.id  %}"><i class="material-icons">visibility</i>{% trans "View Courses under this section" %} </a>
                                             </td>
-                                            <td>
+                                            <td class="hidden">
                                                 <a role="button" class="btn btn-primary btn-xs" href="" thu-data="{url('academic/routine/'.$section->id)}}" ><i class="material-icons">visibility</i> {% trans "View Routines for this section" %}  </a>
                                             </td>
                                           

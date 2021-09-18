@@ -1,7 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-__('Attendance')
+{% trans "Attendance" %} 
 {% endblock %}
 
 {% block content %}
@@ -72,7 +72,7 @@ __('Attendance')
                                                                         <th>{% trans "Course Name" %} </th>
                                                                     
                                                                         <th>{% trans "View Todays Attendance" %} </th>
-                                                                        <th class="hidden">{% trans "View Each Students Attendance" %} </th>
+                                                                        <th >{% trans "View Each Students Attendance" %} </th>
                                                                         <th class="hidden">{% trans "Give Attendance" %} </th>
                                                                         
                                                                     </tr>
@@ -91,8 +91,8 @@ __('Attendance')
                                                                         <td>
                                                                             <a role="button" class="btn btn-primary btn-xs" href="{% url 'attendance:course' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Todays Attendance" %} </a>
                                                                         </td>
-                                                                        <td class="hidden">
-                                                                            <a role="button" class="btn btn-danger btn-xs" href="{% url 'attendance:listofstudent' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Each Student\'s Attendance" %} </a>
+                                                                        <td >
+                                                                            <a role="button" class="btn btn-danger btn-xs" href="{% url 'attendance:listofstudent' course_id=course.id %}"><i class="material-icons">visibility</i>{% trans "View Each Students Attendance" %} </a>
                                                                         </td>
                                                                         <td class="hidden">
                                                                            

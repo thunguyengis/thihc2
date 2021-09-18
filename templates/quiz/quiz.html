@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +20,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React Quiz Application</title>
+    <title>{% trans "Quiz" %}</title>
 <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.min.css' %}" >
   <style type="text/css">
   body {
@@ -141,7 +142,7 @@
                     <div id="quiz">
                         <form method="POST" >
                             {% csrf_token %}
-                        <h2 class="text-center font-weight-normal">BÊNH HỌC NỘI</h2>
+                        <h2 class="text-center font-weight-normal">{{ exam.courseOfSection }}</h2>
                         <hr>
                         <div>
                             <div class="badge badge-info">

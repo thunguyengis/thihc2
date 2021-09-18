@@ -22,7 +22,7 @@
       
       <td><small>{{user.user.username}}</small></td>
       <td> <small>
-          <a href="{url('user/'.$user->student_code)}}">
+          <a href="">
             {{user.getname}}</a>
           </small></td>
       <td><small><a class="btn btn-xs btn-info" role="button" href="{% url 'attendance:student_details' student_id=user.id course_id=course_id %}"> {% trans "View Attendance" %} </a></small></td>   

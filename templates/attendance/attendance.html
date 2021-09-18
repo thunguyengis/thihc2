@@ -1,7 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-__('Attendance')
+{% trans "Attendance" %} 
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@ __('Attendance')
         </div>
         <div class="col-md-10" id="main-container">
             <ol class="breadcrumb" style="margin-top: 3%;">
-                <li><a href="{url('school/sections?att=1')}}" style="color:#3b80ef;"> {% trans "All Classes" %}  &amp; {% trans "Sections" %} </a></li>
+                <li><a href="{% url 'attendance:allstudent' %}" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
                 <li class="active">{% trans "Attendance" %} </li>
             </ol>
             <h2>{% trans "Take Attendance" %} </h2>
@@ -22,7 +22,7 @@ __('Attendance')
                 
                
                   <div class="page-panel-title">
-                    <b>Class</b> - {{course.section.myclass}}  &nbsp;  {{course.section}}  &nbsp; <b>Course</b> - {{course}}
+                    <b>{% trans "Class" %} </b> - {{course.section.myclass}}  &nbsp;  {{course.section}}  &nbsp; <b>{% trans "Course" %} </b> - {{course}}
                     <span class="pull-right"><b>{% trans "Current Date Time" %} :</b> &nbsp;{{ myDate }}  </span>
                   </div>
                   

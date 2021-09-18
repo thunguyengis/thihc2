@@ -48,39 +48,43 @@
             {% include 'layouts/leftside-menubar.html' %}
         </div>
         <div class="col-md-10" id="main-container">
-         
+            <ol class="breadcrumb" style="margin-top: 3%;">
+              <li><a href="{% url 'question:index' %}" style="color:#3b80ef;">{% trans "Question" %} </a></li>
+              <li class="active"><a href="{% url 'question:list_question' course_id=course.id %}" style="color:#3b80ef;">{% trans "Course" %} </a> </li>
+              <li class="active">{% trans "Edit" %} </li>
+            </ol>
             <div id="main">
- 
-    <div id="site_content">
-      <div id="content">
+          
+              <div id="site_content">
+                <div id="content">
 
-       {% if course %}
-            <h2> {% trans "Exam subject" %} :{{course}} </h2>
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-                <input type="hidden" id="action" name="action" value="edit_survey" />
-                <input type="hidden" id="course_id" name="course_id" value="{{course.id}}" />
-                <div class="input_form survey_edit">
+                {% if course %}
+                      <h2> {% trans "Exam subject" %} :{{course}} </h2>
+                      <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                          <input type="hidden" id="action" name="action" value="edit_survey" />
+                          <input type="hidden" id="course_id" name="course_id" value="{{course.id}}" />
+                          <div class="input_form survey_edit">
 
-                <div class="questions_container">
-                  <h2>{% trans "Questions" %}</h2>
-                  <div class="questions">
-                        {% include 'components/edit_question.html' %}
-                  </div>
-                  
+                          <div class="questions_container">
+                            <h2>{% trans "Questions" %}</h2>
+                            <div class="questions">
+                                  {% include 'components/edit_question.html' %}
+                            </div>
+                            
+                          </div>
+                          
+                        <div class="submit_button">
+          
+                          <button class="btn btn-primary" type="submit" id="submitButton" name="submitButton">Save</button>
+
+                        </div>
+                    </form>
+                {%endif%}
                 </div>
-                
-              <div class="submit_button">
- 
-                <button class="btn btn-primary" type="submit" id="submitButton" name="submitButton">Save</button>
-
               </div>
-          </form>
-       {%endif%}
-      </div>
-    </div>
-  
-</div>
+            
+            </div>
         </div>
     </div>
 

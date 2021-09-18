@@ -2,8 +2,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-
-__('All Classes and Sections')
+{% trans "Quiz" %}
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -60,7 +59,7 @@ __('All Classes and Sections')
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {% trans "Submit" %} 
+                                    {% trans "Check" %} 
                                 </button>
                               
                               

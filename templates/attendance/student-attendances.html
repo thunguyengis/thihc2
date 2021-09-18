@@ -1,7 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-__('Attendance')
+{% trans "Attendance" %} 
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,13 @@ __('Attendance')
                 {% if user.groups.all.0.name == 'admin' %}
              
                 <ol class="breadcrumb" style="margin-top: 3%;">
-                    <li><a href="" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
-                    <li><a href="" style="color:#3b80ef;"> {% trans "List of Students" %} </a></li>
+                    <li><a href="{% url 'attendance:allstudent' %}" style="color:#3b80ef;"> {% trans "Classes" %}  &amp; {% trans "Sections" %} </a></li>
+                    <li><a href="{% url 'attendance:listofstudent' course_id=course_id  %}" style="color:#3b80ef;"> {% trans "List of Students" %} </a></li>
                     <li class="active">{% trans "View Attendance" %} </li>
                 </ol>
                 {%endif%}
-                <h2> {% trans "Attendance of Student" %} -  {{student.getname}}</h2>
+                <span> {% trans "Attendance of Student" %}  {{course}}/ {{course.section}}: <b style="font-size: large;">{{student.getname}}</b> </span>  
+               
                 {%endif%}
             <div class="panel panel-default">
                 {% if attendances %}

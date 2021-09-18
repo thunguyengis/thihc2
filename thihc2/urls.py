@@ -29,8 +29,11 @@ urlpatterns = [
     path('question/', include('question.urls')),
     path('grade/', include('grade.urls')),
     
-    #re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     #path(r'^ckeditor/', include('ckeditor.urls')),
     path('student/', include('student.urls')),
     path('course/', include('course.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+
+

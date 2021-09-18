@@ -14,7 +14,8 @@
             var calendarEl = document.getElementById('attendanceCalendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                locale: 'vi',
+                
+                locale: 'VI',
                 plugins: [ 'dayGrid' ],
                 events: attEvents
             
@@ -26,7 +27,6 @@
       
     </script>
     <div class="col-md-8">
-      <h5>{% trans "Attendance List of Full Semester" %} </h5>
-          <div id="attendanceCalendar"></div>
+        <div id="attendanceCalendar"></div>
     </div>
 

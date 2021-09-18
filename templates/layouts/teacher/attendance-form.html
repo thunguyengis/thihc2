@@ -27,7 +27,7 @@
         <th scope="col">{% trans "Present" %} </th>
         <th scope="col">{% trans "Total Attended" %} </th>
         <th scope="col">{% trans "Total Missed" %} </th>
-        <th scope="col">{% trans "Total Escaped" %} </th>
+        <th scope="col">{% trans "Percent Present" %} </th>
         <th scope="col" class="hidden">{% trans "Adjust Missed Attendance" %} </th>
       </tr>
     </thead>
@@ -76,7 +76,7 @@
                 
                   <td>{{at.totalPresent}}</td>
                   <td>{{at.totalAbsent}}</td>
-                  <td>{{at.totalEscaped}}</td>
+                  <td>{{at.percentPresent|floatformat:"-2"}}%</td>
                 {% else %}
                  
                 {% endif %}
@@ -113,7 +113,7 @@
               
                   <td>{{at.totalPresent}}</td>
                   <td>{{at.totalAbsent}}</td>
-                  <td>{{at.totalEscaped}}</td>
+                  <td>{{at.percentPresent|floatformat:"-2"}}%</td>
                 {% else %}
                  
                 {% endif %}
@@ -123,7 +123,7 @@
               <td>0</td>
               <td>0</td>
           {% endif %}
-          <td ><a href="" role="button" class="btn btn-danger btn-sm hidden">{% trans "Adjust Missing Attendances" %} </a></td>
+          <td class="hidden" ><a href="" role="button" class="btn btn-danger btn-sm ">{% trans "Adjust Missing Attendances" %} </a></td>
         </tr>
         {% endfor %}
         {% endif %}

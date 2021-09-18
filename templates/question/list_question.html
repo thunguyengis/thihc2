@@ -11,7 +11,11 @@
         </div>
         <div class="col-md-10" id="main-container">
             <div class="panel panel-default">
-                <div class="page-panel-title">{% trans "All Examinations" %} </div>
+                <ol class="breadcrumb" style="margin-top: 3%;">
+                    <li><a href="{% url 'question:index' %}" style="color:#3b80ef;">{% trans "Question" %} </a></li>
+                    <li class="active">{% trans "Course" %} </li>
+                </ol>
+                <div class="page-panel-title">{% trans "All Questiones" %} </div>
 
                 <div class="panel-body">
                   

@@ -19,13 +19,14 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React Quiz Application</title>
+    <title>{% trans "Quiz" %}</title>
     <style type="text/css">body {
         margin: 0;
         padding: 0;
         font-family: sans-serif;
       }
     </style>
+    <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.min.css' %}" >
     <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.460.css' %}" >
     <style type="text/css">
  .btn {
@@ -126,7 +127,7 @@
         <header class="p-2">
             <div class="row">
                 <div class="col-6">
-                    <h3>Quiz Application</h3>
+                    <h3>{% trans "NameSchool" %}</h3>
                 </div>
                 <div class="col-6 text-right">
                     <label class="mr-1">Thời gian <span id="idminute"></span>:<span id="idsecond"></span> </label>
@@ -137,7 +138,7 @@
         </header>
         <div>
             <div>
-                <h2 class="text-center font-weight-normal">Review Quiz: Javascript Quiz</h2>
+                <h2 class="text-center font-weight-normal">{{ exam.courseOfSection }}</h2>
                 <hr>
                 <div class="row text-center">
                     {% for question in question_list %}

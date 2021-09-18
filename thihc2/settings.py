@@ -52,9 +52,9 @@ INSTALLED_APPS = [
    
     #'question',
     # third party apps
-    #'crispy_forms',
+    'crispy_forms',
     'ckeditor',
-    #'ckeditor_uploader',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +137,7 @@ LOCALE_PATHS = (
 )
 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 

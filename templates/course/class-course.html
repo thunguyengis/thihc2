@@ -1,8 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-
-__('Academic Settings')
+{% trans "Courses" %} 
 {% endblock %}
 
 {% block content %}
@@ -14,7 +13,7 @@ __('Academic Settings')
         <div class="col-md-10" id="main-container">
             {% if user.groups.all.0.name != 'student' %}
             <ol class="breadcrumb" style="margin-top: 3%;">
-                <li><a href="{url('school/sections?course=1')}}" style="color:#3b80ef;"> {% trans "All Classes" %} &amp; {% trans "Sections" %} </a></li>
+                <li><a href="{% url 'configurations:classes' %}" style="color:#3b80ef;"> {% trans "Classes" %} &amp; {% trans "Sections" %} </a></li>
                 <li class="active">{% trans "Courses" %}  </li>
             </ol>
             {% endif %}
