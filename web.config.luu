@@ -1,6 +1,6 @@
  <configuration>
   <system.webServer>
-   
+
     <handlers>
       <add name="Python FastCGI"
            path="*"
@@ -11,6 +11,7 @@
            requireAccess="Script" />
       
     </handlers>
+    
   </system.webServer>
 
   <appSettings>

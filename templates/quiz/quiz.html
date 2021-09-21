@@ -31,6 +31,9 @@
 </style>
 
  <style type="text/css">
+ p{
+    display: contents !important;
+ }
  .btn {
     border-radius: 0;
 }
@@ -153,7 +156,7 @@
                                 <span>
                                 {% for question in page_obj %}
                                     
-                                   {{ question.question_content }}<br>
+                                   {{ question.question_content|safe   }}<br>
                                 
                                 {% endfor %}
                                 </span>
@@ -162,20 +165,20 @@
                                 
                                 {% for choice in choices %}
                                 
-                                    
+                                <label style="display:contents" class="font-weight-normal" for="c{{forloop.counter}}">
                                     <div class="col-6">
                                         <div class="option">
-                                            <label class="font-weight-normal" for="1055">
+                                           
                                                 {% if choice.choice in question_choice  %}
                                                 
-                                                <input name="answers[]" id="c{{forloop.counter}}" checked type="checkbox" value="{{choice.choice}}"><label style="display:contents" for="c{{forloop.counter}}"> {{ choice.choice }}</label><br>
+                                                <input name="answers[]" id="c{{forloop.counter}}" checked type="{{question.question_type}}" value="{{choice.choice}}"> {{ choice.choice|safe }}
                                                 {% else %}
-                                                <input name="answers[]" id="c{{forloop.counter}}" type="checkbox" value="{{choice.choice}}"><label style="display:contents" for="c{{forloop.counter}}"> {{ choice.choice }}</label><br>
+                                                <input name="answers[]" id="c{{forloop.counter}}" type="{{question.question_type}}" value="{{choice.choice}}">{{ choice.choice|safe }}</input>
                                                 {% endif %}
-                                            </label>
+                                          
                                         </div>
                                     </div>
-                                
+                                </label>
                                 {% endfor %}
 
                             </div>

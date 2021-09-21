@@ -37,7 +37,7 @@
       <th scope="col">{% trans 'Examination Name' %} </th>
       <th scope="col">{% trans 'Examination Type' %} </th>
       <th scope="col">{% trans 'Examination Code' %} </th>
-     
+      <th scope="col">{% trans 'Examination Time' %} </th>
       <th scope="col">{% trans 'Created At' %} </th>
       <th scope="col">{% trans 'Examination Room' %} </th>
       <th scope="col">{% trans 'Question ' %} </th>
@@ -64,7 +64,7 @@
          
         {% endfor %}
         <td scope="row">{{ exam.exam_code }}</td>
-     
+        <td scope="row">{{ exam.time_exam }}</td>
         <td scope="row">{{ exam.created_at }}</td>
         <td scope="row">
           <span>
@@ -97,7 +97,7 @@
         </td>
         <td scope="row">
           <span>
-            <a href='{% url "exam:detail_question" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Detail' %}" /></a>
+            <a class="hidden" href='{% url "exam:detail_question" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Detail' %}" /></a>
             <a href='{% url "exam:setting_question" exam_id=exam.id %}' > <input type="button" class="btn btn-info btn-xs pull-center" style="margin-left: 1%;" value="{% trans 'Settings' %}" /></a>
           </span>
 

@@ -1,12 +1,12 @@
 
-{% extends 'layouts/app.html' %}
+{% extends 'layouts/home.html' %}
 {% load i18n %}
 {% block title %}
 {% trans "Quiz" %}
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row">
+    <div class="row caption1">
         <div class="col-md-8 col-md-offset-2" id="main-container">
             <div class="panel panel-default">
                 <div class="page-panel-title"> {% trans "Quiz" %} </div>
@@ -14,7 +14,7 @@
                     <form class="form-horizontal" method="POST" >
                         {% csrf_token %}
                         <div class="form-group">
-                            <label class="control-label col-sm-5" for="pwd">{% trans "Exam Code" %}:</label>
+                            <label class="control-label col-sm-5" for="pwd">{% trans "Class" %}:</label>
                             <label class="control-label">{{exam.getClassName}} </label>
                            
                         </div>
@@ -29,7 +29,7 @@
                         </div>
                        
                         <div class="form-group">
-                            <label class="control-label col-sm-5" for="pwd">{% trans "Exam Code" %}:</label>
+                            <label class="control-label col-sm-5" for="pwd">{% trans "Exam" %}:</label>
                             <label class="control-label">{{exam}} </label>
      
                         </div>

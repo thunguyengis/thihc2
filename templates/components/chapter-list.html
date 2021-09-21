@@ -40,14 +40,23 @@
               <td class="center" scope="row" rowspan="2">{{ question.chapter }}</td>
               <td scope="row">Cơ Bản</td>
               <td scope="row">{{ question.questioncb }}</td>
+              {% if  question.questioncb > 0 %}
               <td><input type="number"   name="cb{{ forloop.counter }}" value="{{ question.questioncbsetting }}" min="0" max="{{ question.questioncb }}"></td>
 
+              {% else %}
+              <td><input type="number"   name="nc{{ forloop.counter }}" value="0" min="0" max="0"></td>
+              {% endif %}
+              
           </tr>
           <tr>
             <td scope="row">Nâng Cao</td>
             <td scope="row">{{ question.questionnc }}</td>
+            {% if  question.questionnc > 0 %}
             <td><input type="number"   name="nc{{ forloop.counter }}" value="{{ question.questionncsetting }}" min="0" max="{{ question.questionnc }}"></td>
-
+      
+            {% else %}
+            <td><input type="number"   name="nc{{ forloop.counter }}" value="0" min="0" max="0"></td>
+            {% endif %}
                    
           </tr>
           {% endfor %}
@@ -76,19 +85,25 @@
   </div>
 </form>
 <script>
-  
-  $(":input[type='number']").change(function () {
-      var number =0;
+  function change()
+  {
+    var number =0;
     $(":input[type='number']").each(function() {
-      // code
-      number = number + parseInt ( $(this).val()) ;
+        // code
+        number = number + parseInt ( $(this).val()) ;
       
-    });
-   // number = $("#numberquestion").html(); 
+      });
+    // number = $("#numberquestion").html(); 
 
-   $("#numberquestion").html(number); 
+    $("#numberquestion").html(number); 
+  }
+  //------------------------------------
+  change()
+  $(":input[type='number']").change(function () {
+     
+      change()
    
   });
  
-
+  
 </script>

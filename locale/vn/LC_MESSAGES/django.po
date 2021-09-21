@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-19 00:05+0700\n"
+"POT-Creation-Date: 2021-09-19 11:44+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -457,7 +457,7 @@ msgstr "Chương"
 msgid "Number Question"
 msgstr "Số câu hỏi"
 
-#: .\templates\components\chapter-list.html:69
+#: .\templates\components\chapter-list.html:78
 #: .\templates\components\rooms-list.html:62
 #: .\templates\layouts\master\create-room-exam-form.html:84
 #: .\templates\layouts\teacher\attendance-form copy.html:136
@@ -465,7 +465,7 @@ msgstr "Số câu hỏi"
 msgid "Update"
 msgstr "Cập nhật"
 
-#: .\templates\components\chapter-list.html:73
+#: .\templates\components\chapter-list.html:82
 #: .\templates\components\exams-list.html:128
 #: .\templates\components\rooms-list.html:66
 #: .\templates\question\add_question.html:59
@@ -595,7 +595,7 @@ msgid "Toggle Navigation"
 msgstr ""
 
 #: .\templates\components\navbar-top.html:21 .\templates\pdf_template.html:42
-#: .\templates\quiz\mark.html:129 .\templates\quiz\quiz.html:132
+#: .\templates\quiz\mark.html:129 .\templates\quiz\quiz.html:135
 #: .\templates\quiz\review.html:130
 msgid "NameSchool"
 msgstr "TRƯỜNG CAO ĐẲNG HẬU CẦN 2"
@@ -862,8 +862,6 @@ msgstr "Mã Giảng viên"
 #: .\templates\exam\active.html:4 .\templates\exam\create.html:4
 #: .\templates\exam\index.html:4 .\templates\exam\room.html:4
 #: .\templates\exam\setting_question.html:4
-#, fuzzy
-#| msgid "Exams"
 msgid "Exam"
 msgstr "Kỳ thi/Bài kiểm tra"
 
@@ -872,6 +870,7 @@ msgid "All Active Examinations"
 msgstr "Danh sách Bài kiểm tra đang kích hoạt"
 
 #: .\templates\exam\create.html:14 .\templates\exam\index.html:14
+#: .\templates\exam\setting_question.html:15
 msgid "All Examinations"
 msgstr "Danh sách Kỳ thi/Bài kiểm tra"
 
@@ -879,7 +878,11 @@ msgstr "Danh sách Kỳ thi/Bài kiểm tra"
 msgid "All Room Examinations"
 msgstr "Danh sách phòng thi"
 
-#: .\templates\exam\setting_question.html:14
+#: .\templates\exam\setting_question.html:16
+msgid "setting_question"
+msgstr "Cài đặt Câu hỏi"
+
+#: .\templates\exam\setting_question.html:18
 msgid "All Chater"
 msgstr "Danh sách chương"
 
@@ -987,8 +990,8 @@ msgstr ""
 #: .\templates\layouts\teacher\grade-form.html:81
 #: .\templates\layouts\teacher\grade-form.html:82
 #: .\templates\layouts\teacher\grade-form.html:83 .\templates\quiz\check.html:5
-#: .\templates\quiz\check.html:12 .\templates\quiz\index.html:5
-#: .\templates\quiz\index.html:12 .\templates\quiz\quiz.html:23
+#: .\templates\quiz\check.html:12 .\templates\quiz\index.html:6
+#: .\templates\quiz\index.html:14 .\templates\quiz\quiz.html:23
 #: .\templates\quiz\review.html:22
 msgid "Quiz"
 msgstr "Trắc nghiệm"
@@ -1020,7 +1023,7 @@ msgstr "Điểm"
 
 #: .\templates\grade\student-grade.html:27
 #: .\templates\layouts\teacher\grade-tableVN.html:7
-#: .\templates\quiz\check.html:27 .\templates\quiz\index.html:33
+#: .\templates\quiz\check.html:27 .\templates\quiz\index.html:35
 #: .\templates\student\section-students copy.html:33
 msgid "Student Code"
 msgstr "Mã Học viên"
@@ -1528,7 +1531,7 @@ msgid "All Questiones"
 msgstr "Câu hỏi"
 
 #: .\templates\quiz\check.html:17 .\templates\quiz\check.html:32
-#: .\templates\quiz\index.html:42
+#: .\templates\quiz\index.html:44
 msgid "Exam Code"
 msgstr "Mã Bài thi"
 
@@ -1544,15 +1547,15 @@ msgstr "Điểm"
 msgid "Submit Quiz"
 msgstr "Bắt đầu thi"
 
-#: .\templates\quiz\index.html:62
+#: .\templates\quiz\index.html:64
 msgid "Check"
 msgstr "Kiểm tra"
 
-#: .\templates\quiz\mark.html:148
+#: .\templates\quiz\mark.html:148 .\templates\quiz\review.html:149
 msgid "Answered"
 msgstr "Đã trả lời"
 
-#: .\templates\quiz\mark.html:156
+#: .\templates\quiz\mark.html:156 .\templates\quiz\review.html:157
 msgid "Not Answered"
 msgstr "Chưa trả lời"
 

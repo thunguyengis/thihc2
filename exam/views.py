@@ -461,11 +461,8 @@ def setting_question(request, exam_id):
         chapters  = None
         if 'chapter[]' in request.POST :
             chapters = request.POST.getlist("chapter[]")
-        if 'cb[]' in request.POST :
-            cbs = request.POST.getlist("cb[]")
-        if 'nc[]' in request.POST :
-            ncs = request.POST.getlist("nc[]") 
-        #return HttpResponse(enumerate(cbs))
+        
+        #return HttpResponse(request.POST)
         
         if chapters:
             QuestionOfExam.objects.filter(exam_id = exam_id).delete()
@@ -518,20 +515,21 @@ def setting_question(request, exam_id):
         questionnc = Question.objects.filter(coursOfDepartment_id = course_id, chapter = j, question_level = 'nc').count()
         
             #exam = Exam.objects.filter(id = exam_id).first()
-            #return HttpResponse(questioncb)
+       
         att = dict()
         
         
         if questioncb :
             att['questioncb'] = questioncb
             # lọc bằng cách join 2 bảng
-            questioncbsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'cb').count()
+            questioncbsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'cb', question__chapter = j).count()
             
             if questioncbsetting :
                 att['questioncbsetting'] = questioncbsetting
         if questionnc :
+            #return HttpResponse(questionnc)
             att['questionnc'] = questionnc
-            questionncsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'nc').count()
+            questionncsetting = QuestionOfExam.objects.filter( exam_id = exam.id, question__question_level = 'nc', question__chapter = j).count()
             
             if questionncsetting :
                 att['questionncsetting'] = questionncsetting
