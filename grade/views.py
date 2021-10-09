@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
@@ -37,11 +37,12 @@ def CourseOfTeacher(request, course_id):
 #
 #################################################################################################
 def total_mark_exam(countHS1, totalHS1, countHS2, totalHS2):
-    mark_exam = (totalHS1 + totalHS2*2)/(countHS1 + countHS2 )
-    return mark_exam
+    #return HttpResponse((totalHS1 + totalHS2*2))
+    mark_exam = (totalHS1 + totalHS2*2)/(countHS1 + countHS2*2 )
+    return round(mark_exam,2)
 def total_mark_course(mark_exam, totalEnd):
     mark_course = mark_exam * 0.4 + totalEnd * 0.6
-    return mark_course
+    return round(mark_course,2)
 @login_required()
 def update(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
@@ -49,14 +50,15 @@ def update(request):
    
     #for g in request.user.groups.all():
     #    l.append(g.name)
-    #return HttpResponse(l)
+    #return HttpResponse(request.POST)
     if request.method == 'POST':
         config = Configurations.objects.filter(id = 1).first()
-        teacher = Teacher.objects.filter(user_id = request.user.id).first()
+        teacher = Teacher.objects.filter(user_id = request.user.id).first() 
         courses = Course.objects.filter(teacher_id = teacher.id)
         #grades = Grade.objects.filter(course_id = course_id)
         grade_ids = request.POST.getlist("grade_id[]")
-       
+        if 'course_id' in request.POST:
+            course_id = request.POST['course_id'] 
         '''
         attendance = request.POST.getlist("attendance[]")
         quiz1 = request.POST.getlist("quiz1[]")
@@ -76,6 +78,7 @@ def update(request):
         mcq = request.POST.getlist("mcq[]")
         practical = request.POST.getlist("practical[]")
         '''
+        
         coefficient_1_1 = request.POST.getlist("coefficient_1_1[]")
         coefficient_1_2 = request.POST.getlist("coefficient_1_2[]")
         coefficient_2_1 = request.POST.getlist("coefficient_2_1[]")
@@ -100,77 +103,77 @@ def update(request):
             totalHS2 = 0
             totalEnd = 0
             grade = GradeOfVN.objects.filter( id = value).first()  
-            if float( coefficient_1_1[i]) >= 0:
+            if float( coefficient_1_1[i]) > 0:
                 countHS1 = countHS1 + 1
                 totalHS1 = totalHS1 + float(coefficient_1_1[i])
-               
+                
                 grade.coefficient_1_1 = coefficient_1_1[i]
-            if float(coefficient_1_2[i]) >= 0:
+            if float(coefficient_1_2[i]) > 0:
                 countHS1 = countHS1 + 1
                 totalHS1 = totalHS1 + float(coefficient_1_2[i])
+                
                 grade.coefficient_1_2 = coefficient_1_2[i]
 
-            if float(coefficient_2_1[i]) >= 0:
+            if float(coefficient_2_1[i]) > 0:
                 countHS2 = countHS2 + 1
                 totalHS2 = totalHS2 + float(coefficient_2_1[i])
                 grade.coefficient_2_1 = coefficient_2_1[i]
-            if float(coefficient_2_2[i]) >= 0:
+            if float(coefficient_2_2[i]) > 0:
                 countHS2 = countHS2 + 1
                 totalHS2 = totalHS2 + float(coefficient_2_2[i])
                 grade.coefficient_2_2 = coefficient_2_2[i]
 
               # thi lại điêmt hệ số 1
-            if float(coefficient_v2_1_1[i]) >= 0:
+            if float(coefficient_v2_1_1[i]) > 0:
                 countHS1 = 0
                 totalHS1 = 0
                 countHS1 = countHS1 + 1
                 totalHS1 = totalHS1 + float(coefficient_v2_1_1[i])
+               
                 grade.coefficient_v2_1_1 = coefficient_v2_1_1[i]
             
-            if float(coefficient_v2_1_2[i]) >= 0:
+            if float(coefficient_v2_1_2[i]) > 0:
                 countHS1 = countHS1 + 1
                 totalHS1 = totalHS1 + float(coefficient_v2_1_2[i])
+                
                 grade.coefficient_v2_1_2 = coefficient_v2_1_2[i]
             # thi lại điêmt hệ số 2
-            if float(coefficient_v2_2_1[i]) >= 0:
+            if float(coefficient_v2_2_1[i]) > 0:
                 countHS2 = 0
                 totalHS2 = 0
                 countHS2 = countHS2 + 1
                 totalHS2 = totalHS2 + float(coefficient_v2_2_1[i])
                 grade.coefficient_v2_2_1 = coefficient_v2_2_1[i]
-            if float(coefficient_v2_2_2[i]) >= 0:
+            if float(coefficient_v2_2_2[i]) > 0:
                 countHS2 = countHS2 + 1
                 totalHS2 = totalHS2 + float(coefficient_v2_2_2[i])
                 grade.coefficient_v2_2_2 = coefficient_v2_2_2[i]
 
     
             # 
-            if float(end_mark_1_1[i]) >= 0:
+            if float(end_mark_1_1[i]) > 0:
                 totalEnd = float(end_mark_1_1[i])
                 grade.end_mark_1_1 = end_mark_1_1[i]
-            if float(end_mark_v2_1_1[i]) >= 0:
+            if float(end_mark_v2_1_1[i]) > 0:
                 totalEnd = float(end_mark_v2_1_1[i])
                 grade.end_mark_v2_1_1 = end_mark_v2_1_1[i]
 
             grade.practical_1_1 = practical_1_1[i]
             grade.practical_v2_1_1 = practical_v2_1_1[i]
-
+            
             if countHS1>0 and  countHS2 >0 :
+
                 mark_exam = total_mark_exam(countHS1, totalHS1, countHS2, totalHS2)
+                #return HttpResponse(mark_exam)
                 grade.total_mark_exam =  mark_exam
                 if mark_exam>5 :
                     grade.total_mark_course = total_mark_course(mark_exam, totalEnd)
+                    
            
             grade.save()
       
+    return redirect('grade:courseOfTeacher', course_id=course_id)
     
-    #messages.error(request, "Mã Học viên đã tồn tại")
-    return render(request, 'course/teacher-course.html',{
-                                                'group':group ,
-                                                'config':config,
-                                                'teacher':teacher,
-                                                'mycourses': courses,
-                                             })
 
 ###########################################################################################
 #
