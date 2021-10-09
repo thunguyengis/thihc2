@@ -16,9 +16,9 @@
                 <div class="panel-body">
                 {% for grade in grades %}
                 {% if forloop.counter < 2 %}  
-               
+                    <h2> {% trans "View Marks" %}  </h2>
                     <h4>
-                      {% trans "Marks Given by" %}  
+                     
                          <b> {% trans "Teacher Code" %}  </b> - {{grade.teacher}} &nbsp;<b>{% trans "Name" %} </b> - {{grade.teacher.getname}} 
                     </h4>
                     <br>

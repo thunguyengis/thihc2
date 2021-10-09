@@ -7,8 +7,16 @@ from django.contrib.auth.models import User
 #
 from configurations.models import Class, Configurations, Course, Section, Student, Teacher, Grade, CourseOfSection, GradeOfVN
 from exam.views import Exam_type
+from exam.models import Exam, Room, GradeOfExam
 # thông báo lỗi
 from django.contrib import messages 
+
+# generate pdf Using WeasyPrint
+from django.core.files.storage import FileSystemStorage
+#from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from library.functions import rank_course
 # Create your views here.
 @login_required()
 def CourseOfTeacher(request, course_id):
@@ -257,6 +265,148 @@ def marks(request, course_id):
                                                 'set0':-1.0
                                                
                                              }) 
+
+@login_required()
+def print_marks_course(request, course_id):
+    paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+    rooms = Room.objects.all()
+    List_Student_Room = []
+    if rooms :
+        for room in rooms:
+            gradeOfExams = GradeOfExam.objects.filter(exam_id = 21, room_id = room.id)
+            exam = Exam.objects.filter(id = 21).first()
+            if gradeOfExams :
+                att = dict()
+                att['course'] = exam.courseOfSection
+                att['class'] = exam.courseOfSection.getclass
+                att['room_name'] = room.room_name
+                att['gradeOfExams'] = gradeOfExams
+                List_Student_Room.append(att)
+    group = request.user.groups.values_list('name',flat = True).first() 
+
+    config = Configurations.objects.filter(id = 1).first()
+    
+    classes = Class.objects.all()
+    sections = Section.objects.all()
+    courseOfSection = CourseOfSection.objects.filter(id = course_id).first()
+    grades = GradeOfVN.objects.filter(courseOfSection_id = course_id)
+    List_marks_course = []
+    countRankXS =0
+    countRankG = 0
+    countRankKha = 0
+    countRankTBK =0
+    countRankTB =0
+    countRankY =0
+    if grades :
+
+        for grade in grades:
+          
+            
+                att = dict()
+                
+                att['codeStudent'] = grade.student
+                att['nameStudent'] = grade.student.getname
+
+                List_pointTX = []
+                if(grade.coefficient_1_1>=0):
+                    List_pointTX.append(grade.coefficient_1_1)
+                if(grade.coefficient_1_2>=0):
+                    List_pointTX.append(grade.coefficient_1_2)
+                
+                att['List_pointTX'] = List_pointTX
+                att['widthTX'] = round(100/len(List_pointTX))
+
+                List_pointDK = []
+                if(grade.coefficient_2_1>=0):
+                    List_pointDK.append(grade.coefficient_2_1)
+                #if(grade.coefficient_2_2>=0):
+                #    List_pointDK.append(grade.coefficient_2_2)
+                
+                att['List_pointDK'] = List_pointDK
+                att['widthDK'] = round(100/len(List_pointDK))
+
+                end_mark = grade.end_mark_1_1
+                att['end_mark'] = end_mark
+
+                total_mark_course = grade.total_mark_course
+                att['total_mark_course'] = total_mark_course
+                rank_mark = rank_course(end_mark, total_mark_course,countRankXS,countRankG,countRankKha,countRankTBK,countRankTB,countRankY)
+                #return HttpResponse(rank_mark)
+                att['rank_course'] = rank_mark['rank']
+                countRankXS = rank_mark['countRankXS']
+                countRankG = rank_mark['countRankG']
+                countRankKha = rank_mark['countRankKha'] 
+                countRankTBK =rank_mark['countRankTBK'] 
+                countRankTB =rank_mark['countRankTB'] 
+                countRankY =rank_mark['countRankY'] 
+                List_marks_course.append(att)
+
+    List_rank_course = []
+    countRank =grades.count()
+   
+    list_rank = dict()  
+    list_rank['rank'] = "Xuất sắc"
+    list_rank['countRank'] = countRankXS
+    list_rank['percentRank'] = round( int(countRankXS)*100/countRank,2)
+    if countRankXS>0:
+        List_rank_course.append(list_rank)
+
+    list_rank = dict()  
+    list_rank['rank'] = "Giỏi"
+    list_rank['countRank'] = countRankG
+    list_rank['percentRank'] = round( int(countRankG)*100/countRank,2)
+    if countRankG>0:
+        List_rank_course.append(list_rank)
+    
+    list_rank = dict()  
+    list_rank['rank'] = "Khá"
+    list_rank['countRank'] = countRankKha
+    list_rank['percentRank'] = round( int(countRankKha)*100/countRank,2)
+    if countRankKha>0:
+        List_rank_course.append(list_rank)
+    
+    list_rank = dict()  
+    list_rank['rank'] = "TBK"
+    list_rank['countRank'] = countRankTBK
+    list_rank['percentRank'] = round( int(countRankTBK)*100/countRank,2)
+    if countRankTBK>0:
+        List_rank_course.append(list_rank)
+    
+    list_rank = dict()  
+    list_rank['rank'] = "TB"
+    list_rank['countRank'] = countRankTB
+    list_rank['percentRank'] = round( int(countRankTB)*100/countRank,2)
+    if countRankTB>0:
+        List_rank_course.append(list_rank)
+     
+    list_rank = dict()  
+    list_rank['rank'] = "Yếu"
+    list_rank['countRank'] = countRankY
+    list_rank['percentRank'] = round( int(countRankY)*100/countRank,2)
+    if countRankY>0:
+        List_rank_course.append(list_rank)
+
+    html_string = render_to_string('pdf_diemtkmonhoc.html', {'paragraphs': paragraphs,
+                                                            'department':'KHOA KHCB',
+                                                            'course': courseOfSection,
+                                                            'class': 'Y49A',
+                                                            'List_rank_course': List_rank_course,
+                                                             'List_marks_course':List_marks_course,
+                                                            })
+    
+    html = HTML(string=html_string)
+    html.write_pdf(target='media/pdf_diemtkmonhoc.pdf')   
+
+    fs = FileSystemStorage()
+    with fs.open('pdf_diemtkmonhoc.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="pdf_diemtkmonhoc.pdf"'
+        return response
+    
+    
+    return None
+
+
 
 def history(request, student_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object

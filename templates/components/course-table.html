@@ -73,6 +73,8 @@
         </td>
         <td>
           <a href="{% url 'grade:marks' course_id=course.id  %}" role="button" class="btn btn-success btn-xs"><i class="material-icons">bar_chart</i>{% trans "View Marks" %} </a>
+          <a href="{% url 'grade:print_marks_course' course_id=course.id  %}" role="button" class="btn btn-success btn-xs"><i class="material-icons">print</i>{% trans "Print" %} </a>
+       
         </td>
         {% endif %}
       {% if user.groups.all.0.name == 'admin' %}

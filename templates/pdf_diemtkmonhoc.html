@@ -1,0 +1,198 @@
+{% load i18n %}
+<html>
+<head  lang="vi">
+    <title>Danh Sách</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="author" title="Michael Turnwall" href="mailto:mturnwall@revenution.com">
+    <link rel="author" title="Hewlett-Packard Company" href="http://www.hp.com/">
+    <link rel="help" href="http://www.w3.org/TR/CSS21/page.html#page-break-props">
+    <link rel="help" href="http://www.w3.org/TR/css3-page/#pg-br-before-after">
+    
+    <meta name="flags" content="paged">
+    <meta name="assert" content="The 'always' value of the 'page-break-before' property forces a page break before the box.">
+ 
+   <style>
+  
+    table.boody {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .font12uppercase{
+        text-align: center; 
+        font-size: 12px;
+        font-style: oblique;
+        text-transform: uppercase;
+    }
+    .font13oblique{
+        text-align: center; 
+        font-size: 12px;
+        font-style: oblique;
+        text-transform:none;
+    }
+    .font13{
+        text-align: center; 
+        font-size: 12px;
+        font-style: italic;
+        text-transform:capitalize;
+    }
+    th, td {
+      padding: 1px;
+      text-align: center;    
+    }
+    .boody th, .boody td{
+        border: 1px solid black;
+    }
+    div.break {
+ 		page-break-before:always;
+	}
+
+    #table {
+        display: table;
+        padding: 5px;
+    }
+    .tr {
+        display: table-row;
+        padding: 5px;
+        width: 500%;
+    }
+    .td {
+        display: table-cell;
+        padding: 5px;
+       
+        border: #000000 solid 1px;
+        margin: 5px;
+    }
+    .td2 {
+        float: left;
+       
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+
+   
+    <table class="head" style="width:100%">
+        <tr>
+        <td>
+            
+           
+            <div style="width:100%"> {% trans "NameSchool" %} </div>
+            <b style="width:100%">{{department}}</b>
+            <div style="width:100%"></div>
+        </td>
+        <td >
+            <div><b>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</b></div>
+            <div><b> Độc lập – Tự do – Hạnh phúc</b></div>
+            <div style="width:100%"></div>
+            
+        </td>
+        </tr>
+        <tr>
+        <td>
+
+        </td>
+        <td><div style="width:100%; " >Thành phố Hồ Chí Minh, ngày.......tháng.......năm.....</div></td>
+        
+        </tr>
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="head" style="width:100%">
+                <tr> <th>KẾT QUẢ TỔNG KẾT HỌC PHẦN <span style="text-transform: uppercase;">{{course.coursOfDepartment}}</span></th></tr>       
+                <tr>  <th>Lớp: {{course.section.myclass}}</th></tr>
+         
+    </table>
+    <div style="margin-top: 40px;"></div>
+    {% if List_marks_course %}
+    
+  
+    <table class="boody" style="width:100%">
+        <thead>
+
+            <tr>
+                <th class="font12uppercase">STT</th>
+                <th class="font12uppercase">họ và tên</th>
+                <th class="font12uppercase">MÃ HỌC VIÊN</th>
+                <th class="font12uppercase">ĐIỂM THƯỜNG XUYÊN </th>
+                <th class="font12uppercase">ĐIỂM ĐỊNH KỲ</th>
+                <th class="font12uppercase">ĐIỂM THI HỌC PHẦN</th>
+                <th class="font12uppercase">TK HỌC PHẦN</th>
+                <th class="font12uppercase">XẾP LOẠI</th>
+                <th class="font12uppercase">GHI CHÚ</th>
+            </tr>
+        </thead>
+    
+            {% for marks_course in List_marks_course %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{marks_course.nameStudent}}</td>
+                    <td>{{ marks_course.codeStudent }}</td>
+                    <td>
+                        {% if marks_course.List_pointTX %}
+                            {% for pointTX in marks_course.List_pointTX %}
+                           
+                                {% if pointTX < 0.0 %}
+                                <div class="td2" style=" width: {{marks_course.widthTX}}%;"> </div>
+                            
+                                {% else%}
+                                <div class="td2" style=" width: {{marks_course.widthTX}}%;">{{ pointTX }}</div>
+                                {% endif%}
+                            {%endfor%}
+                        {% endif%}
+                      
+                     
+                    </td>
+                    <td>
+                        {% if marks_course.List_pointDK %}
+                            {% for pointDK in marks_course.List_pointDK %}
+                           
+                                {% if pointDK < 0.0 %}
+                                <div class="td2" style=" width: {{marks_course.widthDK}}%;"> </div>
+                            
+                                {% else%}
+                                <div class="td2" style=" width: {{marks_course.widthDK}}%;">{{ pointDK }}</div>
+                                {% endif%}
+                            {%endfor%}
+                        {% endif%}
+                    </td>
+                    <td>{{marks_course.end_mark}}</td>
+                    <td>{{marks_course.total_mark_course}}</td>
+                   
+                    <td>{{marks_course.rank_course}}</td>
+                    <td></td>
+                </tr>
+            {%endfor%}
+        
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="boody" style="width:100%">
+        
+        <thead>
+
+            <tr>
+                <th>Giám Thị 1</th>
+                <th>Số Học Viên</th>
+                <th>Tỉ lệ</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank_course in List_rank_course %}
+            
+            <tr>
+                <td class="font12uppercase">{{rank_course.rank}}</td>
+                <td>{{rank_course.countRank}}</td>
+                <td>{{rank_course.percentRank}}%</td>
+               
+            </tr>
+            {%endfor%}
+        </tbody>
+        
+           
+    </table>
+   
+  
+  {%endif%}
+</body>
+</html>
