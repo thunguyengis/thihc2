@@ -96,9 +96,22 @@
       </li>
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'grade:all-exams-grade' %}"><i class="material-icons">assignment</i> <span class="nav-link-text">{% trans "Grades" %} </span></a>
+  <li class="nav-item dropdown">
+    <a role="button" href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+        class="material-icons">assignment</i> <span class="nav-link-text">{% trans "Grades" %} </span> <i class="material-icons pull-right">keyboard_arrow_down</i></a>
+    <ul class="dropdown-menu" style="width: 100%;">
+      <!-- Dropdown menu links -->
+      <li>
+        <a class="dropdown-item" href="{% url 'grade:all-exams-grade'  %}"><i class="material-icons">note_add</i> <span class="nav-link-text">{% trans "Grades of Courses" %} </span></a>
+      </li>    
+      <li>
+        <a class="dropdown-item" href="{% url 'grade:summary'  %}"><i class="material-icons">developer_board</i> <span
+            class="nav-link-text">{% trans "Grades summary" %} </span></a>
+      </li>
+
+    </ul>
   </li>
+
   <li class="nav-item" style="border-bottom: 1px solid #dbd8d8;"></li>
   {% comment "Menu note" %}
   <li class="nav-item">

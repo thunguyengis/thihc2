@@ -374,10 +374,45 @@ def diem(request, c):
                     gradeOfVN.practical_v2_1_1 =mark
 
                 gradeOfVN.save()
+            # hiên thị điểm
+           # exam_code = request.session.get('exam_code')
+           # exam = Exam.objects.filter(exam_code = exam_code).first()
+            student_id = request.session.get('student_id')
+            student = Student.objects.filter(id = student_id).first()
+
+            #return HttpResponse(  icorrect/question_list.count() ) 
+            ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
+            #grade = GradeOfExam.objects.filter( exam_id = exam.id,student_id = student_id).first()
+           # mark = grade.mark
+
+            group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
+                                            # QuerySet to `list`
+        
+            #for g in request.user.groups.all():
+            #    l.append(g.name)
+            request.session['foo'] = 'bar'
             
+            config = Configurations.objects.filter(id = 1).first()
+
+            ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%##
+            totalStudents = Student.objects.count()
+            totalTeachers = Teacher.objects.count()
+            totalClasses = Class.objects.count()
+
             request.session['check'] = None
             request.session['username'] = None
             request.session['exam_code'] = None
             request.session['student_id'] = None
-            return redirect('quiz:check')                                                 
+            return render(request, 'quiz/check.html',{
+                                                    'group':group ,
+                                                    'config':config,
+                                                    'totalStudents':totalStudents,
+                                                    'totalClasses':totalClasses,
+                                                    'totalTeachers':totalTeachers,
+                                                    'student':student,
+                                                    'exam':exam,
+                                                    'mark':mark,
+                                                    'Exam_types':Exam_type,
+                                                    'messages':messages
+                                                })                                                          
     return redirect('quiz:index')

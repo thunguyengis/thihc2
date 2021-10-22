@@ -21,7 +21,7 @@ urlpatterns = [
    path('<int:course_id>/marks/', views.marks, name='marks'),
    path('<int:course_id>/print_course/', views.print_marks_course, name='print_marks_course'),
    path('<int:student_id>/history/', views.history, name='history'),
-   
+   path('summary/', views.summary, name = 'summary'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

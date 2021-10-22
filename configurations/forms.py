@@ -76,8 +76,8 @@ class ClassForm(ModelForm):
         widgets = {
             'class_name': TextInput( attrs={'class': 'form-control'}),
             'majors': Select( attrs={'class': 'form-control'}),
-            'year_begins': NumberInput(attrs={'type': 'date','class': 'form-control'}),
-            'year_end': NumberInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'year_begins': NumberInput(attrs={'class': 'form-control'}),
+            'year_end': NumberInput(attrs={'class': 'form-control'}),
             'order': TextInput( attrs={'class': 'form-control'}),
         }
 

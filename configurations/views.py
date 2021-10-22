@@ -206,10 +206,12 @@ def add_student(request):
 #
 @login_required()
 def add_class(request):
+    
     # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()
     if request.method == 'POST':
-        form = ClassForm(request.POST, request.FILES) 
+        form = ClassForm(request.POST)
+       
         # check whether it's valid:
         if form.is_valid(): 
             form.save()

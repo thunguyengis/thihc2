@@ -371,14 +371,17 @@ def import_question_old(request, course_id ):
             row_data = list()
            
             if i % 5 ==1:
+                
                 question = Question()
                 question.coursOfDepartment_id = course_id               
                 question.question_type = 'radio'
-                question.chapter = request.POST['chapter']
-                question.question_name = row[0].value
-                question.question_level = request.POST['question_level'] # row[3].value
-                correct_answer = row[1].value
+                question.chapter = row[0].value #request.POST['chapter']
+                
+                question.question_name = row[1].value #row[0].value
+                question.question_level = 'cb' #request.POST['question_level'] # row[3].value
+                correct_answer = row[2].value #row[1].value
                 question.save()
+                
                 question_old = question
                 
             else:
@@ -386,20 +389,21 @@ def import_question_old(request, course_id ):
                 #question = Question.objects.filter(id = question_id).first()
                 choice = Choice()
                 choice.question_id = question_old.id
-                choice.choice_name = row[0].value
+                
+                choice.choice_name = row[1].value #row[0].value
                 choice.save()
                
                 if  correct_answer== "A" and (i % 5)==2:
-                    question_old.correct_answer = row[0].value
+                    question_old.correct_answer = row[1].value #row[0].value
                     question_old.save()
                 elif  correct_answer== "B"  and (i % 5)==3:
-                    question_old.correct_answer = row[0].value
+                    question_old.correct_answer = row[1].value #row[0].value
                     question_old.save()
                 elif  correct_answer== "C"  and (i % 5)==4:
-                    question_old.correct_answer = row[0].value
+                    question_old.correct_answer = row[1].value #row[0].value
                     question_old.save()
                 elif  correct_answer== "D" and (i % 5)==0:
-                    question_old.correct_answer = row[0].value
+                    question_old.correct_answer = row[1].value #row[0].value
                     question_old.save()
             i = i +1
 

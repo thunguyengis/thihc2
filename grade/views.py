@@ -4,10 +4,12 @@ from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Avg
 #
 from configurations.models import Class, Configurations, Course, Section, Student, Teacher, Grade, CourseOfSection, GradeOfVN
 from exam.views import Exam_type
 from exam.models import Exam, Room, GradeOfExam
+from .forms import SummaryForm
 # thông báo lỗi
 from django.contrib import messages 
 
@@ -269,25 +271,7 @@ def marks(request, course_id):
 @login_required()
 def print_marks_course(request, course_id):
     paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
-    rooms = Room.objects.all()
-    List_Student_Room = []
-    if rooms :
-        for room in rooms:
-            gradeOfExams = GradeOfExam.objects.filter(exam_id = 21, room_id = room.id)
-            exam = Exam.objects.filter(id = 21).first()
-            if gradeOfExams :
-                att = dict()
-                att['course'] = exam.courseOfSection
-                att['class'] = exam.courseOfSection.getclass
-                att['room_name'] = room.room_name
-                att['gradeOfExams'] = gradeOfExams
-                List_Student_Room.append(att)
-    group = request.user.groups.values_list('name',flat = True).first() 
-
-    config = Configurations.objects.filter(id = 1).first()
     
-    classes = Class.objects.all()
-    sections = Section.objects.all()
     courseOfSection = CourseOfSection.objects.filter(id = course_id).first()
     grades = GradeOfVN.objects.filter(courseOfSection_id = course_id)
     List_marks_course = []
@@ -406,8 +390,6 @@ def print_marks_course(request, course_id):
     
     return None
 
-
-
 def history(request, student_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -434,3 +416,38 @@ def history(request, student_id):
                                                 'student':student
                                                
                                              }) 
+
+@login_required()
+def summary(request):
+    config = Configurations.objects.filter(id = 1).first()
+    form = SummaryForm()
+    #return HttpResponse(request.POST)
+    if request.method == 'POST':
+        if 'myClass' in request.POST:
+            myClass = request.POST['myClass']
+            #return HttpResponse(myClass)
+            students= Student.objects.filter(myclass_id=myClass)
+        if 'textsection' in request.POST:
+            textsection = request.POST['textsection']
+            textsection = textsection.split(",")
+            #return HttpResponse(myClass)
+        
+            for student in students:
+                for section_id in textsection:
+                        
+                    #courseOfSection = CourseOfSection.objects.filter(section_id = section_id).first()
+                    
+                    grades = GradeOfVN.objects.filter(courseOfSection__section_id = section_id,
+                        student_id = student.id).aggregate(average_total_mark_course=Avg('total_mark_course'))
+                    return HttpResponse(grades['average_total_mark_course'])
+                    for grade in grades:
+
+                        return HttpResponse(grades)
+     
+        
+        
+    return render(request, 'grade/summary.html',{'form': form,  'config': config} )
+
+
+
+

@@ -214,8 +214,8 @@
                                                                
                             {% endif %}
                         </div>
-                        <input type="hidden" id="time_exam" value=" {{ time_exam }}"/>
-                        <input type="hidden" id="time_minute" name="time_minute" value=" {{ minute }}"/> 
+                        <input type="text" id="time_exam" value=" {{ time_exam }}"/>
+                        <input type="text" id="time_minute" name="time_minute" value=" {{ minute }}"/> 
                         <input type="hidden" id="time_second" name="time_second" value=" {{ second }}"/>            
                         <input type="hidden" id="qcurent" name="qcurent" value="{{ page_obj.number }}"/> 
                         <input type="hidden" id="idquestion" name="q" value="0"/> 
@@ -267,20 +267,26 @@
         document.getElementById('idminute').innerHTML  = myminute;
         document.getElementById('idsecond').innerHTML  = mysecond;
         setInterval(funcsecond, 1000);
-        setInterval(funcminute, 60000);
+        ///setInterval(funcminute, 60000);
     }
     function funcminute() {
         mysecond=0;
         document.getElementById('idsecond').innerHTML  = 0;
         myminute= myminute + 1;
-       
+        ///alert(myminute)
         if( myminute >= time_exam)
+        {
+            alert("Hết giờ")
             document.getElementById('idsubmitpoint').click() ;
+        }
+
+           
         
         //alert(myVar)
         
         document.getElementById('idminute').innerHTML  = myminute;
-        document.getElementById('time_minute').value =  myminute;
+        document.etElementById('time_minute').value =  myminute;
+        // cập nhật thời gian
         loadDoc();
     
     }
@@ -289,8 +295,11 @@
         //alert(myVar)
         document.getElementById('time_second').value =  mysecond;
         document.getElementById('idsecond').innerHTML  = mysecond;
+        if(mysecond >=60)
+            funcminute()
         
     }
+     // cập nhật thời gian
     function loadDoc() {
         
         const xhttp = new XMLHttpRequest();
