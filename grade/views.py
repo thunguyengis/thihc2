@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db.models import Avg
 #
@@ -18,10 +18,11 @@ from django.core.files.storage import FileSystemStorage
 #from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
-from library.functions import rank_course
+from library.functions import rank_course, rank_mark
 # Create your views here.
 @login_required()
-def CourseOfTeacher(request, course_id):
+@permission_required('grade.courseOfTeacher', raise_exception=True)
+def CourseOfTeacher(request, examcourse_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
    
@@ -54,6 +55,7 @@ def total_mark_course(mark_exam, totalEnd):
     mark_course = mark_exam * 0.4 + totalEnd * 0.6
     return round(mark_course,2)
 @login_required()
+
 def update(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -269,6 +271,7 @@ def marks(request, course_id):
                                              }) 
 
 @login_required()
+@permission_required('grade.print_marks_course', raise_exception=True)
 def print_marks_course(request, course_id):
     paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
     
@@ -390,6 +393,8 @@ def print_marks_course(request, course_id):
     
     return None
 
+@login_required()
+@permission_required('grade.history', raise_exception=True)
 def history(request, student_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -417,7 +422,13 @@ def history(request, student_id):
                                                
                                              }) 
 
+#-------------------------------------------------------------
+def myKeySort(e):
+  return e['average_total_mark_course']
+  
+
 @login_required()
+@permission_required('grade.summary', raise_exception=True)
 def summary(request):
     config = Configurations.objects.filter(id = 1).first()
     form = SummaryForm()
@@ -431,22 +442,80 @@ def summary(request):
             textsection = request.POST['textsection']
             textsection = textsection.split(",")
             #return HttpResponse(myClass)
-        
+            courseOfSection = []
+            for section_id in textsection:    
+                course = CourseOfSection.objects.filter(section_id = section_id)
+                courseOfSection.append(course)
+
+            total_mark= []
             for student in students:
+                temp_grade =0
+                imark = 0
+                list_grades = []
+                is_total_mark_course = True
                 for section_id in textsection:
                         
-                    #courseOfSection = CourseOfSection.objects.filter(section_id = section_id).first()
+                    #courseOfSection = CourseOfSection.objects.filter(section_id = section_id)
                     
+                    #grade = GradeOfVN.objects.filter(courseOfSection__section_id = section_id,
+                    #    student_id = student.id).aggregate(average_total_mark_course=Avg('total_mark_course'))
+                    #temp_grade = temp_grade + grade['average_total_mark_course']
+                   
                     grades = GradeOfVN.objects.filter(courseOfSection__section_id = section_id,
-                        student_id = student.id).aggregate(average_total_mark_course=Avg('total_mark_course'))
-                    return HttpResponse(grades['average_total_mark_course'])
+                        student_id = student.id)
                     for grade in grades:
+                        
+                        #return HttpResponse(grade.total_mark_course)
+                        #// nếu điểm < 5 thì không tổng kết
+                        t_grade = grade.total_mark_course
+                        if t_grade>=5:
+                            imark = imark + 1
+                            temp_grade = temp_grade + t_grade
+                            list_grades.append(grade)
+                        else:
+                            imark = imark + 1
+                            temp_grade = temp_grade + t_grade
+                            list_grades.append(grade)
+                            is_total_mark_course = False
+                            #break
+                
 
-                        return HttpResponse(grades)
-     
+                #return HttpResponse(list_grades)
+                total_mark_course = dict()  
+                total_mark_course['student'] = student
+                total_mark_course['list_grades'] = list_grades
+                _markTB = round(temp_grade/imark, 2)
+                total_mark_course['average_total_mark_course'] = _markTB
+                total_mark_course['rank'] = rank_mark(_markTB)
+                
+                total_mark_course['is_total_mark_course'] = is_total_mark_course
+                total_mark.append(total_mark_course)
+                #return HttpResponse(total_mark)
+            #return render(request, 'grade/total-mark.html',{'form': form,  'config': config} )
+                total_mark.sort(reverse=True, key=myKeySort)
+        paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+        html_string = render_to_string('pdf_summary.html', {'paragraphs': paragraphs,
+                                                                'department':'KHOA KHCB',
+                                                                'total_mark': total_mark,
+                                                                'courseOfSection':courseOfSection,
+                                                                'class': 'Y49A',                                                          
+                                                            })
+        
+        html = HTML(string=html_string)
+        html.write_pdf(target='media/pdf_summary.pdf')   
+
+        fs = FileSystemStorage()
+        with fs.open('pdf_summary.pdf') as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="pdf_summary.pdf"'
+            return response
         
         
+        return None
+        
+    #---------------------------------------------
     return render(request, 'grade/summary.html',{'form': form,  'config': config} )
+    
 
 
 

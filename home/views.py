@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .forms import RegistrationForm
 from django.http import HttpResponseRedirect 
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from configurations.models import Configurations, Student, Teacher, Class
 from exam.models import Exam
 from datetime import datetime, date, timedelta
@@ -23,6 +23,7 @@ def register(request):
 
 #@login_required(redirect_field_name="/polls/3")
 @login_required()
+#@permission_required('home.index', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`

@@ -1,9 +1,12 @@
 {% extends 'layouts/app.html' %}
 {% load i18n %}
 {% block title %}
-{% trans "Exam" %}
+{% trans "Grades summary" %}
 {% endblock %}
 {% block content %}
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" id="side-navbar">
@@ -24,9 +27,11 @@
                  {% endif %}
                     <form class="form-horizontal" method="post" id="examForm" data-sections-url="{% url 'exam:ajax_load_sections' %}" data-courses-url="{% url 'exam:ajax_load_courses' %}" enctype="multipart/form-data">
                         {% csrf_token %}
+                    
+
                         {{ form.as_p }}
                         
-                     
+                      <input name="textsection" id="textsection" type="text">
                     <button type="submit">Lưu</button>
                 </div>
             </div>
@@ -35,11 +40,14 @@
 </div>
 
 <script>
-   datepicker_format()
-  </script>
-<script>
+    $(function() {
+      //$("#id_section").html('<option value="">---------</option>'); 
+      //$("#id_section").chosen();
+      $("#id_section").chosen();
+    });
+    
     $("#id_myClass").change(function () {
-        
+     
       var url = $("#examForm").attr("data-sections-url");  // get the url of the `load_cities` view
       var countryId = $(this).val();  // get the selected country ID from the HTML input
      
@@ -50,9 +58,14 @@
         },
        
         success: function (data) {   // `data` is the return of the `load_cities` view function
-            $("#id_courseOfSection").html('<option value="">---------</option>'); 
+            //$('#SelectedSites').html("");    
+            //$("#id_section").chosen().trigger('chosen:updated');
+            $('#id_section option:selected').removeAttr('selected');
+
             $("#id_section").html(data);  // replace the contents of the city input with the data that came from the server
-        },
+            $('#id_section').trigger('chosen:updated');
+           
+          },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(ajaxOptions);
             alert(xhr.status);
@@ -61,21 +74,9 @@
       });
 
     });
-
     $("#id_section").change(function () {
-      var url = $("#examForm").attr("data-courses-url");  // get the url of the `load_cities` view
-      var countryId = $(this).val();  // get the selected country ID from the HTML input
-      //alert(countryId)
-      $.ajax({                       // initialize an AJAX request
-        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-        data: {
-          'section': countryId       // add the country id to the GET parameters
-        },
-        success: function (data) {   // `data` is the return of the `load_cities` view function
-          $("#id_courseOfSection").html(data);  // replace the contents of the city input with the data that came from the server
-        }
-      });
-
+        $("#textsection").val($("#id_section").chosen().val())
     });
+    
   </script>
 {% endblock %}

@@ -2,13 +2,14 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from configurations.models import Grade, Section
 #
 from configurations.models import Configurations, Course, Teacher, CourseOfSection
 # Create your views here.
 @login_required()
+@permission_required('course.index', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -33,6 +34,7 @@ def index(request):
                                              })
 
 @login_required()
+@permission_required('course.section', raise_exception=True)
 def section(request, section_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -53,7 +55,9 @@ def section(request, section_id):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
+
 @login_required()
+@permission_required('course.teacher', raise_exception=True)
 def teacher(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`

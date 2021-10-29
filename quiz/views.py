@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 
 from django.http import HttpResponseRedirect 
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
 from configurations.models import Configurations, GradeOfVN, Student, Teacher, Class
@@ -30,6 +30,8 @@ def checkIndex(a_list, value):
         return a_list.index(value)
     except ValueError:
         return None
+@login_required()
+@permission_required('quiz.index', raise_exception=True)
 def index(request):
      #lưu dữ liệu 
     if request.method == 'POST':
@@ -151,6 +153,8 @@ def index(request):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
+@login_required()
+@permission_required('quiz.check', raise_exception=True)
 def check(request):
    
     if request.session.get('check') != None:
@@ -192,6 +196,8 @@ def check(request):
                                                     'messages':messages
                                                 })         
     return redirect('quiz:index')
+@login_required()
+@permission_required('quiz.quiz', raise_exception=True)
 def quiz(request):
     #return HttpResponse(request.POST)
     
@@ -275,6 +281,8 @@ def quiz(request):
                                                     'second':second,
                                                     'time_exam': exam.time_exam })
     return redirect('quiz:index')
+@login_required()
+@permission_required('quiz.review', raise_exception=True)
 def review(request, c):
     if request.session.get('check') != None:
         if request.session.get('check', True):

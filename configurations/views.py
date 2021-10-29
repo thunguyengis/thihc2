@@ -25,7 +25,6 @@ import re
 #@login_required(redirect_field_name="/polls/3")
 @login_required()
 @permission_required('configurations.configurations', raise_exception=True)
-@login_required()
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -56,6 +55,7 @@ def index(request):
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
 @login_required()
+@permission_required('configurations.classes', raise_exception=True)
 def classes(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -77,6 +77,7 @@ def classes(request):
                                                 'sections':sections,
                                              })
 @login_required()
+@permission_required('configurations.departments', raise_exception=True)
 def departments(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -103,6 +104,7 @@ def departments(request):
  
 #
 @login_required()
+@permission_required('configurations.add-department', raise_exception=True)
 def addDepartment(request):
     #department_name
     if request.method == 'POST':
@@ -112,6 +114,7 @@ def addDepartment(request):
     return HttpResponseRedirect(reverse('configurations:configurations'))
 
 @login_required()
+@permission_required('configurations.add_courseOfDepartments', raise_exception=True)
 def addCourseOfDepartment(request):
     #department_name
     if request.method == 'POST':
@@ -139,6 +142,7 @@ def no_accent_vietnamese(s):
     s = re.sub('Đ', 'D', s)
     return s
 @login_required()
+@permission_required('configurations.add_student', raise_exception=True)
 def add_student(request):
     # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()
@@ -205,6 +209,7 @@ def add_student(request):
 
 #
 @login_required()
+@permission_required('configurations.add_class', raise_exception=True)
 def add_class(request):
     
     # if this is a POST request we need to process the form data
@@ -225,6 +230,7 @@ def add_class(request):
 
 #
 @login_required()
+@permission_required('configurations.add_section', raise_exception=True)
 def add_section(request):
     # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()
@@ -269,7 +275,8 @@ def add_course_goc(request):
         #formuser = UserForm()
         return render(request, 'configurations/index.html', {'form': form,  'config': config})
 
-#@login_required()
+@login_required()
+@permission_required('configurations.add_course', raise_exception=True)
 def add_course(request):
     # if this is a POST request we need to process the form data
    
@@ -298,6 +305,7 @@ def add_course(request):
 
 # hàm tụe động thêm vào
 # hàm đẻ thêm grade sau khi thêm course
+
 def addGradeToCourse(course_id, teacher_id, student_id , user_id):
     grade = Grade()
     grade.course_id =  course_id
@@ -305,6 +313,7 @@ def addGradeToCourse(course_id, teacher_id, student_id , user_id):
     grade.student_id = student_id
     grade.user_id = user_id   
     grade.save()
+
 def addGradeToCourseVN(course_id, teacher_id, student_id , user_id):
     grade = GradeOfVN()
     grade.courseOfSection_id =  course_id
@@ -314,6 +323,7 @@ def addGradeToCourseVN(course_id, teacher_id, student_id , user_id):
     grade.save()
 #
 @login_required()
+@permission_required('configurations.add_teacher', raise_exception=True)
 def add_teacher(request):
        # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()
@@ -374,6 +384,7 @@ def add_teacher(request):
 
 #
 @login_required()
+@permission_required('configurations.add_notice', raise_exception=True)
 def add_notice(request):
     # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()
@@ -391,6 +402,7 @@ def add_notice(request):
 
 #
 @login_required()
+@permission_required('configurations.add_event', raise_exception=True)
 def add_event(request):
     # if this is a POST request we need to process the form data
     config = Configurations.objects.filter(id = 1).first()

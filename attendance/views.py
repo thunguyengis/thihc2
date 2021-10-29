@@ -4,19 +4,22 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect 
 from django.core import serializers
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from configurations.models import Configurations, Student, Teacher, Class, Course, CoursOfDepartment, CourseOfSection ,Grade, GradeOfVN, Section
 from .models import Attendance
 #rom django.utils import timezone
 from datetime import datetime
 from django.utils import timezone
 # Create your views here.
+@login_required()
+@permission_required('attendance.index', raise_exception=True)
 def index(request):
  
     return render(request, 'attendance/index.html', {})
 
 # vần còn lỗi khi điểm danh theo danh sách lơp hiện tại chứ khôgn phải theo khoá học
 @login_required()
+@permission_required('attendance.course', raise_exception=True)
 def course1(request, course_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -80,6 +83,7 @@ def course1(request, course_id):
     #return HttpResponse(request.user.groups)
 # vđiểm danh theo  khoá học
 @login_required()
+@permission_required('attendance.course', raise_exception=True)
 def course(request, course_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -159,6 +163,8 @@ def addAttendanceoCourse(course_id, present, student_id , user_id):
     item.user_id = user_id   
     item.save()
 
+@login_required()
+@permission_required('attendance.allstudent', raise_exception=True)
 def student(request):
     classes = Class.objects.all
     sections = Section.objects.all
@@ -171,6 +177,8 @@ def student(request):
                                     
                                             })
 
+@login_required()
+@permission_required('attendance.listofstudent', raise_exception=True)
 def listofstudent(request, course_id):
     classes = Class.objects.all
     sections = Section.objects.all
@@ -189,6 +197,8 @@ def listofstudent(request, course_id):
                                     
                                             })
 import json
+@login_required()
+@permission_required('attendance.student_details', raise_exception=True)
 def student_details(request, student_id, course_id):
     classes = Class.objects.all
     #sections = Section.objects.all

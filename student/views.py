@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 #
@@ -12,6 +12,7 @@ import openpyxl
 
 # Create your views here.
 @login_required()
+@permission_required('student.section', raise_exception=True)
 def sectionStudent(request, section_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -28,6 +29,7 @@ def sectionStudent(request, section_id):
                                                 
                                              })
 @login_required()
+@permission_required('student.class', raise_exception=True)
 def classStudent(request, class_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -49,6 +51,7 @@ def classStudent(request, class_id):
                                              })
 
 @login_required()
+@permission_required('student.importStudent', raise_exception=True)
 def importStudent(request):
     if "POST" == request.method:
         

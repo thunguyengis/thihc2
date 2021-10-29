@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 from .models import Question, Choice
 from configurations.models import Configurations, Department, CoursOfDepartment
@@ -15,6 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import openpyxl
 #
 @login_required()
+@permission_required('question.index', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
    
@@ -39,6 +40,7 @@ def index(request):
                                              })
 
 @login_required()
+@permission_required('question.add_question', raise_exception=True)
 def add_question(request, course_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -110,6 +112,7 @@ Question_level = [
 ]
 #
 @login_required()
+@permission_required('question.list_question', raise_exception=True)
 def list_question(request, course_id):
 
 
@@ -126,11 +129,11 @@ def list_question(request, course_id):
     config = Configurations.objects.filter(id = 1).first()
     departments = Department.objects.all()
     course = CoursOfDepartment.objects.filter( id = course_id).first()
-    questions = Question.objects.filter( coursOfDepartment_id = course_id)
+    questions = Question.objects.filter( coursOfDepartment_id = course_id).order_by('chapter', 'question_level')
     
     #phân trang
     page = request.GET.get('page', 1)
-    paginator = Paginator(questions, 20)
+    paginator = Paginator(questions, 40)
     try:
         questions_page = paginator.page(page)
     except PageNotAnInteger:
@@ -208,6 +211,7 @@ def add_question1(request, course_id):
                                              })
 
 @login_required()
+@permission_required('question.edit_question', raise_exception=True)
 def edit_question(request, question_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -296,6 +300,7 @@ def edit_question(request, question_id):
                                              })
 
 @login_required()
+@permission_required('question.import_question', raise_exception=True)
 def import_question(request, course_id ):
     if "POST" == request.method:
         
@@ -348,6 +353,7 @@ def import_question(request, course_id ):
     return HttpResponseRedirect('question/' + str(course_id )+  '/list_question/')
 
 @login_required()
+@permission_required('question.import_question', raise_exception=True)
 def import_question_old(request, course_id ):
     if "POST" == request.method:
         
@@ -375,11 +381,11 @@ def import_question_old(request, course_id ):
                 question = Question()
                 question.coursOfDepartment_id = course_id               
                 question.question_type = 'radio'
-                question.chapter = row[0].value #request.POST['chapter']
+                question.chapter =  request.POST['chapter'] # row[0].value #
                 
-                question.question_name = row[1].value #row[0].value
-                question.question_level = 'cb' #request.POST['question_level'] # row[3].value
-                correct_answer = row[2].value #row[1].value
+                question.question_name =  row[0].value # row[1].value #
+                question.question_level =  request.POST['question_level'] # 'cb' #
+                correct_answer = row[1].value # row[2].value # 
                 question.save()
                 
                 question_old = question
@@ -390,20 +396,20 @@ def import_question_old(request, course_id ):
                 choice = Choice()
                 choice.question_id = question_old.id
                 
-                choice.choice_name = row[1].value #row[0].value
+                choice.choice_name =   row[0].value # row[1].value #
                 choice.save()
                
                 if  correct_answer== "A" and (i % 5)==2:
-                    question_old.correct_answer = row[1].value #row[0].value
+                    question_old.correct_answer =row[0].value # row[1].value #
                     question_old.save()
                 elif  correct_answer== "B"  and (i % 5)==3:
-                    question_old.correct_answer = row[1].value #row[0].value
+                    question_old.correct_answer = row[0].value # row[1].value #
                     question_old.save()
                 elif  correct_answer== "C"  and (i % 5)==4:
-                    question_old.correct_answer = row[1].value #row[0].value
+                    question_old.correct_answer =  row[0].value # row[1].value #
                     question_old.save()
                 elif  correct_answer== "D" and (i % 5)==0:
-                    question_old.correct_answer = row[1].value #row[0].value
+                    question_old.correct_answer =  row[0].value # row[1].value #
                     question_old.save()
             i = i +1
 

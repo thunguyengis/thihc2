@@ -30,3 +30,25 @@ def rank_course(mark_exam, total_mark_course, countRankXS=0, countRankG=0, count
     list_rank['countRankTB'] = countRankTB
     list_rank['countRankY'] = countRankY
     return list_rank
+def rank_mark(mark):
+    rank = ""
+   
+    if mark>=9:
+        rank = " XS"
+            
+    elif (mark< 9) and (mark>=8):
+        rank = " Giỏi"
+          
+    elif (mark< 8) and (mark>=7):
+        rank = " Khá"
+            
+    elif (mark< 7) and (mark>=6):
+        rank = " TB-Khá"
+            
+    elif (mark< 6) and (mark>=5):
+        rank = " TB"
+            
+    elif (mark< 5) and (mark>=0):
+        rank = "Yếu"
+           
+    return rank

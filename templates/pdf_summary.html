@@ -1,0 +1,200 @@
+{% load i18n %}
+<html>
+<head  lang="vi">
+    <title>Danh Sách</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="author" title="Michael Turnwall" href="mailto:mturnwall@revenution.com">
+    <link rel="author" title="Hewlett-Packard Company" href="http://www.hp.com/">
+    <link rel="help" href="http://www.w3.org/TR/CSS21/page.html#page-break-props">
+    <link rel="help" href="http://www.w3.org/TR/css3-page/#pg-br-before-after">
+    
+    <meta name="flags" content="paged">
+    <meta name="assert" content="The 'always' value of the 'page-break-before' property forces a page break before the box.">
+ 
+   <style>
+  
+    table.boody {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .font12uppercase{
+        text-align: center; 
+        font-size: 12px;
+        font-style: oblique;
+        text-transform: uppercase;
+    }
+    .font13oblique{
+        text-align: center; 
+        font-size: 12px;
+        font-style: oblique;
+        text-transform:none;
+    }
+    .font13{
+        text-align: center; 
+        font-size: 12px;
+        font-style: italic;
+        text-transform:capitalize;
+    }
+    th, td {
+      padding: 1px;
+      text-align: center;    
+    }
+    .boody th, .boody td{
+        border: 1px solid black;
+    }
+    div.break {
+ 		page-break-before:always;
+	}
+
+    #table {
+        display: table;
+        padding: 5px;
+    }
+    .tr {
+        display: table-row;
+        padding: 5px;
+        width: 500%;
+    }
+    .td {
+        display: table-cell;
+        padding: 5px;
+       
+        border: #000000 solid 1px;
+        margin: 5px;
+    }
+    .td2 {
+        float: left;
+       
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+
+   
+    <table class="head" style="width:100%">
+        <tr>
+        <td>
+            
+           
+            <div style="width:100%"> {% trans "NameSchool" %} </div>
+            <b style="width:100%">{{department}}</b>
+            <div style="width:100%"></div>
+        </td>
+        <td >
+            <div><b>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</b></div>
+            <div><b> Độc lập – Tự do – Hạnh phúc</b></div>
+            <div style="width:100%"></div>
+            
+        </td>
+        </tr>
+        <tr>
+        <td>
+
+        </td>
+        <td><div style="width:100%; " >Thành phố Hồ Chí Minh, ngày.......tháng.......năm.....</div></td>
+        
+        </tr>
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="head" style="width:100%">
+                <tr> <th>KẾT QUẢ TỔNG KẾT HỌC KỲ/NĂM HỌC <span style="text-transform: uppercase;">{{course.coursOfDepartment}}</span></th></tr>       
+                <tr>  <th>Lớp: {{course.section.myclass}}</th></tr>
+         
+    </table>
+    <div style="margin-top: 40px;"></div>
+    {% if total_mark %}
+    
+  
+    <table class="boody" style="width:100%">
+        <thead>
+
+            <tr>
+                <th rowspan="2" class="font12uppercase">STT</th>
+                <th rowspan="2" class="font12uppercase">Họ và Tên</th>
+                <th rowspan="2" style="display: none;" class="font12uppercase">MÃ HỌC VIÊN</th>
+                {% if courseOfSection %}
+                    {% for courses in courseOfSection %} 
+                    <th colspan="{{courses.count}}" class="font12uppercase">Học kỳ {{ forloop.counter }}</th>
+                    {%endfor%}
+                {% endif%}
+               
+                <th rowspan="2" class="font12uppercase">ĐIỂM TB</th>
+               
+                <th rowspan="2" class="font12uppercase">XẾP LOẠI</th>
+                <th rowspan="2" class="font12uppercase">GHI CHÚ</th>
+            </tr>
+           
+            {% if courseOfSection %}
+                {% for courses in courseOfSection %} 
+                <tr>
+                    {% for course in courses %} 
+                        <th class="font12uppercase">{{ course }}</th>
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            {% endif%}
+           
+        </thead>
+    
+            {% for mark in total_mark %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{mark.student.getname}}</td>
+                    <td style="display: none;">{{mark.student}}</td>
+                    {% if mark.list_grades %}
+                        {% for pointTX in mark.list_grades %}
+                        <td style="text-align: center;">{{ pointTX.total_mark_course }}</td>
+                        {%endfor%}
+                    {% endif%}
+                    
+                    
+                    <td>{{mark.average_total_mark_course}}</td>
+                    
+                    <td>{{mark.rank}}</td>
+                    <td></td>
+                </tr>
+            {%endfor%}
+        
+    </table>
+    <div style="margin-top: 40px;"></div>
+    <table class="boody" style="width:100%">
+        
+        <thead>
+
+            <tr>
+                <th>Giám Thị 1</th>
+                <th>Số Học Viên</th>
+                <th>Tỉ lệ</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank_course in List_rank_course %}
+            
+            <tr>
+                <td class="font12uppercase">{{rank_course.rank}}</td>
+                <td>{{rank_course.countRank}}</td>
+                <td>{{rank_course.percentRank}}%</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        <div style="margin-top: 30px;"></div>
+        <table class="footer" style="width:100%">
+            <tr> 
+                <td></td>
+                <td></td>
+                <td>Ngày.......tháng.......năm....</td>
+            </tr>
+            <tr>    
+                <td><b>Chủ nhiệm Khoa</b></td>
+                <td><b>Tổ bộ môn</b></td>
+                <td><b>Giao viên môn học</b></td>
+            </tr> 
+        </table>
+   
+  
+  {%endif%}
+</body>
+</html>
