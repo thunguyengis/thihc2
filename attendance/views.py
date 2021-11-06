@@ -164,7 +164,7 @@ def addAttendanceoCourse(course_id, present, student_id , user_id):
     item.save()
 
 @login_required()
-@permission_required('attendance.allstudent', raise_exception=True)
+@permission_required('attendance.view_attendance', raise_exception=False)
 def student(request):
     classes = Class.objects.all
     sections = Section.objects.all
@@ -178,7 +178,7 @@ def student(request):
                                             })
 
 @login_required()
-@permission_required('attendance.listofstudent', raise_exception=True)
+@permission_required('attendance.view_attendance', raise_exception=True)
 def listofstudent(request, course_id):
     classes = Class.objects.all
     sections = Section.objects.all
@@ -198,7 +198,7 @@ def listofstudent(request, course_id):
                                             })
 import json
 @login_required()
-@permission_required('attendance.student_details', raise_exception=True)
+@permission_required('attendance.view_attendance', raise_exception=True)
 def student_details(request, student_id, course_id):
     classes = Class.objects.all
     #sections = Section.objects.all

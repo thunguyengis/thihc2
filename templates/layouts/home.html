@@ -69,22 +69,23 @@
     <div class="bgimg-1">
     {% include "components/loader.html" %} 
     
-    <div id="app" class="" >
-        {% include "components/navbar-top.html" %}
-       
-        <!-- SITE BODY -->
-        {% block content %}
-        {% endblock %}
-        <!--SITE BODT END-->
-    </div>
+      <div id="app" class="" >
+          {% include "components/navbar-top.html" %}
+        
+          <!-- SITE BODY -->
+          {% block content %}
+          {% endblock %}
+          <!--SITE BODT END-->
+      </div>
     </div>
     
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&style=normal&weight=400"
-      rel="stylesheet">
-    <!--vendors-->
-
-    <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.min.css' %}" >
+     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons&style=normal&weight=400"
+      rel="stylesheet"> -->
+   
+ <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/icon.css' %}" >
+    <!--  vendors-->
+  <link rel="stylesheet" href="{% static 'assets/theme/vendors/css/bootstrap.min.css' %}" >
     
     <!--application-->
     <link rel="stylesheet" href="{% static 'assets/theme/application/css/app-layout.css' %}">

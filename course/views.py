@@ -9,7 +9,7 @@ from configurations.models import Grade, Section
 from configurations.models import Configurations, Course, Teacher, CourseOfSection
 # Create your views here.
 @login_required()
-@permission_required('course.index', raise_exception=True)
+@permission_required('configurations.view_course', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -34,7 +34,7 @@ def index(request):
                                              })
 
 @login_required()
-@permission_required('course.section', raise_exception=True)
+@permission_required('configurations.add_course', raise_exception=True)
 def section(request, section_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -57,7 +57,7 @@ def section(request, section_id):
     #return HttpResponse(request.user.groups)
 
 @login_required()
-@permission_required('course.teacher', raise_exception=True)
+@permission_required('configurations.add_course', raise_exception=True)
 def teacher(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`

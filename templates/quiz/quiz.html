@@ -128,15 +128,17 @@
       You need to enable JavaScript to run this app.
     </noscript>
    
-    <div class="loader">
-        <img src="{% static  'public/01-progress.gif'  %}" class="loader-gif" />
-    </div>
+
     <div id="root">
         <div class="container">
             <header class="p-2">
                 <div class="row">
+                    <h3 class="text-center font-weight-normal">{% trans "NameSchool" %}</h3> 
+                </div>
+                <div class="row">
                     <div class="col-6">
-                        <h3>{% trans "NameSchool" %}</h3>
+                       
+                        <label class="control-label"> Học viên: {{student.getname}} </label>
                     </div>
                     <div class="col-6 text-right">
                         <label class="mr-1">Thời gian <span id="idminute"></span>:<span id="idsecond"></span> </label>
@@ -150,6 +152,7 @@
                         <form method="POST" >
                             {% csrf_token %}
                         <h2 class="text-center font-weight-normal">{{ exam.courseOfSection }}</h2>
+                        
                         <hr>
                         <div>
                             <div class="badge badge-info">
@@ -214,8 +217,8 @@
                                                                
                             {% endif %}
                         </div>
-                        <input type="text" id="time_exam" value=" {{ time_exam }}"/>
-                        <input type="text" id="time_minute" name="time_minute" value=" {{ minute }}"/> 
+                        <input type="hidden" id="time_exam" value=" {{ time_exam }}"/>
+                        <input type="hidden" id="time_minute" name="time_minute" value=" {{ minute }}"/> 
                         <input type="hidden" id="time_second" name="time_second" value=" {{ second }}"/>            
                         <input type="hidden" id="qcurent" name="qcurent" value="{{ page_obj.number }}"/> 
                         <input type="hidden" id="idquestion" name="q" value="0"/> 

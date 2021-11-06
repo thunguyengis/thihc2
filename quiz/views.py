@@ -30,16 +30,18 @@ def checkIndex(a_list, value):
         return a_list.index(value)
     except ValueError:
         return None
-@login_required()
-@permission_required('quiz.index', raise_exception=True)
+
 def index(request):
      #lưu dữ liệu 
+    
     if request.method == 'POST':
         
         username = request.POST['username']
         
         user = User.objects.filter(username = username).first()
+        #return HttpResponse( user)
         if user == None :
+            
             messages.error(request, "Mã Học viên hoặc Mã Bài thi không tồn tại")
         else:
             student = Student.objects.filter(user_id = user.id).first()
@@ -153,8 +155,7 @@ def index(request):
  
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
-@login_required()
-@permission_required('quiz.check', raise_exception=True)
+
 def check(request):
    
     if request.session.get('check') != None:
@@ -196,8 +197,7 @@ def check(request):
                                                     'messages':messages
                                                 })         
     return redirect('quiz:index')
-@login_required()
-@permission_required('quiz.quiz', raise_exception=True)
+
 def quiz(request):
     #return HttpResponse(request.POST)
     
@@ -272,6 +272,10 @@ def quiz(request):
 
             minute = time_remaining//60
             second = time_remaining%60
+            
+            student_id = request.session.get('student_id')
+            student = Student.objects.filter(id = student_id).first()
+
             return render(request, 'quiz/quiz.html', {'page_obj': page_obj,
                                                     'question':question,
                                                     'choices':choices,
@@ -279,10 +283,10 @@ def quiz(request):
                                                     'exam': exam,
                                                     'minute':minute,
                                                     'second':second,
+                                                    'student':student,
                                                     'time_exam': exam.time_exam })
     return redirect('quiz:index')
-@login_required()
-@permission_required('quiz.review', raise_exception=True)
+
 def review(request, c):
     if request.session.get('check') != None:
         if request.session.get('check', True):

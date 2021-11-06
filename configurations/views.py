@@ -24,7 +24,7 @@ import unidecode
 import re
 #@login_required(redirect_field_name="/polls/3")
 @login_required()
-@permission_required('configurations.configurations', raise_exception=True)
+@permission_required('configurations.view_class', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -55,7 +55,7 @@ def index(request):
     #return HttpResponse(request.user.employee.picpath)
     #return HttpResponse(request.user.groups)
 @login_required()
-@permission_required('configurations.classes', raise_exception=True)
+@permission_required('configurations.view_class', raise_exception=True)
 def classes(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -77,7 +77,7 @@ def classes(request):
                                                 'sections':sections,
                                              })
 @login_required()
-@permission_required('configurations.departments', raise_exception=True)
+@permission_required('configurations.view_department', raise_exception=True)
 def departments(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`

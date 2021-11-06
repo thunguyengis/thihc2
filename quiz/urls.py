@@ -5,7 +5,8 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
 app_name = 'quiz'
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
    path('', views.index, name="index"),
    path('check', views.check, name="check"),
@@ -17,4 +18,6 @@ urlpatterns = [
 
    
 ]
+urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
 

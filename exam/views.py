@@ -53,7 +53,7 @@ Exam_type = [
         ('practical_v2_1_1', 'Thi Thực hành'),
     ]
 @login_required()
-@permission_required('exam.index', raise_exception=True)
+@permission_required('exam.view_exam', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -155,20 +155,20 @@ def thu(request):
     return render(request, 'exam/section_dropdown_list_options.html', {'sections': sections})
    
 @login_required()
-@permission_required('exam.ajax_load_sections', raise_exception=True)
+@permission_required('exam.view_exam', raise_exception=True)
 def load_sections(request):
     myClass_id = request.GET.get('myClass')
     sections = Section.objects.filter(myclass_id=myClass_id)
     return render(request, 'exam/section_dropdown_list_options.html', {'sections': sections})
 @login_required()
-@permission_required('exam.ajax_load_courses', raise_exception=True)
+@permission_required('exam.view_exam', raise_exception=True)
 def load_courses(request):
     section_id = request.GET.get('section')
     courses = CourseOfSection.objects.filter(section_id=section_id)
     return render(request, 'exam/course_dropdown_list_options.html', {'courses': courses})
 
 @login_required()
-@permission_required('exam.create', raise_exception=True)
+@permission_required('exam.add_exam', raise_exception=True)
 def create(request):
     config = Configurations.objects.filter(id = 1).first()
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
@@ -246,7 +246,7 @@ def addGradeOfExam(exam_id, teacher_id, student_id , user_id):
     #return HttpResponse(exam_id)
 
 @login_required()
-@permission_required('exam.active', raise_exception=True)
+@permission_required('exam.change_exam', raise_exception=True)
 def active(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -273,7 +273,7 @@ def active(request):
 Danh sách Phòng thi
 """
 @login_required()
-@permission_required('exam.room', raise_exception=True)
+@permission_required('exam.view_room', raise_exception=True)
 def room(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -374,7 +374,7 @@ def detail_roomPDF(request):
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 @login_required()
-@permission_required('exam.detail_room', raise_exception=True)
+@permission_required('exam.view_room', raise_exception=True)
 def detail_room(request, exam_id):
     paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
     rooms = Room.objects.all()
@@ -460,7 +460,8 @@ def detail_question(request, exam_id):
     return None
 
 @login_required()
-@permission_required('exam.setting_question', raise_exception=True)
+# do các đặt tên kho phân quyền đc QuestionOfExam
+@permission_required('question.add_questionofexam', raise_exception=True)
 def setting_question(request, exam_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
     config = Configurations.objects.filter(id = 1).first()

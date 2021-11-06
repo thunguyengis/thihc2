@@ -15,7 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import openpyxl
 #
 @login_required()
-@permission_required('question.index', raise_exception=True)
+@permission_required('question.view_question', raise_exception=True)
 def index(request):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
    
@@ -112,7 +112,7 @@ Question_level = [
 ]
 #
 @login_required()
-@permission_required('question.list_question', raise_exception=True)
+@permission_required('question.view_question', raise_exception=True)
 def list_question(request, course_id):
 
 
@@ -211,7 +211,7 @@ def add_question1(request, course_id):
                                              })
 
 @login_required()
-@permission_required('question.edit_question', raise_exception=True)
+@permission_required('question.change_question', raise_exception=True)
 def edit_question(request, question_id):
     group = request.user.groups.values_list('name',flat = True).first() # QuerySet Object
                                       # QuerySet to `list`
@@ -300,7 +300,7 @@ def edit_question(request, question_id):
                                              })
 
 @login_required()
-@permission_required('question.import_question', raise_exception=True)
+@permission_required('question.add_question', raise_exception=True)
 def import_question(request, course_id ):
     if "POST" == request.method:
         
@@ -353,7 +353,7 @@ def import_question(request, course_id ):
     return HttpResponseRedirect('question/' + str(course_id )+  '/list_question/')
 
 @login_required()
-@permission_required('question.import_question', raise_exception=True)
+@permission_required('question.add_question', raise_exception=True)
 def import_question_old(request, course_id ):
     if "POST" == request.method:
         

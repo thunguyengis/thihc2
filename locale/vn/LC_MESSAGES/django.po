@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-19 11:44+0700\n"
+"POT-Creation-Date: 2021-11-03 22:34+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,11 +91,11 @@ msgstr "Nguyên quán"
 msgid "gender"
 msgstr "Giơi tính"
 
-#: .\exam\forms.py:55
+#: .\exam\forms.py:55 .\grade\forms.py:32
 msgid "myClass"
 msgstr "Lớp"
 
-#: .\exam\forms.py:61
+#: .\exam\forms.py:61 .\grade\forms.py:38
 msgid "section"
 msgstr "Học kỳ"
 
@@ -156,7 +156,7 @@ msgstr ""
 #: .\templates\attendance\section-attendances.html:4
 #: .\templates\attendance\student-attendances.html:4
 #: .\templates\components\users-list-attendance.html:13
-#: .\templates\grade\course-grade.html:66
+#: .\templates\grade\course-grade.html:49
 #: .\templates\layouts\leftside-menubar.html:42
 #: .\templates\layouts\student\grade-table.html:11
 #: .\templates\layouts\student\grade-table.html:82
@@ -173,7 +173,7 @@ msgstr "Điểm danh"
 
 #: .\templates\attendance\attendance.html:15
 #: .\templates\attendance\student-attendances.html:18
-#: .\templates\configurations\index.html:129
+#: .\templates\configurations\index.html:128
 #: .\templates\course\class-course.html:16 .\templates\home\index copy.html:51
 #: .\templates\home\index.html:54
 msgid "Classes"
@@ -203,6 +203,7 @@ msgstr "Điểm danh"
 #: .\templates\grade\teacher-grade.html:27 .\templates\home\index copy.html:75
 #: .\templates\home\index.html:78
 #: .\templates\layouts\student\grade-table.html:134
+#: .\templates\quiz\check.html:17
 msgid "Class"
 msgstr "Lớp"
 
@@ -228,12 +229,12 @@ msgstr "Ngày giờ hiện tại"
 #: .\templates\configurations\classes.html:81
 #: .\templates\configurations\departments.html:73
 #: .\templates\course\class-course.html:33
-#: .\templates\course\teacher-course.html:31
-#: .\templates\course\teacher-courseVN.html:31
+#: .\templates\course\teacher-course.html:30
+#: .\templates\course\teacher-courseVN.html:30
 #: .\templates\grade\all-exams-grade.html:68
 #: .\templates\grade\class-result.html:63
-#: .\templates\grade\course-grade.html:164
-#: .\templates\grade\course-grade.html:198
+#: .\templates\grade\course-grade.html:147
+#: .\templates\grade\course-grade.html:181
 #: .\templates\grade\student-grade.html:37
 #: .\templates\grade\teacher-grade.html:37
 #: .\templates\grade\teacher-grade.html:44
@@ -389,7 +390,7 @@ msgid "Course Teacher"
 msgstr "Giảng viên"
 
 #: .\templates\components\add-room.html:8
-#: .\templates\configurations\index.html:62
+#: .\templates\configurations\index.html:61
 #: .\templates\layouts\master\add-class-form.html:20
 #: .\templates\layouts\master\add-course-form.html:13
 #: .\templates\layouts\master\create-department-form.html:22
@@ -487,11 +488,12 @@ msgstr "Cập nhập Điểm"
 
 #: .\templates\components\course-table.html:21
 #: .\templates\components\course-table.html:75
+#: .\templates\grade\teacher-grade.html:19
 msgid "View Marks"
 msgstr "Xem Điểm"
 
 #: .\templates\components\course-table.html:24
-#: .\templates\components\course-table.html:81
+#: .\templates\components\course-table.html:83
 #: .\templates\components\questions-list.html:91
 #: .\templates\components\users-list-student.html:32
 #: .\templates\question\edit_question.html:54
@@ -506,6 +508,10 @@ msgstr ""
 #: .\templates\components\course-table.html:72
 msgid "Submit Grade"
 msgstr "Cập nhập Điểm"
+
+#: .\templates\components\course-table.html:76
+msgid "Print"
+msgstr ""
 
 #: .\templates\components\exams-list.html:3
 #: .\templates\layouts\master\create-room-exam-form.html:35
@@ -530,6 +536,12 @@ msgstr "Loại"
 #: .\templates\components\exams-list.html:39
 msgid "Examination Code"
 msgstr "Mã"
+
+#: .\templates\components\exams-list.html:40
+#, fuzzy
+#| msgid "Examination Type"
+msgid "Examination Time"
+msgstr "Loại"
 
 #: .\templates\components\exams-list.html:41
 #: .\templates\components\questions-list.html:61
@@ -563,9 +575,9 @@ msgid "Settings Room"
 msgstr "Phòng thi"
 
 #: .\templates\components\exams-list.html:89
-#: .\templates\configurations\index.html:68
-#: .\templates\configurations\index.html:111
-#: .\templates\configurations\index.html:192
+#: .\templates\configurations\index.html:67
+#: .\templates\configurations\index.html:110
+#: .\templates\configurations\index.html:191
 #: .\templates\layouts\master\add-class-form.html:26
 msgid "Close"
 msgstr "Đóng"
@@ -585,8 +597,8 @@ msgstr "Không kích hoạt"
 
 #: .\templates\components\excel-upload-form.html:8
 #: .\templates\components\questions-list.html:26
-#: .\templates\configurations\index.html:232
-#: .\templates\configurations\index.html:251
+#: .\templates\configurations\index.html:231
+#: .\templates\configurations\index.html:250
 msgid "Upload"
 msgstr "Upload"
 
@@ -594,9 +606,10 @@ msgstr "Upload"
 msgid "Toggle Navigation"
 msgstr ""
 
-#: .\templates\components\navbar-top.html:21 .\templates\pdf_template.html:42
-#: .\templates\quiz\mark.html:129 .\templates\quiz\quiz.html:135
-#: .\templates\quiz\review.html:130
+#: .\templates\components\navbar-top.html:21 .\templates\pdf_diemthi.html:42
+#: .\templates\pdf_diemtkmonhoc.html:81 .\templates\pdf_room.html:42
+#: .\templates\pdf_summary.html:81 .\templates\quiz\mark.html:129
+#: .\templates\quiz\quiz.html:139 .\templates\quiz\review.html:130
 msgid "NameSchool"
 msgstr "TRƯỜNG CAO ĐẲNG HẬU CẦN 2"
 
@@ -616,7 +629,12 @@ msgstr "Hồ sơ"
 msgid "Change password"
 msgstr "Thay đổi mật khẩu"
 
-#: .\templates\components\navbar-top.html:102
+#: .\templates\components\navbar-top.html:88 .\templates\home\index.html:4
+#: .\templates\registration\logged_out.html:4
+msgid "Home"
+msgstr "Trang chủ"
+
+#: .\templates\components\navbar-top.html:106
 msgid "Logout"
 msgstr "Đăng xuất"
 
@@ -692,13 +710,14 @@ msgid "Add Event"
 msgstr "Thêm"
 
 #: .\templates\configurations\add_student.html:4
-#: .\templates\configurations\index.html:211
+#: .\templates\configurations\index.html:210
 msgid "Student"
 msgstr "Học viên"
 
 #: .\templates\configurations\add_student.html:17
-#: .\templates\configurations\index.html:18
-#: .\templates\layouts\leftside-menubar.html:122
+#: .\templates\configurations\index.html:4
+#: .\templates\configurations\index.html:17
+#: .\templates\layouts\leftside-menubar.html:135
 msgid "Academic Settings"
 msgstr "Cài đặt"
 
@@ -733,8 +752,8 @@ msgstr ""
 
 #: .\templates\configurations\classes.html:5
 #: .\templates\configurations\departments.html:6
-#: .\templates\configurations\index.html:24
-#: .\templates\configurations\index.html:48
+#: .\templates\configurations\index.html:23
+#: .\templates\configurations\index.html:47
 #: .\templates\layouts\leftside-menubar.html:68
 msgid "Department"
 msgstr "Cơ quan, đơn vị"
@@ -753,8 +772,8 @@ msgid "Click to view all Teacher"
 msgstr "Danh sách Giảng viên"
 
 #: .\templates\configurations\departments.html:47
-#: .\templates\course\teacher-course.html:21
-#: .\templates\course\teacher-courseVN.html:21
+#: .\templates\course\teacher-course.html:20
+#: .\templates\course\teacher-courseVN.html:20
 #: .\templates\grade\student-grade.html:27
 #: .\templates\grade\teacher-grade.html:22
 #: .\templates\layouts\teacher\attendance-form copy.html:26
@@ -765,77 +784,77 @@ msgstr "Danh sách Giảng viên"
 msgid "Name"
 msgstr "Tên"
 
-#: .\templates\configurations\index.html:30
+#: .\templates\configurations\index.html:29
 msgid "Manage Department"
 msgstr "Cơ quan, đơn vị"
 
-#: .\templates\configurations\index.html:39
+#: .\templates\configurations\index.html:38
 msgid "Create Department"
 msgstr "Thêm "
 
-#: .\templates\configurations\index.html:55
+#: .\templates\configurations\index.html:54
 msgid "Department Name"
 msgstr "Tên Cơ quan, đơn vị"
 
-#: .\templates\configurations\index.html:57
+#: .\templates\configurations\index.html:56
 msgid "English, Mathematics,..."
 msgstr "Phòng Đào tạo, KYHQS"
 
-#: .\templates\configurations\index.html:74
+#: .\templates\configurations\index.html:73
 msgid "Click Class to View All Department"
 msgstr "Danh sách Cơ quan, đơn vị"
 
-#: .\templates\configurations\index.html:79
-#: .\templates\configurations\index.html:150
+#: .\templates\configurations\index.html:78
+#: .\templates\configurations\index.html:149
 msgid "Manage"
 msgstr "Quản lý"
 
-#: .\templates\configurations\index.html:137
+#: .\templates\configurations\index.html:136
 msgid "Manage Class, Section"
 msgstr "Quản lý Lớp, Học kỳ"
 
-#: .\templates\configurations\index.html:145
+#: .\templates\configurations\index.html:144
 msgid "Click Class to View All Sections"
 msgstr "Danh sách Học kỳ"
 
-#: .\templates\configurations\index.html:159
+#: .\templates\configurations\index.html:158
 msgid "All Sections of Class"
 msgstr "Danh sách Học kỳ"
 
-#: .\templates\configurations\index.html:167
+#: .\templates\configurations\index.html:166
 msgid "Ignore Sessions when listing students for promoting"
 msgstr "Bỏ"
 
-#: .\templates\configurations\index.html:174
+#: .\templates\configurations\index.html:173
 msgid "View All Assigned Courses"
 msgstr "Danh dách Môn học"
 
-#: .\templates\configurations\index.html:177
+#: .\templates\configurations\index.html:176
 msgid "Promote Students"
 msgstr "Khuyến khích"
 
-#: .\templates\configurations\index.html:178
+#: .\templates\configurations\index.html:177
 msgid "Register Student"
 msgstr "Đăng ký"
 
-#: .\templates\configurations\index.html:207
+#: .\templates\configurations\index.html:206
 msgid "Add Users"
 msgstr "Thêm"
 
-#: .\templates\configurations\index.html:212
+#: .\templates\configurations\index.html:211
 msgid "Teacher"
 msgstr "Giảng viên"
 
-#: .\templates\configurations\index.html:223
+#: .\templates\configurations\index.html:222
 msgid "Add Student"
 msgstr "Thêm"
 
-#: .\templates\configurations\index.html:225
-#: .\templates\configurations\index.html:239
+#: .\templates\configurations\index.html:224
+#: .\templates\configurations\index.html:238
 msgid "Or, Mass upload Excel"
 msgstr "Upload Excel"
 
-#: .\templates\configurations\index.html:237
+#: .\templates\configurations\index.html:236
 msgid "Add Teacher"
 msgstr "Thêm"
 
@@ -848,20 +867,27 @@ msgstr "Môn học"
 msgid "Courses Related to Section"
 msgstr "Môn học"
 
-#: .\templates\course\teacher-course.html:15
-#: .\templates\course\teacher-courseVN.html:15
+#: .\templates\course\teacher-course.html:4
+#: .\templates\course\teacher-courseVN.html:4
+#: .\templates\layouts\leftside-menubar.html:225
+#: .\templates\layouts\leftside-menubar.html:277
+msgid "My Courses"
+msgstr "Môn giảng dạy"
+
+#: .\templates\course\teacher-course.html:14
+#: .\templates\course\teacher-courseVN.html:14
 msgid "Courses Taken by Teacher"
 msgstr "Môn Giảng dạy"
 
-#: .\templates\course\teacher-course.html:21
-#: .\templates\course\teacher-courseVN.html:21
+#: .\templates\course\teacher-course.html:20
+#: .\templates\course\teacher-courseVN.html:20
 #: .\templates\grade\teacher-grade.html:22
 msgid "Teacher Code"
 msgstr "Mã Giảng viên"
 
 #: .\templates\exam\active.html:4 .\templates\exam\create.html:4
 #: .\templates\exam\index.html:4 .\templates\exam\room.html:4
-#: .\templates\exam\setting_question.html:4
+#: .\templates\exam\setting_question.html:4 .\templates\quiz\check.html:32
 msgid "Exam"
 msgstr "Kỳ thi/Bài kiểm tra"
 
@@ -870,7 +896,8 @@ msgid "All Active Examinations"
 msgstr "Danh sách Bài kiểm tra đang kích hoạt"
 
 #: .\templates\exam\create.html:14 .\templates\exam\index.html:14
-#: .\templates\exam\setting_question.html:15
+#: .\templates\exam\setting_question.html:15 .\templates\grade\summary.html:17
+#: .\templates\grade\total-mark.html:17
 msgid "All Examinations"
 msgstr "Danh sách Kỳ thi/Bài kiểm tra"
 
@@ -891,7 +918,7 @@ msgstr "Danh sách chương"
 #: .\templates\grade\course-grade.html:5 .\templates\grade\student-grade.html:5
 #: .\templates\grade\student-grade.html:16
 #: .\templates\grade\teacher-grade.html:4
-#: .\templates\layouts\leftside-menubar.html:100
+#: .\templates\layouts\leftside-menubar.html:101
 #: .\templates\student\section-students copy.html:18
 #: .\templates\student\section-students.html:18
 msgid "Grades"
@@ -920,56 +947,23 @@ msgstr "Điểm"
 msgid "Section"
 msgstr "Học kỳ"
 
-#: .\templates\grade\course-grade.html:44
-msgid "Select which Grade System you want to use."
-msgstr ""
-
-#: .\templates\grade\course-grade.html:48
-msgid "Count Example"
-msgstr ""
-
-#: .\templates\grade\course-grade.html:48
-msgid "If you take 3 Quizes and want to count best 2, then Quiz Count is 2."
-msgstr ""
-
-#: .\templates\grade\course-grade.html:51
-msgid "Percentage Example"
-msgstr ""
-
-#: .\templates\grade\course-grade.html:51
-#, python-format
-msgid ""
-"Total percentage must be 100%%. You can put 100%% to a field or distribute "
-"it according to your need. Full mark is also needed for Percentage to work"
-msgstr ""
-
-#: .\templates\grade\course-grade.html:54
-msgid "Full Mark Example"
-msgstr ""
-
-#: .\templates\grade\course-grade.html:54
-msgid ""
-"If you take a Class Test where full mark is 15, then Full mark for Class "
-"Test is 15"
-msgstr ""
-
-#: .\templates\grade\course-grade.html:62
+#: .\templates\grade\course-grade.html:45
 msgid "Select Grade System"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:63
+#: .\templates\grade\course-grade.html:46
 msgid "Quiz Count"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:64
+#: .\templates\grade\course-grade.html:47
 msgid "Assignment Count"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:65
+#: .\templates\grade\course-grade.html:48
 msgid "Class Test Count"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:67
+#: .\templates\grade\course-grade.html:50
 #: .\templates\layouts\teacher\grade-form.html:28
 #: .\templates\layouts\teacher\grade-form.html:31
 #: .\templates\layouts\teacher\grade-form.html:34
@@ -979,7 +973,7 @@ msgstr ""
 msgid "Assignment"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:68
+#: .\templates\grade\course-grade.html:51
 #: .\templates\layouts\teacher\grade-form.html:13
 #: .\templates\layouts\teacher\grade-form.html:16
 #: .\templates\layouts\teacher\grade-form.html:19
@@ -996,15 +990,15 @@ msgstr ""
 msgid "Quiz"
 msgstr "Trắc nghiệm"
 
-#: .\templates\grade\course-grade.html:69
+#: .\templates\grade\course-grade.html:52
 msgid "Class Test "
 msgstr "Kiểm tra"
 
-#: .\templates\grade\course-grade.html:177
+#: .\templates\grade\course-grade.html:160
 msgid "Give Marks to Students"
 msgstr ""
 
-#: .\templates\grade\course-grade.html:186
+#: .\templates\grade\course-grade.html:169
 msgid "Get Total Marks"
 msgstr "Điểm trung bình"
 
@@ -1028,9 +1022,10 @@ msgstr "Điểm"
 msgid "Student Code"
 msgstr "Mã Học viên"
 
-#: .\templates\grade\teacher-grade.html:21
-msgid "Marks Given by"
-msgstr " Cập nhập Điểm"
+#: .\templates\grade\summary.html:4 .\templates\grade\total-mark.html:4
+#: .\templates\layouts\leftside-menubar.html:109
+msgid "Grades summary"
+msgstr "Tổng kết Điểm"
 
 #: .\templates\home\index copy.html:30 .\templates\home\index.html:33
 #: .\templates\layouts\leftside-menubar.html:37
@@ -1071,10 +1066,6 @@ msgstr "Kết quả đã xuất bản"
 #: .\templates\home\index copy.html:96 .\templates\home\index.html:116
 msgid "No Active Examination"
 msgstr "Không Kích hoạt"
-
-#: .\templates\home\index.html:4 .\templates\registration\logged_out.html:4
-msgid "Home"
-msgstr "Trang chủ"
 
 #: .\templates\home\index.html:71
 msgid "List Exams"
@@ -1129,115 +1120,114 @@ msgid "Manage Examinations"
 msgstr "Quản lý"
 
 #: .\templates\layouts\leftside-menubar.html:105
+msgid "Grades of Courses"
+msgstr "Điểm Môn học"
+
+#: .\templates\layouts\leftside-menubar.html:118
 msgid "Class Routine"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:108
+#: .\templates\layouts\leftside-menubar.html:121
 msgid "Syllabus"
 msgstr "Giáo trình"
 
-#: .\templates\layouts\leftside-menubar.html:111
+#: .\templates\layouts\leftside-menubar.html:124
 msgid "Notice"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:114
+#: .\templates\layouts\leftside-menubar.html:127
 msgid "Event"
 msgstr "Sự kiện"
 
-#: .\templates\layouts\leftside-menubar.html:127
+#: .\templates\layouts\leftside-menubar.html:140
 msgid "Manage GPA"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:132
+#: .\templates\layouts\leftside-menubar.html:145
 msgid "All GPA "
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:135
+#: .\templates\layouts\leftside-menubar.html:148
 msgid "Add New GPA"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:145
+#: .\templates\layouts\leftside-menubar.html:158
 msgid "Fees Generator"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:149
+#: .\templates\layouts\leftside-menubar.html:162
 msgid "Generate Form"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:152
+#: .\templates\layouts\leftside-menubar.html:165
 msgid "Add Fee Field"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:161
+#: .\templates\layouts\leftside-menubar.html:174
 msgid "Manage Accounts"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:166
+#: .\templates\layouts\leftside-menubar.html:179
 msgid "Accountant List"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:170
+#: .\templates\layouts\leftside-menubar.html:183
 msgid "Add Account Sector"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:174
+#: .\templates\layouts\leftside-menubar.html:187
 msgid "Add New Expense"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:178
+#: .\templates\layouts\leftside-menubar.html:191
 msgid "Expense List"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:181
+#: .\templates\layouts\leftside-menubar.html:194
 msgid "Add New Income"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:185
+#: .\templates\layouts\leftside-menubar.html:198
 msgid "Income List"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:196
+#: .\templates\layouts\leftside-menubar.html:209
 msgid "My Attendance"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:212
-#: .\templates\layouts\leftside-menubar.html:264
-msgid "My Courses"
-msgstr "Môn giảng dạy"
-
-#: .\templates\layouts\leftside-menubar.html:216
+#: .\templates\layouts\leftside-menubar.html:229
 msgid "My Grade"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:219
+#: .\templates\layouts\leftside-menubar.html:232
 msgid "Payment"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:222
+#: .\templates\layouts\leftside-menubar.html:235
 msgid "Receipt"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:233
+#: .\templates\layouts\leftside-menubar.html:246
 msgid "Manage Library"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:238
+#: .\templates\layouts\leftside-menubar.html:251
 msgid "Librarian List"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:242
+#: .\templates\layouts\leftside-menubar.html:255
 msgid "All Books"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:246
+#: .\templates\layouts\leftside-menubar.html:259
 msgid "All Issued Books"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:250
+#: .\templates\layouts\leftside-menubar.html:263
 msgid "Issue Book"
 msgstr ""
 
-#: .\templates\layouts\leftside-menubar.html:254
+#: .\templates\layouts\leftside-menubar.html:267
 msgid "Add New Book"
 msgstr ""
 
@@ -1530,11 +1520,6 @@ msgstr "Danh sách Môn học"
 msgid "All Questiones"
 msgstr "Câu hỏi"
 
-#: .\templates\quiz\check.html:17 .\templates\quiz\check.html:32
-#: .\templates\quiz\index.html:44
-msgid "Exam Code"
-msgstr "Mã Bài thi"
-
 #: .\templates\quiz\check.html:22
 msgid "fullname"
 msgstr "Họ và Tên"
@@ -1546,6 +1531,10 @@ msgstr "Điểm"
 #: .\templates\quiz\check.html:53 .\templates\quiz\mark.html:170
 msgid "Submit Quiz"
 msgstr "Bắt đầu thi"
+
+#: .\templates\quiz\index.html:44
+msgid "Exam Code"
+msgstr "Mã Bài thi"
 
 #: .\templates\quiz\index.html:64
 msgid "Check"
@@ -1589,6 +1578,9 @@ msgstr "Điểm danh Hôm nay"
 #: .\templates\student\section-students.html:100
 msgid "View Each Student\\'s Attendance"
 msgstr "Danh sách Học viên"
+
+#~ msgid "Marks Given by"
+#~ msgstr " Cập nhập Điểm"
 
 #~ msgid "All Classes"
 #~ msgstr "Danh sách Lớp học"

@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@rlaf&ta_wjup%*z(3hbc2)5p2qxg)=r-yv*7w&zy4+bzqxoq^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #  True #
-#HTTP_HOST = ['localhost']
+DEBUG =    True #  False #
+HTTP_HOST = ['*']
 ALLOWED_HOSTS = [
    'localhost',
     '*',
@@ -183,3 +183,8 @@ CKEDITOR_BASEPATH = "/staticfiles/ckeditor/"
 CKEDITOR_BROWSE_SHOW_DIRS ="True"
 #CKEDITOR_IMAGE_BACKEND ="True"
 #AWS_QUERYSTRING_AUTH = "True"
+
+"""
+Cài đặt time out
+"""
+SESSION_COOKIE_AGE = 3600 # one hour in seconds

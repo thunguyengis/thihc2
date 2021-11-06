@@ -271,7 +271,7 @@ def marks(request, course_id):
                                              }) 
 
 @login_required()
-@permission_required('grade.print_marks_course', raise_exception=True)
+@permission_required('configurations.view_gradeofvn', raise_exception=True)
 def print_marks_course(request, course_id):
     paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
     

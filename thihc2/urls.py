@@ -18,6 +18,9 @@ from django.urls import path, include, re_path
 
 from django.conf import settings
 from django.conf.urls.static import static
+#import mimetypes
+#mimetypes.add_type("text/css", ".css", True)
+
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
